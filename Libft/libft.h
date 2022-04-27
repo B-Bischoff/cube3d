@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:32:51 by bbischof          #+#    #+#             */
-/*   Updated: 2022/04/26 08:45:12 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:17:38 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 
-# define BUFFER_SIZE 1024 // Get next line 
+# define BUFFER_SIZE 2048 // Get next line 
 
 # define PI		3.14
 # define PI_2	1.57
@@ -92,10 +92,12 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
+int			ft_is_empty_str(char *str);
 
 // Get next line
 int			is_newline_gnl(char *str);
 char		*ft_strjoin_gnl(char *s1, char *s2);
+char		*get_next_line(int fd);
 
 // Math functions
 int			ft_clamp_d(int value, int min, int max);

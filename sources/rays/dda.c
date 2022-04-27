@@ -191,7 +191,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		if (len >= data->view_dst * data->view_dst)
 			break ;
 		if (!is_in_map(data, map))
-			break ;
+			continue; ;
 		// draw_circle_color(data, map, RED);
 		if (data->tab[map.y / data->cell_size][map.x / data->cell_size] != 0)
 		{

@@ -10,6 +10,7 @@ VPATH = sources/:\
 		sources/mlx_utils/:\
 		sources/utils/:\
 		sources/rays/:\
+		sources/parsing/:\
 
 SRCS = main.c
 
@@ -39,6 +40,8 @@ SRCS += create_rays.c \
 		calculate_collisions.c \
 		rays_render.c \
 		perp_wall_dist.c \
+
+SRCS += parsing.c \
 
 INCLUDES = includes/cube3d.h \
 
