@@ -19,6 +19,8 @@ void	rays_render(t_data *data)
 		line_height = 1.0f / ray->perp_length;
 		// dprintf(1, "%ld\n", line_height);
 		line_height *= (double)data->win_height;
+		if (line_height > 500)
+			line_height = data->win_height;
 		// line_height *= .5f;
 
 		// dprintf(1, "i %d | hit point y %f x %f | length %lf | perp %lf | ", i, ray->hit_point.y, ray->hit_point.x, ray->length, ray->perp_length);
