@@ -17,7 +17,7 @@ void	rays_render(t_data *data)
 		double line_height;
 		
 		line_height = 1.0f / ray->perp_length;
-		// dprintf(1, "%ld\n", line_height);
+		// dprintf(1, "%lf\n", line_height);
 		line_height *= (double)data->win_height;
 		if (line_height > 500)
 			line_height = data->win_height;
