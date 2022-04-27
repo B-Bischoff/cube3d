@@ -6,7 +6,7 @@
 #    By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/04 11:20:06 by bbischof          #+#    #+#              #
-#    Updated: 2022/04/22 16:17:47 by bbischof         ###   ########.fr        #
+#    Updated: 2022/04/25 08:42:06 by bbischof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRCS += get_next_line.c get_next_line_utils.c
 SRCS += ft_abs.c ft_clamp.c ft_create_vector.c ft_get_angle.c ft_lerp.c ft_rad_deg.c ft_set_vector.c ft_vector_convert.c ft_vector_length.c ft_vector_lerp.c ft_vector_rot.c
 
 # Color
-SRCS += ft_color_lerp.c ft_get_color.c
+SRCS += ft_color_lerp.c ft_get_color.c ft_create_color.c
 
 OBJS = ${addprefix .objects/, ${SRCS:.c=.o}}
 OBJS_BONUS = ${SRCS_BONUS:.c=.o}
@@ -81,7 +81,7 @@ clean:
 
 fclean: clean
 	${RM} ${NAME}
-	@echo "$(RED)[DELETED $(NAME)]$(END)"
+	@echo "$(RED)[DELETED]$(END) $(NAME)"
 
 re: fclean all
 

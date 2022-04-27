@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:32:51 by bbischof          #+#    #+#             */
-/*   Updated: 2022/04/22 16:23:06 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/04/26 08:45:12 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char		*ft_strjoin_gnl(char *s1, char *s2);
 int			ft_clamp_d(int value, int min, int max);
 float		ft_clamp_f(float value, float min, float max);
 double		get_angle(t_vector2_d start, t_vector2_d end);
+double		get_angle_f(t_vector2_f start, t_vector2_f end);
 double		radian_to_degree(double radian);
 double		degree_to_radian(double degree);
 void		set_vector_d(t_vector2_d *vector, int x, int y);
@@ -136,5 +137,6 @@ int			get_g(int color);
 int			get_b(int color);
 int			create_rgbt(int r, int g, int b, int t);
 int			color_lerp(int color1, int color2, float timestamp);
+int			create_trgb(int t, int r, int g, int b);
 
 #endif
