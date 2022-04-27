@@ -31,6 +31,7 @@ SRCS +=	hooks.c \
 # Utils
 SRCS += fps_counter.c \
 		init_vision.c \
+		floor_and_ceiling.c \
 
 # Rays
 SRCS += create_rays.c \
