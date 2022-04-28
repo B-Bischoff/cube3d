@@ -107,6 +107,7 @@ void		set_grid_cell(t_data *data, int x, int y);
 void		print_fps(t_data *data);
 int			ft_init_vision(t_data *data);
 void		floor_and_ceiling(t_data *data);
+int			print_error(char *str);
 
 // Rays
 void		create_rays(t_data *data, t_vector2_f direction);

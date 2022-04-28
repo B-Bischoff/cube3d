@@ -193,7 +193,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		if (!is_in_map(data, map))
 			continue; ;
 		// draw_circle_color(data, map, RED);
-		if (data->tab[map.y / data->cell_size][map.x / data->cell_size] != 0)
+		if (data->tab[map.y / data->cell_size][map.x / data->cell_size] > 0)
 		{
 			if (side == 0)
 				ray->perp_length = side_dist.x - delta_dist.x;
