@@ -33,7 +33,6 @@ typedef	struct s_player
 	double		angle; // Looking direction
 }	t_player;
 
-
 typedef struct s_data {
 	// Mlx datas
 	void		*mlx;
@@ -52,6 +51,7 @@ typedef struct s_data {
 	int			tab_width;
 	int			tab_height;
 	int			cell_size;
+	t_list		*map;
 
 	// Mouse
 	t_vector2_d	mouse_pos;
@@ -69,8 +69,11 @@ typedef struct s_data {
 	t_ray		*rays;
 
 	// Fps
-	struct timespec curr_time;
-	struct timespec prev_time;
+	struct		timespec curr_time;
+	struct		timespec prev_time;
+
+	// Textures
+	char		*texture_name[6];
 
 }	t_data;
 
@@ -104,6 +107,7 @@ void		set_grid_cell(t_data *data, int x, int y);
 void		print_fps(t_data *data);
 int			ft_init_vision(t_data *data);
 void		floor_and_ceiling(t_data *data);
+int			print_error(char *str);
 
 // Rays
 void		create_rays(t_data *data, t_vector2_f direction);
@@ -111,5 +115,8 @@ t_vector2_f	dda(t_data *data, t_ray *ray, int ray_index);
 void		calculate_collisions(t_data *data);
 void		rays_render(t_data *data);
 double		get_perp_wall_dst(t_ray ray, double dir_angle);
+
+// Parsing
+int			parsing(t_data *data, int argc, char *argv[]);
 
 #endif

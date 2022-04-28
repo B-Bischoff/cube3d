@@ -6,12 +6,27 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:00:41 by bbischof          #+#    #+#             */
-/*   Updated: 2022/04/21 14:36:05 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/04/28 10:05:35 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALIAS_H
 # define ALIAS_H
+
+// Terminal colors
+# define TERM_END "\x1b[0m"
+# define TERM_RED "\x1b[31m"
+# define TERM_GREEN "\x1b[32m"
+# define TERM_BLUE "\x1b[34m"
+# define TERM_ERASE "\033[2K\r"
+# define TERM_BCKG_END "\x1b[0m"
+# define TERM_BCKG_RED "\x1b[41m"
+# define TERM_BCKG_GREEN "\x1b[42m"
+# define TERM_BCKG_YELLOW "\x1b[43m"
+# define TERM_BCKG_BLUE "\x1b[44m"
+# define TERM_BCKG_MAGENTA "\x1b[45m"
+# define TERM_BCKG_CYAN "\x1b[46m"
+# define TERM_BCKG_WHITE "\x1b[47m"
 
 // Keycode
 // Mac

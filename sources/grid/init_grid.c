@@ -2,9 +2,10 @@
 
 int	init_grid(t_data *data)
 {
-	int	i;
+	// int	i;
 
-	data->cell_size = 20;
+	data->cell_size = 50;
+	/*
 	data->tab_height = 50;
 	data->tab_width = 70;
 	data->tab = malloc(sizeof(int *) * data->tab_height);
@@ -17,6 +18,6 @@ int	init_grid(t_data *data)
 		if (data->tab[i] == NULL)
 			return (1);
 		i++;
-	}
+	}*/
 	return (0);
 }

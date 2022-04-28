@@ -10,6 +10,7 @@ VPATH = sources/:\
 		sources/mlx_utils/:\
 		sources/utils/:\
 		sources/rays/:\
+		sources/parsing/\
 
 SRCS = main.c
 
@@ -32,6 +33,7 @@ SRCS +=	hooks.c \
 SRCS += fps_counter.c \
 		init_vision.c \
 		floor_and_ceiling.c \
+		return_error.c \
 
 # Rays
 SRCS += create_rays.c \
@@ -39,6 +41,12 @@ SRCS += create_rays.c \
 		calculate_collisions.c \
 		rays_render.c \
 		perp_wall_dist.c \
+
+# Parsing
+SRCS += parsing.c \
+		map_check.c \
+		description_check.c \
+		print_map.c \
 
 INCLUDES = includes/cube3d.h \
 
@@ -88,5 +96,3 @@ fclean:         clean
 	@echo "${RED}[DELETED]${END} ${NAME}"
 
 re:	fclean all
-
-.PHONY: $(NAME)
