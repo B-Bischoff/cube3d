@@ -1,5 +1,5 @@
 #include "../libft.h"
-#include <stdio.h>
+
 void	init_variables(char **temp_buf, char **buf, int *read_val);
 void	init_loop(char **buf, int *read_val, int fd);
 
