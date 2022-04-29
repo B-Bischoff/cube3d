@@ -14,14 +14,16 @@ int	update(t_data *data)
 	data->plane.x = data->player.dir.x * data->view_dst + data->player.pos.x;
 	data->plane.y = data->player.dir.y * data->view_dst + data->player.pos.y;
 
-	// bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
+	bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
 
+	
 	
 	draw_circle_color(data, data->plane, YELLOW);
 	create_rays(data, data->player.dir);
 	calculate_collisions(data);
 	rays_render(data);
 
+	print_minimap(data);
 
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 	print_fps(data);

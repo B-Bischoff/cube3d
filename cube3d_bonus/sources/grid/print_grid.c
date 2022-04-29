@@ -1,5 +1,8 @@
 #include "cube3d.h"
 
+/*
+	Print grid in full screen
+*/
 void	print_grid(t_data *data)
 {
 	for (int y = 0; y < data->tab_height; y++)
