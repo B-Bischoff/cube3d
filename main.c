@@ -1,5 +1,37 @@
 #include "cube3d.h"
 
+void	initialize_text(t_data *data)
+{
+	int	i;
+	
+
+	i = -1;
+	while (++i < 6)
+	{
+		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "./purplestone.xpm",
+												&data->text[i].long_img, &data->text[i].lar_img);
+		data->text[i].text_adr = mlx_get_data_addr(data->text[i].text, &data->text[i].bit, &data->text[i].size_line, &data->text[i].endian);
+	}
+
+	// t_color	color;
+	// char	*str;
+
+	// for (int y = 0; y < data->text[0].long_img; y++)
+	// {
+	// 	for (int x = 0; x < data->text[0].lar_img; x++)
+	// 	{
+	// 		str = &data->text[0].text_adr[y * data->text[0].size_line + x * (data->text[0].bit / 8)];
+	// 		color.str[0] = str[0];
+	// 		color.str[1] = str[1];
+	// 		color.str[2] = str[2];
+	// 		color.str[3] = str[3];
+			
+	// 		mlx_pixel_put(data->img, data->mlx_win, x, y, color.color);
+	// 	}
+	// }
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->text[0].text, 0, 0);
+}
+
 int main(void)
 {
 	t_data	data;
@@ -20,6 +52,13 @@ int main(void)
 	data.plane.x = data.player.pos.x + data.view_dst * data.player.dir.x;
 	data.plane.y = data.player.pos.y + data.view_dst * data.player.dir.y;
 
+	data.buffer = malloc(sizeof(int *) * data.win_height);
+	int	i = -1;
+	while (++i < data.win_height)
+		data.buffer[i] = malloc(sizeof(int) * data.win_width);
+
+	initialize_text(&data);
+
 	ft_mlx_hooks_and_loop(&data);
 
 	return (0);
@@ -27,6 +66,14 @@ int main(void)
 
 int	update(t_data *data)
 {
+	int n = -1;
+	while (++n < data->win_height)
+	{
+		int	i = -1;
+		while (++i < data->win_height)
+			data->buffer[n][i] = PINK;
+	}
+
 	clock_gettime(CLOCK_MONOTONIC_RAW, &(data->prev_time)); // Taking time to calculate fps
 
 	clear_window(data);
@@ -40,7 +87,6 @@ int	update(t_data *data)
 
 	bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
 
-	
 	draw_circle_color(data, data->plane, YELLOW);
 	create_rays(data, data->player.dir);
 	calculate_collisions(data);
@@ -48,6 +94,7 @@ int	update(t_data *data)
 
 
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+
 	print_fps(data);
 	return (0);
 }

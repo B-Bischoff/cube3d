@@ -87,5 +87,3 @@ fclean:         clean
 	@echo "${RED}[DELETED]${END} ${NAME}"
 
 re:	fclean all
-
-.PHONY: $(NAME)

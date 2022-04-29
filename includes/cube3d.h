@@ -33,6 +33,22 @@ typedef	struct s_player
 	double		angle; // Looking direction
 }	t_player;
 
+typedef struct s_text
+{
+	void	*text;
+	int		long_img;
+	int		lar_img;
+	char	*text_adr;
+	int		bit;
+	int		size_line;
+	int		endian;
+}	t_text;
+
+typedef union u_color
+{
+	char	str[4];
+	int		color;
+}	t_color;
 
 typedef struct s_data {
 	// Mlx datas
@@ -71,6 +87,10 @@ typedef struct s_data {
 	// Fps
 	struct timespec curr_time;
 	struct timespec prev_time;
+
+	// Textures
+	t_text				text[6];
+	unsigned int		**buffer;
 
 }	t_data;
 

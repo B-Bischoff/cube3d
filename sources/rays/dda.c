@@ -209,6 +209,53 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 				ray->side_hit = 0;
 			else
 				ray->side_hit = 2;
+
+			//texturing calculations
+ 	   		int texNum; //1 subtracted from it so that texture 0 can be used!
+			texNum = data->tab[map.x / data->cell_size][map.y / data->cell_size] - 1;
+			// texNum = 0;
+
+      		//calculate value of wallX
+      		double wallX; //where exactly the wall was hit
+      		if (side == 0) wallX = 10 + ray->perp_length * ray_dir.y;
+      		else           wallX = 10 + ray->perp_length * ray_dir.x;
+      		wallX -= floor((wallX));
+
+			  
+			  
+			//x coordinate on the texture
+      		int texX = (int)(wallX * (double)(64));
+      		if(side == 0 && ray_dir.x > 0) texX = 64 - texX - 1;
+      		if(side == 1 && ray_dir.y < 0) texX = 64 - texX - 1;
+
+			int lineHeight = (int)(data->win_height / ray->perp_length);
+
+    		double step = 1.0 * 64 / lineHeight;
+
+
+			int pitch = 100;
+
+      			//calculate lowest and highest pixel to fill in current stripe
+      		int drawStart = -lineHeight / 2 + data->win_height / 2 + pitch;
+      		if(drawStart < 0) drawStart = 0;
+    		int drawEnd = lineHeight / 2 + data->win_height / 2 + pitch;
+ 	    	if(drawEnd >= data->win_height) drawEnd = data->win_height - 1;
+
+
+    		double texPos = (drawStart - data->win_height / 2 + lineHeight / 2) * step;
+
+			for (int y = drawStart; y < drawEnd; y++)
+    		{
+    			// int texY = (int)texPos & (64 - 1);
+    			texPos += step;
+				// dprintf(1, "%d\n", map.x / data->cell_size);
+    			// unsigned int color = data->text[0].text_adr[(texNum * (data->text[0].bit / 8)) + ((64 * texY + texX) * data->text[0].size_line)];
+				// unsigned int color = 0;
+				unsigned int color = 255;
+    			if(side == 1) color = (color >> 1) & 8355711;
+				data->buffer[map.y / data->cell_size][map.x / data->cell_size] = color;
+			}
+
 			return (vector_d_to_f(map));
 		}
 	}

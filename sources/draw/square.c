@@ -17,7 +17,9 @@ void draw_rect_filled_color(t_data *data, t_vector2_d top_left, t_vector2_d bott
 	{
 		for (int x = top_left.x; x < bottom_right.x; x++)
 		{
-			my_mlx_pixel_put(data, x, y, color);
+			my_mlx_pixel_put(data, x, y, data->buffer[y][x]);
+			// data->buffer[0][0];
+			color = 0;
 		}
 	}
 }
