@@ -18,11 +18,13 @@ SRCS += bresenham.c \
 		draw.c \
 		circle.c \
 		square.c \
+		triangle.c \
 
 # Grid
 SRCS +=	init_grid.c \
 		print_grid.c \
 		set_grid_cell.c \
+		grid_utils.c \
 
 # Mlx utils
 SRCS +=	hooks.c \

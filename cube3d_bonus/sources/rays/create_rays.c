@@ -33,7 +33,7 @@ void	create_rays(t_data *data, t_vector2_f direction)
 	// draw_circle_color(data, vector_f_to_d(perpendicular[1]), RED);
 	// draw_circle_color(data, vector_f_to_d(perpendicular[0]), RED);
 
-	// bresenham(data, perpendicular[0], perpendicular[1], PURPLE);
+	// bresenham(data, vector_f_to_d(perpendicular[0]), vector_f_to_d(perpendicular[1]), PURPLE);
 
 	// Creating nb rays from perpendicular line to origin
 	double incr = 1.0f / (data->rays_nb - 1.0f);
@@ -41,8 +41,8 @@ void	create_rays(t_data *data, t_vector2_f direction)
 	{
 		t_vector2_f vector; 
 		vector = vector_f_lerp(perpendicular[0], perpendicular[1], incr * i);
-		// draw_circle_color(data, vector_f_to_d(vector), YELLOW);
-		// bresenham(data, vector, vector_f_to_d(data->player.pos), WHITE);
+		// draw_circle_color(data, vector_f_to_d(vector), BLUE);
+		// bresenham(data, vector_f_to_d(vector), vector_f_to_d(data->player.pos), PURPLE);
 		data->rays[data->rays_nb - 1 - i].hit_point = vector;
 	}
 }

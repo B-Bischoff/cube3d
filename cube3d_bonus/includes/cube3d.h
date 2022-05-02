@@ -97,11 +97,13 @@ void		draw_rect_filled(t_data *data, t_vector2_d top_left, t_vector2_d bottom_ri
 void		draw_rect_filled_color(t_data *data, t_vector2_d top_left, t_vector2_d bottom_right, int color);
 void		draw_circle(t_data *data, t_vector2_d center);
 void		draw_circle_color(t_data *data, t_vector2_d center, int color);
+void		draw_triangle_color(t_data *data, t_vector2_d points[3], int color);
 
 // Grid functions
 int			init_grid(t_data *data);
 void		print_grid(t_data *data);
 void		set_grid_cell(t_data *data, int x, int y);
+int			is_in_map(t_data *data, t_vector2_d pos);
 
 // Utils
 void		print_fps(t_data *data);
