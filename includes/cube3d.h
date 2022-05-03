@@ -21,7 +21,9 @@ typedef struct s_ray
 	double		perp_length;
 	double		angle;
 	int			side_hit;
-	
+
+	unsigned int text_buf[64];
+
 	// Might add texture, color, etc
 
 }	t_ray;
@@ -90,7 +92,6 @@ typedef struct s_data {
 
 	// Textures
 	t_text				text[6];
-	unsigned int		**buffer;
 
 }	t_data;
 

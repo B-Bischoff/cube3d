@@ -25,6 +25,8 @@ void	rays_render(t_data *data)
 		// dprintf(1, "height %lf %d\n", line_height, (int)line_height);
 		// dprintf(1, "i %d | perp %lf | length %lf | %lf\n", i, ray->perp_length, ray->length, ray->length / ray->perp_length);
 
+
+		/*
 		float j = ft_inv_lerp_f(10.0f, 75.0f, line_height);
 
 		int color;
@@ -40,6 +42,10 @@ void	rays_render(t_data *data)
 		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height};
 		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height};
 		draw_rect_filled_color(data, tl, br, color);
+		*/
+
+		for (int j = 0; j < 64; j++)
+			my_mlx_pixel_put(data, i, j,ray->text_buf[j]);
 
 	}
 }

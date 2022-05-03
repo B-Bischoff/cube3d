@@ -29,7 +29,6 @@ void	initialize_text(t_data *data)
 	// 		mlx_pixel_put(data->img, data->mlx_win, x, y, color.color);
 	// 	}
 	// }
-	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->text[0].text, 0, 0);
 }
 
 int main(void)
@@ -52,11 +51,6 @@ int main(void)
 	data.plane.x = data.player.pos.x + data.view_dst * data.player.dir.x;
 	data.plane.y = data.player.pos.y + data.view_dst * data.player.dir.y;
 
-	data.buffer = malloc(sizeof(int *) * data.win_height);
-	int	i = -1;
-	while (++i < data.win_height)
-		data.buffer[i] = malloc(sizeof(int) * data.win_width);
-
 	initialize_text(&data);
 
 	ft_mlx_hooks_and_loop(&data);
@@ -66,35 +60,40 @@ int main(void)
 
 int	update(t_data *data)
 {
-	int n = -1;
-	while (++n < data->win_height)
-	{
-		int	i = -1;
-		while (++i < data->win_height)
-			data->buffer[n][i] = PINK;
-	}
-
 	clock_gettime(CLOCK_MONOTONIC_RAW, &(data->prev_time)); // Taking time to calculate fps
 
+	
+
+	
 	clear_window(data);
 
-	set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime
-	print_grid(data); // Show walls
 
-	draw_circle(data, vector_f_to_d(data->player.pos)); // Player visualization
-	data->plane.x = data->player.dir.x * data->view_dst + data->player.pos.x;
-	data->plane.y = data->player.dir.y * data->view_dst + data->player.pos.y;
+	for (int x = 0; x < 64; x++)
+	{
+		for (int y = 0; y < 64; y++)
+    	{
+			// char *str = &data->text[0].text_adr[x * (data->bits_per_pixel / 8) + y * data->line_length];
+			unsigned int color = (*(unsigned int *)(&data->text[0].text_adr[(y * data->line_length + x) * (data->bits_per_pixel / 8)]));
+			my_mlx_pixel_put(data, x, y, color);
+		}
+	}
 
-	bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
+	// set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime
+	// print_grid(data); // Show walls
 
-	draw_circle_color(data, data->plane, YELLOW);
-	create_rays(data, data->player.dir);
-	calculate_collisions(data);
-	rays_render(data);
+	// draw_circle(data, vector_f_to_d(data->player.pos)); // Player visualization
+	// data->plane.x = data->player.dir.x * data->view_dst + data->player.pos.x;
+	// data->plane.y = data->player.dir.y * data->view_dst + data->player.pos.y;
 
+	// bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
+
+	// draw_circle_color(data, data->plane, YELLOW);
+	// create_rays(data, data->player.dir);
+	// calculate_collisions(data);
+	// rays_render(data);
 
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 
-	print_fps(data);
+	// print_fps(data);
 	return (0);
 }
