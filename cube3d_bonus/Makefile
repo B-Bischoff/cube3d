@@ -18,11 +18,13 @@ SRCS += bresenham.c \
 		draw.c \
 		circle.c \
 		square.c \
+		triangle.c \
 
 # Grid
 SRCS +=	init_grid.c \
 		print_grid.c \
 		set_grid_cell.c \
+		grid_utils.c \
 
 # Mlx utils
 SRCS +=	hooks.c \
@@ -34,6 +36,7 @@ SRCS += fps_counter.c \
 		init_vision.c \
 		floor_and_ceiling.c \
 		return_error.c \
+		minimap.c \
 
 # Rays
 SRCS += create_rays.c \

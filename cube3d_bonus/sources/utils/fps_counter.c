@@ -10,4 +10,5 @@ void	print_fps(t_data *data)
 	fps = ft_itoa(1 / (delta_time / 1000000));
 	mlx_string_put(data->mlx, data->mlx_win, 30, 50, WHITE, "FRAME: ");
 	mlx_string_put(data->mlx, data->mlx_win, 100, 50, WHITE, fps);
+	free(fps);
 }
