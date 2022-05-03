@@ -58,6 +58,9 @@ typedef struct s_data {
 	int			mouse_pressed; // Boolean
 	int			mouse_button;
 
+	// Keyboard
+	int			keyboard[200]; // Each cell correspond to a key state
+
 	// Player
 	t_player	player;
 
@@ -89,7 +92,8 @@ void		clear_window(t_data *img);
 int			mouse_hook(int keycode, int x, int y, t_data *data);
 int			mouse_release(int keycode, int x, int y, t_data *data);
 int			update_mouse_pos(int x, int y, t_data *data);
-int			key_hook(int keycode, t_data *data);
+int			key_press(int keycode, t_data *data);
+int			key_release(int keycode, t_data *data);
 
 // Drawing functions
 void		bresenham(t_data *data, t_vector2_d p1, t_vector2_d p2, int color);
