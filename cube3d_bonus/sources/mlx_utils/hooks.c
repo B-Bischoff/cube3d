@@ -33,7 +33,6 @@ int	update_mouse_pos(int x, int y, t_data *data)
 
 int	key_press(int keycode, t_data *data)
 {
-	dprintf(1, "keypress\n");
 	if (keycode < 200)
 		data->keyboard[keycode] = 1;
 	
@@ -48,7 +47,6 @@ int	key_press(int keycode, t_data *data)
 
 int	key_release(int keycode, t_data *data)
 {
-	dprintf(1, "keyprelease\n");
 	if (keycode < 200)
 		data->keyboard[keycode] = 0;
 	return (1);

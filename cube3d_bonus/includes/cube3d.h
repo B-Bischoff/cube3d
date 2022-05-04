@@ -74,6 +74,7 @@ typedef struct s_data {
 	// Fps
 	struct		timespec curr_time;
 	struct		timespec prev_time;
+	double		delta_time;
 
 	// Textures
 	char		*texture_name[6];
