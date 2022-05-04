@@ -37,6 +37,7 @@ SRCS += fps_counter.c \
 		floor_and_ceiling.c \
 		return_error.c \
 		minimap.c \
+		player_movement.c \
 
 # Rays
 SRCS += create_rays.c \

@@ -4,6 +4,8 @@ int	update(t_data *data)
 {
 	clock_gettime(CLOCK_MONOTONIC_RAW, &(data->prev_time)); // Taking time to calculate fps
 
+	player_input(data);
+
 	clear_window(data);
 	floor_and_ceiling(data);
 
