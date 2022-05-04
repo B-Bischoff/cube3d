@@ -116,6 +116,9 @@ void		draw_rect_filled_color(t_data *data, t_vector2_d top_left, t_vector2_d bot
 void		draw_circle(t_data *data, t_vector2_d center);
 void		draw_circle_color(t_data *data, t_vector2_d center, int color);
 
+// Textures functions
+int			get_text_pix(t_text *text, int x, int y);
+
 // Grid functions
 int			init_grid(t_data *data);
 void		print_grid(t_data *data);

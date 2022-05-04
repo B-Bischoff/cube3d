@@ -8,7 +8,7 @@ void	initialize_text(t_data *data)
 	i = -1;
 	while (++i < 6)
 	{
-		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "./purplestone.xpm",
+		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "assets/purplestone.xpm",
 												&data->text[i].long_img, &data->text[i].lar_img);
 		data->text[i].text_adr = mlx_get_data_addr(data->text[i].text, &data->text[i].bit, &data->text[i].size_line, &data->text[i].endian);
 	}
@@ -72,12 +72,11 @@ int	update(t_data *data)
 	{
 		for (int y = 0; y < 64; y++)
     	{
-			// char *str = &data->text[0].text_adr[x * (data->bits_per_pixel / 8) + y * data->line_length];
-			unsigned int color = (*(unsigned int *)(&data->text[0].text_adr[(y * data->line_length + x) * (data->bits_per_pixel / 8)]));
-			my_mlx_pixel_put(data, x, y, color);
+			// t_text *text = &data->text[0];
+			// int color = (*(int*)(text->text_adr + (x * text->bit / 8) + (y * text->size_line)));
+			my_mlx_pixel_put(data, x, y, get_text_pix(&data->text[0], y, x));
 		}
 	}
-
 	// set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime
 	// print_grid(data); // Show walls
 

@@ -6,6 +6,7 @@ ERASE=\033[2K\r
 
 VPATH = sources/:\
 		sources/draw/:\
+		sources/textures/:\
 		sources/grid/:\
 		sources/mlx_utils/:\
 		sources/utils/:\
@@ -18,6 +19,9 @@ SRCS += bresenham.c \
 		draw.c \
 		circle.c \
 		square.c \
+
+# Textures
+SRCS += get_text_pixel.c \
 
 # Grid
 SRCS +=	init_grid.c \
