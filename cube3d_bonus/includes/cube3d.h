@@ -59,6 +59,7 @@ typedef struct s_data {
 	int			mouse_button;
 
 	// Keyboard
+	// !! Need to change keyboard array system for Linux OS !!
 	int			keyboard[200]; // Each cell correspond to a key state
 
 	// Player
