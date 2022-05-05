@@ -71,23 +71,25 @@ LIB = libft/libft.a
 
 LFT = -L libft -lft
 
+MLX = ../mlx_mac
+
 RM = rm -rf
 
 all: mlx_lib lib $(NAME)
 
 mlx_lib:
-	make -C mlx
+	make -C ${MLX}
 
 lib:
 	make -C libft
 
 $(NAME): $(OBJS) $(INCLUDES) $(LIB) Makefile
-	@$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -Lmlx -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
+	@$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -L${MLX} -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
 	@echo "$(ERASE)$(GREEN)[CREATED $(NAME)]$(END)"
 
 .objects/%.o:	%.c Makefile $(INCLUDES)
 	@mkdir -p .objects
-	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(OPTI_FLAGS) -Imlx -I includes -c $< -o $@
+	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(OPTI_FLAGS) -I${MLX} -I includes -c $< -o $@
 	@printf "$(ERASE)$(BLUE)[BUILDING]$(END) $@"
 
 clean:

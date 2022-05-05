@@ -13,6 +13,8 @@ VPATH = sources/:\
 		sources/parsing/\
 
 
+SRCS = main.c 
+
 # Draw
 SRCS += bresenham.c \
 		draw.c \
@@ -52,16 +54,10 @@ SRCS += parsing.c \
 		description_check.c \
 		print_map.c \
 
-MAIN = main.c
-MAIN_BONUS = main_bonus.c
-
 OBJS = $(addprefix .objects/, $(SRCS:.c=.o))
-MAIN_OBJ = $(addprefix .objects/, $(MAIN:.c=.o))
-MAIN_BONUS_OBJ = $(addprefix .objects/, $(MAIN_BONUS:.c=.o))
 
 INCLUDES = includes/cube3d.h \
 			includes/alias.h
-
 
 CC = gcc
 
@@ -73,11 +69,11 @@ OPTI_FLAGS = #-O3
 
 NAME = cube_3d
 
-NAME_BONUS = cube_3d_bonus
-
 LIB = libft/libft.a
 
 LFT = -L libft -lft
+
+MLX = ../mlx_mac
 
 RM = rm -rf
 
@@ -86,21 +82,18 @@ all: mlx_lib lib $(NAME)
 bonus: mlx_lib lib $(NAME_BONUS)
 
 mlx_lib:
-	make -C mlx
+	make -C ${MLX}
 
 lib:
 	make -C libft
 
-$(NAME): $(OBJS) $(MAIN_OBJ) $(INCLUDES) $(LIB) Makefile
-	@$(CC) $(OBJS) $(MAIN_OBJ) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -Lmlx -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
+$(NAME): $(OBJS) $(INCLUDES) $(LIB) Makefile
+	@$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -L${MLX} -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
 	@echo "$(ERASE)$(GREEN)[CREATED $(NAME)]$(END)"
 
-$(NAME_BONUS): $(OBJS) $(MAIN_BONUS_OBJ) $(INCLUDES) $(LIB) Makefile
-	@$(CC) $(OBJS) $(MAIN_BONUS_OBJ) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -Lmlx -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
-	@echo "$(ERASE)$(GREEN)[CREATED $(NAME)]$(END)"
 .objects/%.o:	%.c Makefile $(INCLUDES)
 	@mkdir -p .objects
-	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(OPTI_FLAGS) -Imlx -I includes -c $< -o $@
+	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(OPTI_FLAGS) -I${MLX} -I includes -c $< -o $@
 	@printf "$(ERASE)$(BLUE)[BUILDING]$(END) $@"
 
 clean:
@@ -108,7 +101,7 @@ clean:
 	@make fclean -C libft
 	@echo "${RED}[DELETED CUBE3D OBJS]${END}"
 
-fclean:         clean
+fclean:	clean
 	@${RM} ${NAME} ${NAME_BONUS}
 	@${RM} .objects
 	@echo "${RED}[DELETED]${END} ${NAME}"
