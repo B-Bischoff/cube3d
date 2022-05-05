@@ -31,40 +31,23 @@ int	update_mouse_pos(int x, int y, t_data *data)
 	return (0);
 }
 
-int	key_hook(int keycode, t_data *data)
+int	key_press(int keycode, t_data *data)
 {
-	(void)data;
-	if (keycode == KEY_ESC)
+	if (keycode < 200)
+		data->keyboard[keycode] = 1;
+	
+	if (data->keyboard[KEY_ESC])
 	{
 		// Free allocated stuff
 		exit (0);
 	}
 
-	double move_speed = 10;
-	double rot_speed = 0.05f;
-	if (keycode == KEY_RIGHT)
-	{
-		double old_dir_x = data->player.dir.x;
-		data->player.dir.x = data->player.dir.x * cos(rot_speed) - data->player.dir.y * sin(rot_speed);
-		data->player.dir.y = old_dir_x * sin(rot_speed) + data->player.dir.y * cos(rot_speed);
-	}
-	else if (keycode == KEY_LEFT)
-	{
-		double old_dir_x = data->player.dir.x;
-		data->player.dir.x = data->player.dir.x * cos(-rot_speed) - data->player.dir.y * sin(-rot_speed);
-		data->player.dir.y = old_dir_x * sin(-rot_speed) + data->player.dir.y * cos(-rot_speed);
-	}
-	if (keycode == KEY_DOWN)
-	{
-		data->player.pos.x += data->player.dir.x * move_speed; 
-		data->player.pos.y += data->player.dir.y * move_speed; 
-	}
-	else if (keycode == KEY_UP)
-	{
-		data->player.pos.x -= data->player.dir.x * move_speed; 
-		data->player.pos.y -= data->player.dir.y * move_speed; 
-	}
-
-
 	return (0);
+}
+
+int	key_release(int keycode, t_data *data)
+{
+	if (keycode < 200)
+		data->keyboard[keycode] = 0;
+	return (1);
 }
