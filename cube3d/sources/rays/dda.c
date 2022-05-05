@@ -174,7 +174,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			side_dist.x += delta_dist.x;
 			map.x += step.x;
 			length = side_dist.x;
-			side = 0;
+			side = 0; // Side hit will be equal to : 1 or 3 (meaning, the hit is on the vertical axis)
 			side_hit.x = step.x;
 			side_hit.y = 0;
 		}
@@ -183,7 +183,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			side_dist.y += delta_dist.y;
 			map.y += step.y;
 			length = side_dist.y;
-			side = 1;
+			side = 1; // Side hit will be equal to : 0 or 2 (meaning, the hit is on the horizontal axis)
 			side_hit.y = step.y;
 			side_hit.x = 0;
 		}
@@ -210,55 +210,53 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			else
 				ray->side_hit = 2;
 
-			//texturing calculations
-			/*
- 	   		int texNum; //1 subtracted from it so that texture 0 can be used!
-			texNum = data->tab[map.x / data->cell_size][map.y / data->cell_size] - 1;
+			// //texturing calculations
+ 	   		// int texNum; //1 subtracted from it so that texture 0 can be used!
+			// texNum = data->tab[map.x / data->cell_size][map.y / data->cell_size] - 1;
 
-      		//calculate value of wallX
-      		double wallX; //where exactly the wall was hit
-      		if (side == 0) wallX = data->player.pos.y + ray->perp_length * ray_dir.y;
-      		else           wallX = data->player.pos.x + ray->perp_length * ray_dir.x;
-      		wallX -= floor((wallX));
+      		//calculate value of wallX//where exactly the wall was hit
+      		if (side == 0) ray->wall_x = data->player.pos.y + ray->perp_length * ray_dir.y;
+      		else           ray->wall_x = data->player.pos.x + ray->perp_length * ray_dir.x;
+      		ray->wall_x -= floor((ray->wall_x));
 
 
-			//x coordinate on the texture
-      		int texX = (int)(wallX * (double)(data->text[0].lar_img));
-      		if(side == 0 && ray_dir.x > 0) texX = data->text[0].lar_img - texX - 1;
-      		if(side == 1 && ray_dir.y < 0) texX = data->text[0].lar_img - texX - 1;
+			// // Kepp wall_x in ray struct and calculate tex_x later in ray_render
+			// //x coordinate on the texture
+      		// int texX = (int)(wallX * (double)(data->text[0].lar_img));
+      		// if(side == 0 && ray_dir.x > 0) texX = data->text[0].lar_img - texX - 1;
+      		// if(side == 1 && ray_dir.y < 0) texX = data->text[0].lar_img - texX - 1;
 
-			int lineHeight = (int)(data->win_height / ray->perp_length);
+			// int lineHeight = (int)(data->win_height / ray->perp_length);
 
-    		double step = 1.0 * 64 / lineHeight;
+    		// double step = 1.0 * 64 / lineHeight;
 
 
-      			//calculate lowest and highest pixel to fill in current stripe
-      		int drawStart = -lineHeight / 2 + data->win_height / 2;
-      		if(drawStart < 0) drawStart = 0;
-    		int drawEnd = lineHeight / 2 + data->win_height / 2;
- 	    	if(drawEnd >= data->win_height) drawEnd = data->win_height - 1;
+      		// 	//calculate lowest and highest pixel to fill in current stripe
+      		// int drawStart = -lineHeight / 2 + data->win_height / 2;
+      		// if(drawStart < 0) drawStart = 0;
+    		// int drawEnd = lineHeight / 2 + data->win_height / 2;
+ 	    	// if(drawEnd >= data->win_height) drawEnd = data->win_height - 1;
 
 
 		
-    		double texPos = (drawStart - data->win_height / 2 + lineHeight / 2) * step;
-			for (int y = 0; y < 64; y++)
-    		{
-    			int texY = (int)texPos & (64 - 1);
-    			texPos += step;
-    			t_color color;
-				char *str = &data->text[0].text_adr[texX * (data->bits_per_pixel / 8) + texY * data->line_length];
-				color.str[0] = str[0];
-				color.str[1] = str[1];
-				color.str[2] = str[2];
-				color.str[3] = str[3];
+    		// double texPos = (drawStart - data->win_height / 2 + lineHeight / 2) * step;
+			// for (int y = 0; y < 64; y++)
+    		// {
+    		// 	int texY = (int)texPos & (64 - 1);
+    		// 	texPos += step;
+    		// 	t_color color;
+			// 	char *str = &data->text[0].text_adr[texX * (data->bits_per_pixel / 8) + texY * data->line_length];
+			// 	color.str[0] = str[0];
+			// 	color.str[1] = str[1];
+			// 	color.str[2] = str[2];
+			// 	color.str[3] = str[3];
 
-				ray->text_buf[y] = color.color;
-			}
+			// 	ray->text_buf[y] = color.color;
+			// }
 
-				t_vector2_d tl = {0, 0};
-			t_vector2_d br = {64, 64};
-			draw_rect_filled(data,tl, br);
-			*/
+			// 	t_vector2_d tl = {0, 0};
+			// t_vector2_d br = {64, 64};
+			// draw_rect_filled(data,tl, br);
 
 			return (vector_d_to_f(map));
 		}

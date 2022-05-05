@@ -1,5 +1,17 @@
 #include "cube3d.h"
 
+void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
+{
+	for (int y = tl.y; y < br.y; y++)
+	{
+		if (y >= 0 && y <= data->win_height)
+		{
+			my_mlx_pixel_put(data, x, y, ray->text_buf[y]);
+			ray->text_buf[y] = 0;
+		}
+	}
+}
+
 void	rays_render(t_data *data)
 {
 	int slice_width;
@@ -28,24 +40,22 @@ void	rays_render(t_data *data)
 		// dprintf(1, "i %d | perp %lf | length %lf | %lf\n", i, ray->perp_length, ray->length, ray->length / ray->perp_length);
 
 
-		float j = ft_inv_lerp_f(10.0f, 75.0f, line_height);
+		// float j = ft_inv_lerp_f(10.0f, 75.0f, line_height);
 
-		int color;
-		if (ray->side_hit == 0)
-			color = color_lerp(DARK_GRAY, RED, j);
-		else if (ray->side_hit == 1)
-			color = color_lerp(DARK_GRAY, BLUE, j);
-		else if (ray->side_hit == 2)
-			color = color_lerp(DARK_GRAY, YELLOW, j);
-		else
-			color = color_lerp(DARK_GRAY, GREEN, j);
+		// int color;
+		// if (ray->side_hit == 0)
+		// 	color = color_lerp(DARK_GRAY, RED, j);
+		// else if (ray->side_hit == 1)
+		// 	color = color_lerp(DARK_GRAY, BLUE, j);
+		// else if (ray->side_hit == 2)
+		// 	color = color_lerp(DARK_GRAY, YELLOW, j);
+		// else
+		// 	color = color_lerp(DARK_GRAY, GREEN, j);
 		
+		// dprintf(1, "%f\n", (line_height / data->text[0].long_img));
 		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height};
 		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height};
-		draw_rect_filled_color(data, tl, br, color);
-
-		// for (int j = 0; j < 64; j++)
-			// my_mlx_pixel_put(data, i, j,ray->text_buf[j]);
-
+		// draw_rect_filled_color(data, tl, br, color);
+		draw_ray(data, i, ray, tl, br);
 	}
 }

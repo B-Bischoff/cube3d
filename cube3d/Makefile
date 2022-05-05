@@ -24,6 +24,7 @@ SRCS += bresenham.c \
 
 # Textures
 SRCS += get_text_pixel.c \
+		add_text_pixel.c \
 
 # Grid
 SRCS +=	init_grid.c \
@@ -63,7 +64,7 @@ INCLUDES = includes/cube3d.h \
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror -O3
 
 DEBUG_FLAGS = -fsanitize=address -g3
 
@@ -80,7 +81,7 @@ RM = rm -rf
 all: mlx_lib lib $(NAME)
 
 mlx_lib:
-	make -C mlx
+	@make -C mlx
 
 lib:
 	make -C libft
