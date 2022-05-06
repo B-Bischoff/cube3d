@@ -4,8 +4,8 @@ void	move_forward(t_data *data);
 void	move_backward(t_data *data);
 void	move_left(t_data *data);
 void	move_right(t_data *data);
-void	rotate_left(t_data *data);
-void	rotate_right(t_data *data);
+void	rotate_left(t_data *data, float coef);
+void	rotate_right(t_data *data, float coef);
 
 void	player_input(t_data *data)
 {
@@ -18,9 +18,17 @@ void	player_input(t_data *data)
 	if (data->keyboard[KEY_D])
 		move_right(data);
 	if (data->keyboard[KEY_LEFT])
-		rotate_left(data);
+		rotate_left(data, 1);
 	if (data->keyboard[KEY_RIGHT])
-		rotate_right(data);
+		rotate_right(data, 1);
+
+	if (data->mouse_move.x > 4)
+		rotate_right(data, -(float)data->mouse_move.x / 50.0f);
+	if (data->mouse_move.x < 4)
+		rotate_left(data, (float)data->mouse_move.x / 50.0f);
+
+	// Resest mouse movement
+	data->mouse_move.x = 0;
 
 	// Update plane position
 	data->plane.x = data->player.dir.x * data->view_dst + data->player.pos.x;
@@ -120,16 +128,16 @@ void	move_right(t_data *data)
 		p_pos->y += new_pos.y;
 }
 
-void	rotate_left(t_data *data)
+void	rotate_left(t_data *data, float coef)
 {
-	double rot_speed = 1.5f * data->delta_time;
+	double rot_speed = 1.5f * coef * data->delta_time;
 	double old_dir_x = data->player.dir.x;
 	data->player.dir.x = data->player.dir.x * cos(-rot_speed) - data->player.dir.y * sin(-rot_speed);
 	data->player.dir.y = old_dir_x * sin(-rot_speed) + data->player.dir.y * cos(-rot_speed);
 }
-void	rotate_right(t_data *data)
+void	rotate_right(t_data *data, float coef)
 {
-	double rot_speed = 1.5f * data->delta_time;
+	double rot_speed = 1.5f * coef * data->delta_time;
 	double old_dir_x = data->player.dir.x;
 	data->player.dir.x = data->player.dir.x * cos(rot_speed) - data->player.dir.y * sin(rot_speed);
 	data->player.dir.y = old_dir_x * sin(rot_speed) + data->player.dir.y * cos(rot_speed);
