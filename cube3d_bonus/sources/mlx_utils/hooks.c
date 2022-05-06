@@ -7,8 +7,6 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 	data->mouse_pos.y = y;
 	data->mouse_button = keycode;
 
-	set_grid_cell(data, x, y);
-
 	return (0);
 }
 
@@ -23,11 +21,18 @@ int	mouse_release(int keycode, int x, int y, t_data *data)
 
 int	update_mouse_pos(int x, int y, t_data *data)
 {
-	if (data->mouse_pressed == 1)
+	data->mouse_move.x = data->win_width / 2 - x; // Tell how much the mouse was moved on the X axis
+	if (data->mouse_move.y <= 200 && data->mouse_move.y >= -200) //  Tell how much the mouse was moved on the Y axis
 	{
-		data->mouse_pos.x = x;
-		data->mouse_pos.y = y;
+		data->mouse_move.y += data->win_height / 2 - y;
+		data->mouse_move.y = ft_clamp_d(data->mouse_move.y, -200, 200);
 	}
+	data->mouse_pos.x = x;
+	data->mouse_pos.y = y;
+
+	// Clamp mouse in window
+	mlx_mouse_move(data->mlx_win, data->win_width / 2, data->win_height / 2);	
+
 	return (0);
 }
 

@@ -55,6 +55,7 @@ typedef struct s_data {
 
 	// Mouse
 	t_vector2_d	mouse_pos;
+	t_vector2_d	mouse_move; // Used to rotate player with mouse
 	int			mouse_pressed; // Boolean
 	int			mouse_button;
 
