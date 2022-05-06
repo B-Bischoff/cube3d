@@ -23,8 +23,10 @@ void clear_window(t_data *img)
 
 int	ft_mlx_init(t_data *data)
 {
-	data->win_height = data->cell_size * data->tab_height;
-	data->win_width = data->cell_size * data->tab_width;
+	// data->win_height = data->cell_size * data->tab_height;
+	// data->win_width = data->cell_size * data->tab_width;
+	data->win_width = 1600;
+	data->win_height = 900;
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		return (1);
