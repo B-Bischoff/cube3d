@@ -27,6 +27,8 @@ void	player_input(t_data *data)
 	if (data->mouse_move.x < 4)
 		rotate_left(data, (float)data->mouse_move.x / 50.0f);
 
+	data->show_map = data->keyboard[KEY_TAB];
+
 	// Resest mouse movement
 	data->mouse_move.x = 0;
 

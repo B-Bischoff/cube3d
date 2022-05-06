@@ -81,6 +81,8 @@ typedef struct s_data {
 	// Textures
 	char		*texture_name[6];
 
+	int			show_map; // Boolean
+
 }	t_data;
 
 int			update(t_data *data);
