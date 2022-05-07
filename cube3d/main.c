@@ -15,7 +15,7 @@ void	initialize_text(t_data *data)
 
 	i = -1;
 	while (++i < data->rays_nb)
-			data->rays[i].text_buf = calloc(data->win_height, sizeof(unsigned int));
+			data->rays[i].text_buf = calloc(data->win_width, sizeof(unsigned int));
 }
 int main(int argc, char *argv[])
 {

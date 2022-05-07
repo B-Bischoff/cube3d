@@ -4,7 +4,7 @@ void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
 {
 	for (int y = tl.y; y < br.y; y++)
 	{
-		if (y >= 0 && y <= data->win_height)
+		if (y >= 0 && y < data->win_width)
 		{
 			my_mlx_pixel_put(data, x, y, ray->text_buf[y]);
 			ray->text_buf[y] = 0;
