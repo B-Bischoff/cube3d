@@ -54,10 +54,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		side_dist.y = (map.y + 1.0f - data->player.pos.y) * delta_dist.y;
 	}
 
-	if (side == 0) ray->wall_x = side_dist.y + ray->perp_length * ray_dir.y;
-    else           ray->wall_x = side_dist.x + ray->perp_length * ray_dir.x;
-	ray->wall_x -= floor((ray->wall_x));
-
 
 	double length = 0.0f;
 	t_vector2_d side_hit;
@@ -86,7 +82,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		if (len >= data->view_dst * data->view_dst)
 			break ;
 		if (!is_in_map(data, map))
-			continue; ;
+			continue;
 		// draw_circle_color(data, map, RED);
 		if (data->tab[map.y / data->cell_size][map.x / data->cell_size] > 0)
 		{
@@ -104,10 +100,30 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 				ray->side_hit = 0;
 			else
 				ray->side_hit = 2;
-			
-			if (side == 0) ray->wall_x = side_dist.y + ray->perp_length * ray_dir.y;
-    		else           ray->wall_x = side_dist.x + ray->perp_length * ray_dir.x;
-			ray->wall_x -= floor((ray->wall_x));
+
+			float	wall_pos;
+			if (side == 0) 
+			{
+				wall_pos = (float)(((double)map.y) / (double)data->cell_size);
+				ray->wall_x = (double)(wall_pos - (int)wall_pos);
+			}
+			else
+			{
+				wall_pos = (float)(((double)map.x) / (double)data->cell_size);
+			    ray->wall_x = (double)(wall_pos - (int)wall_pos);
+			}
+
+			// if (side == 0) 
+			// {
+			// 	wall_pos = (float)(((double)map.y + ray_index + 1) / (double)data->cell_size);
+			// 	ray->wall_x_2 = (double)(wall_pos - (int)wall_pos);
+			// }
+			// else
+			// {
+			// 	wall_pos = (float)(((double)map.x + ray_index + 1) / (double)data->cell_size);
+			//     ray->wall_x_2 = (double)(wall_pos - (int)wall_pos);
+			// }
+
 
 			return (vector_d_to_f(map));
 		}

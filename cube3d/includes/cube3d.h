@@ -23,7 +23,8 @@ typedef struct s_ray
 	int			side_hit; // Which side of the wall was hit : 0 bottom | 1 : left | 2 : top | 3 : right
 
 	double		wall_x; // Where the wall was hit 
-	unsigned int *text_buf;
+	double		wall_x_2;
+	unsigned int *text_buf[2];
 
 	// Might add texture, color, etc
 
@@ -46,12 +47,6 @@ typedef struct s_text
 	int		size_line;
 	int		endian;
 }	t_text;
-
-typedef union u_color
-{
-	char	str[4];
-	int		color;
-}	t_color;
 
 typedef struct s_data {
 	// Mlx datas
