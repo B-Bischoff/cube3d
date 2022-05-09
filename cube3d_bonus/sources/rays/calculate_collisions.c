@@ -16,13 +16,13 @@ void	calculate_collisions(t_data *data)
 			data->rays[i].hit_point = res;
 			data->rays[i].angle = get_angle(vector_f_to_d(data->player.pos), vector_f_to_d(res));
 			data->rays[i].length = get_vector_f_length(data->player.pos, res);
-			// if (data->show_map)
+			if (data->show_map)
 				bresenham(data, vector_f_to_d(data->player.pos), vector_f_to_d(res), YELLOW);
 		}
 		else
 		{
 			data->rays[i].length = -1;
-			// if (data->show_map)
+			if (data->show_map)
 				bresenham(data, vector_f_to_d(data->player.pos), vector_f_to_d(data->rays[i].hit_point), YELLOW);
 		}
 		i++;
