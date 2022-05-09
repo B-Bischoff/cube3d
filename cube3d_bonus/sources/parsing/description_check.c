@@ -2,6 +2,15 @@
 
 int	is_valid_description(char *str);
 
+/*
+	Textures and color order in data->texture_name[6]: 
+	0 : North
+	1 : South
+	2 : West
+	3 : East
+	4 : Floor
+	5 : Ceiling
+*/
 int	get_description(t_data *data, int fd)
 {
 	char	*buf;
@@ -10,36 +19,34 @@ int	get_description(t_data *data, int fd)
 	int		i;
 
 	buf = get_next_line(fd);
+	add_to_garbage(buf, &data->garbage);
 	while (buf)
 	{
 		i = is_valid_description(buf);
 		if (i != 0)
 		{
 			if (data->texture_name[i - 1] != NULL)
-			{
-				dprintf(1, "Multiple texture definition\n");
-				return (1);
-			}
+				return (print_error("Multiple texture definition\n"));
 			// Removing id information
 			str = ft_strdup(buf);
 			str[ft_strlen(str) - 1] = '\0'; // Removing \n 
 			str = ft_memmove(str, str + 3, ft_strlen(str));
 			data->texture_name[i - 1] = str;
-			dprintf(1, "%s\n",str);
 			count++;
 		}
-		free(buf);
 		if (count >= 6)
 			break ;
 		buf = get_next_line(fd);
+		add_to_garbage(buf, &data->garbage);
 	}
 	if (count < 6)
-		return (1);
+		return (print_error("Texture indication missing\n"));
 	return (0);
 }
 
 int	is_valid_description(char *str)
 {
+	// MIGHT IMPROVE THAT FUNCTION TO CHECK FULL WORD INSTEAD OF FIRSTS CHARS
 	int	len = ft_strlen(str);
 
 	if (ft_strnstr(str, "NO ", len))

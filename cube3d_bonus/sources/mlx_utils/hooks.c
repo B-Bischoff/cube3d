@@ -43,7 +43,7 @@ int	key_press(int keycode, t_data *data)
 	
 	if (data->keyboard[KEY_ESC])
 	{
-		// Free allocated stuff
+		free_all(data);
 		exit (0);
 	}
 

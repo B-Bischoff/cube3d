@@ -2,6 +2,9 @@
 
 int	is_valid_cell(t_data *data, t_vector2_d pos);
 
+/*
+	errors is a list containing the position of the invalids cells in the map
+*/
 int	check_map_format(t_data *data, t_list **errors)
 {
 	int			y;
@@ -20,8 +23,12 @@ int	check_map_format(t_data *data, t_list **errors)
 			if (is_valid_cell(data, pos) == 0)
 			{
 				pos_alloc = malloc(sizeof(t_vector2_d));
+				if (pos_alloc == NULL)
+					return (1);
 				set_vector_d(pos_alloc, pos.x, pos.y);
 				elem = ft_lstnew(pos_alloc);
+				if (elem == NULL)
+					return (1);
 				ft_lstadd_back(errors, elem);
 			}
 			x++;
@@ -67,3 +74,60 @@ int	is_valid_cell(t_data *data, t_vector2_d pos)
 	return (1);	
 }
 
+int	check_player_pos(t_data *data)
+{
+	int	y;
+	int	x;
+	char	player;
+	t_vector2_d	pos;
+
+	player = '0';
+	y = 0;
+	while (y < data->tab_height)
+	{
+		x = 0;
+		while (x < data->tab_width)
+		{
+			if (data->tab[y][x] + 48 == 'N' || data->tab[y][x] + 48 == 'S' || data->tab[y][x] + 48 == 'E' ||data->tab[y][x] + 48 == 'W')
+			{
+				if (player != '0')
+				{
+					dprintf(2, "Multiple player definition\n");
+					return (1);
+				}
+				player = data->tab[y][x] + 48;
+				set_vector_d(&pos, x, y);
+			}
+			x++;
+		}
+		y++;
+	}
+	if (player == '0')
+	{
+		dprintf(2, "Player position not defined\n");
+		return (1);
+	}
+
+	// Assigning player init position and rotation
+
+	dprintf(1, "pos x %d y %d\n", pos.x, pos.y);
+
+	data->player.pos.x = pos.x * data->cell_size + data->cell_size / 2;
+	data->player.pos.y = pos.y * data->cell_size + data->cell_size / 2;
+
+	dprintf(1, "player x %f, player y %f\n", data->player.pos.x, data->player.pos.y);
+
+	if (player == 'N')
+		set_vector_f(&data->player.dir, 0, -1);
+	else if (player == 'S')
+		set_vector_f(&data->player.dir, 0, 1);
+	else if (player == 'E')
+		set_vector_f(&data->player.dir, 1, 0);
+	else
+		set_vector_f(&data->player.dir, -1, 0);
+
+	// Set player to 0 in tab
+	data->tab[pos.y][pos.x] = 0;
+
+	return (0);
+}

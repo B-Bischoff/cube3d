@@ -53,7 +53,6 @@ typedef struct s_data {
 	int			cell_size;
 	int			height_size; // tab_height * cell_size
 	int			width_size; // tab_width * cell_size
-	t_list		*map;
 
 	// Mouse
 	t_vector2_d	mouse_pos;
@@ -85,6 +84,8 @@ typedef struct s_data {
 
 	int			show_map; // Boolean
 
+	t_list		*garbage;
+
 }	t_data;
 
 int			update(t_data *data);
@@ -113,7 +114,6 @@ void		draw_circle_color_radius(t_data *data, t_vector2_d center, int color, int 
 void		draw_triangle_color(t_data *data, t_vector2_d points[3], int color);
 
 // Grid functions
-int			init_grid(t_data *data);
 void		print_grid(t_data *data);
 void		set_grid_cell(t_data *data, int x, int y);
 int			is_in_map(t_data *data, t_vector2_d pos);
@@ -125,6 +125,10 @@ void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
 void		print_minimap(t_data *data);
 void		player_input(t_data *data);
+void		*calloc_garbage(size_t count, size_t size, t_list **garbage);
+void		add_to_garbage(void *ptr, t_list **garbage);
+void		add_array_to_garbage(void **array, t_list **garbage);
+void		free_all(t_data *data);
 
 // Rays
 void		create_rays(t_data *data, t_vector2_f direction);
@@ -135,5 +139,6 @@ double		get_perp_wall_dst(t_ray ray, double dir_angle);
 
 // Parsing
 int			parsing(t_data *data, int argc, char *argv[]);
+int			check_player_pos(t_data *data);
 
 #endif
