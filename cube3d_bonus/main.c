@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
 	// Player init (store in function)
 	
 	// Player pos will be defined by the map
-	data.player.pos.x = data.win_width / 4; 
-	data.player.pos.y = data.win_height / 4;
+	data.player.pos.x = data.height_size / 4; 
+	data.player.pos.y = data.width_size / 4;
 
 	// Initial looking direction of the player
 	data.player.dir.x = 1;
