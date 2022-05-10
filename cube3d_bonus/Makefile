@@ -53,6 +53,7 @@ SRCS += parsing.c \
 		map_check.c \
 		description_check.c \
 		print_map.c \
+		get_map.c \
 
 OBJS = $(addprefix .objects/, $(SRCS:.c=.o))
 

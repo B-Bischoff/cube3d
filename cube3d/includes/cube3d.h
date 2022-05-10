@@ -120,5 +120,11 @@ double		get_perp_wall_dst(t_ray ray, double dir_angle);
 
 // Parsing
 int			parsing(t_data *data, int argc, char *argv[]);
+int			get_description(t_data *data, int fd);
+int			get_map(t_data *data, int fd, t_list **map);
+int			convert_map_to_int(t_data *data, t_list **map);
+int			check_map_format(t_data *data, t_list **errors);
+int			check_player_pos(t_data *data);
+void		print_map(t_data *data, t_list *errors);
 
 #endif
