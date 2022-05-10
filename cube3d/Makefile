@@ -6,6 +6,7 @@ ERASE=\033[2K\r
 
 VPATH = sources/:\
 		sources/draw/:\
+		sources/textures/:\
 		sources/grid/:\
 		sources/mlx_utils/:\
 		sources/utils/:\
@@ -20,6 +21,10 @@ SRCS += bresenham.c \
 		draw.c \
 		circle.c \
 		square.c \
+
+# Textures
+SRCS += get_text_pixel.c \
+		add_text_pixel.c \
 
 # Grid
 SRCS +=	print_grid.c \
@@ -61,9 +66,9 @@ INCLUDES = includes/cube3d.h \
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O3
 
-DEBUG_FLAGS = #-fsanitize=address -g3
+DEBUG_FLAGS = -fsanitize=address -g3
 
 OPTI_FLAGS = #-O3
 

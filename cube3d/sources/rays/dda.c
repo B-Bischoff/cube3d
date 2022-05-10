@@ -56,7 +56,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			side_dist.x += delta_dist.x;
 			map.x += step.x;
 			length = side_dist.x;
-			side = 0;
+			side = 0; // Side hit will be equal to : 1 or 3 (meaning, the hit is on the vertical axis)
 			side_hit.x = step.x;
 			side_hit.y = 0;
 		}
@@ -65,7 +65,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			side_dist.y += delta_dist.y;
 			map.y += step.y;
 			length = side_dist.y;
-			side = 1;
+			side = 1; // Side hit will be equal to : 0 or 2 (meaning, the hit is on the horizontal axis)
 			side_hit.y = step.y;
 			side_hit.x = 0;
 		}
@@ -73,7 +73,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		if (len >= data->view_dst * data->view_dst)
 			break ;
 		if (!is_in_map(data, map))
-			continue; ;
+			continue;
 		// draw_circle_color(data, map, RED);
 		if (data->tab[map.y / data->cell_size][map.x / data->cell_size] > 0)
 		{
@@ -91,9 +91,35 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 				ray->side_hit = 0;
 			else
 				ray->side_hit = 2;
+
+			float	wall_pos;
+			if (side == 0) 
+			{
+				wall_pos = (float)(((double)map.y) / (double)data->cell_size);
+				ray->wall_x = (double)(wall_pos - (int)wall_pos);
+			}
+			else
+			{
+				wall_pos = (float)(((double)map.x) / (double)data->cell_size);
+			    ray->wall_x = (double)(wall_pos - (int)wall_pos);
+			}
+
+			// if (side == 0) 
+			// {
+			// 	wall_pos = (float)(((double)map.y + ray_index + 1) / (double)data->cell_size);
+			// 	ray->wall_x_2 = (double)(wall_pos - (int)wall_pos);
+			// }
+			// else
+			// {
+			// 	wall_pos = (float)(((double)map.x + ray_index + 1) / (double)data->cell_size);
+			//     ray->wall_x_2 = (double)(wall_pos - (int)wall_pos);
+			// }
+
+
 			return (vector_d_to_f(map));
 		}
 	}
 	t_vector2_f error = {-1, -1};
+
 	return (error);
 }
