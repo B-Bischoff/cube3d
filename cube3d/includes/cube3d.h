@@ -51,6 +51,8 @@ typedef struct s_data {
 	int			tab_width;
 	int			tab_height;
 	int			cell_size;
+	int			height_size; // tab_height * cell_size
+	int			width_size; // tab_width * cell_size
 	t_list		*map;
 
 	// Mouse

@@ -4,7 +4,7 @@ void	set_grid_cell(t_data *data, int x, int y)
 {
 	t_vector2_d tab_pos;
 
-	if (x < 0 || x >= data->win_width || y < 0 || y >= data->win_height)
+	if (x < 0 || x >= data->width_size || y < 0 || y >= data->height_size)
 		return ;
 
 	// Convert pixel coordinate to cell coordinate
