@@ -4,6 +4,8 @@ int	update(t_data *data)
 {
 	clock_gettime(CLOCK_MONOTONIC_RAW, &(data->prev_time)); // Taking time to calculate fps
 
+	player_input(data);
+
 	// clear_window(data);
 	floor_and_ceiling(data);
 
@@ -17,7 +19,6 @@ int	update(t_data *data)
 	// bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
 
 	
-	draw_circle_color(data, data->plane, YELLOW);
 	create_rays(data, data->player.dir);
 	calculate_collisions(data);
 	rays_render(data);
