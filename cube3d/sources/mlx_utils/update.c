@@ -6,12 +6,7 @@ int	update(t_data *data)
 
 	player_input(data);
 
-<<<<<<< HEAD
 	clear_window(data);
-=======
-	// clear_window(data);
-	floor_and_ceiling(data);
->>>>>>> 4a235b11143c3e1dfd726da81346b9a90424187e
 
 	// set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime
 	print_grid(data); // Show walls

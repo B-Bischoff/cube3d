@@ -22,8 +22,8 @@ typedef struct s_ray
 	double		angle;
 	int			side_hit; // Which side of the wall was hit : 0 bottom | 1 : left | 2 : top | 3 : right
 
-	double		wall_x; // Where the wall was hit 
-	double		wall_x_2;
+	double		wall_x; // Where the wall was hit
+	int			tex_x;
 	unsigned int *text_buf;
 
 }	t_ray;
@@ -38,8 +38,8 @@ typedef	struct s_player
 typedef struct s_text
 {
 	void	*text;
-	int		long_img;
-	int		lar_img;
+	int		width_img;
+	int		height_img;
 	char	*text_adr;
 	int		bit;
 	int		size_line;

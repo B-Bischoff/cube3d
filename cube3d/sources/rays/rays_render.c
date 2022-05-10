@@ -58,7 +58,7 @@ void	rays_render(t_data *data)
 		// else
 		// 	color = color_lerp(DARK_GRAY, GREEN, j);
 		
-		// dprintf(1, "%f\n", (line_height / data->text[0].long_img));
+		// dprintf(1, "%f\n", (line_height / data->text[0].width_img));
 		
 		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height};
 		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height};

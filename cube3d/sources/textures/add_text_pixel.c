@@ -9,7 +9,7 @@ void	add_text_pix(t_data *data)
 	{
 		int line_height = (double)(data->win_height / data->rays[i].perp_length);
 
-    	double step = 1.0 * data->text[0].long_img / (line_height * 2);
+    	double step = 1.0 * data->text[0].height_img / (line_height * 2);
 
       	int draw_start = (data->win_height >> 1) - line_height;
 		if (draw_start < 0) draw_start = 0;
@@ -23,10 +23,10 @@ void	add_text_pix(t_data *data)
     	{
 			if (y >= 0 && y < data->win_width)
 			{
-	    		int tex_y = (int)tex_pos & (data->text[0].long_img - 1);
+	    		int tex_y = (int)tex_pos & (data->text[0].width_img - 1);
 	    		tex_pos += step;
 
-				data->rays[i].text_buf[y] = get_text_pix(&data->text[0], (int)(data->rays[i].wall_x * (double)data->text[0].long_img), tex_y);
+				data->rays[i].text_buf[y] = get_text_pix(&data->text[0], data->rays[i].tex_x, tex_y);
 			}
 		}
 		i++;
