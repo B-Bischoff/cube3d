@@ -2,6 +2,10 @@
 
 void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
 {
+	if (tl.y < 0)
+		tl.y = 0;
+	if (br.y > data->win_height)
+		br.y = data->win_height;
 	for (int y = tl.y + 1; y < br.y; y++)
 	{
 		if (y >= 0 && y < data->win_height)

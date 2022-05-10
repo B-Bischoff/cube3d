@@ -15,8 +15,6 @@ void	free_all(t_data *data)
 	free(data->rays);
 
 	// Mlx
+	mlx_destroy_window(data->mlx, data->mlx_win);
 	free(data->mlx);
-	free(data->mlx_win);
-	free(data->img);
-	free(data->addr);
 }

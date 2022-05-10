@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	mlx_mouse_move(data.mlx_win, data.win_width / 2, data.win_height / 2);	
 
 	ft_mlx_hooks_and_loop(&data);
-	free_all(&data);
 
-	return (0);
+	free_all(&data);
+	exit (0);
 }
