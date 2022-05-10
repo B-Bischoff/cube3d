@@ -78,7 +78,7 @@ void	print_minimap(t_data *data)
 				t_vector2_d tri[3] = {dot, dot_arrays[i], dot_arrays[i + 1]};
 				if (is_in_map(data, map_pos) && data->tab[(map_pos.y) / data->cell_size][(map_pos.x) / data->cell_size] == 1)
 					if (is_in_mp_area(center, mp_width_2, tri))
-						draw_triangle_color(data, tri, BLUE);
+						draw_triangle_color(data, tri, RED);
 			}
 
 

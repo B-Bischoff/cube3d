@@ -20,8 +20,12 @@ typedef struct s_ray
 	double		length;
 	double		perp_length;
 	double		angle;
-	int			side_hit;
-	
+	int			side_hit; // Which side of the wall was hit : 0 bottom | 1 : left | 2 : top | 3 : right
+
+	double		wall_x; // Where the wall was hit 
+	double		wall_x_2;
+	unsigned int *text_buf[2];
+
 	// Might add texture, color, etc
 
 }	t_ray;
@@ -32,6 +36,17 @@ typedef	struct s_player
 	t_vector2_f	dir;
 	double		angle; // Looking direction
 }	t_player;
+
+typedef struct s_text
+{
+	void	*text;
+	int		long_img;
+	int		lar_img;
+	char	*text_adr;
+	int		bit;
+	int		size_line;
+	int		endian;
+}	t_text;
 
 typedef struct s_data {
 	// Mlx datas
@@ -77,6 +92,9 @@ typedef struct s_data {
 	// Textures
 	char		*texture_name[6];
 
+	// Textures
+	t_text				text[6];
+
 }	t_data;
 
 int			update(t_data *data);
@@ -99,6 +117,10 @@ void		draw_rect_filled(t_data *data, t_vector2_d top_left, t_vector2_d bottom_ri
 void		draw_rect_filled_color(t_data *data, t_vector2_d top_left, t_vector2_d bottom_right, int color);
 void		draw_circle(t_data *data, t_vector2_d center);
 void		draw_circle_color(t_data *data, t_vector2_d center, int color);
+
+// Textures functions
+int			get_text_pix(t_text *text, int x, int y);
+void		add_text_pix(t_data *data);
 
 // Grid functions
 int			init_grid(t_data *data);

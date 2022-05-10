@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:32:51 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/05 09:35:32 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/05/02 11:13:59 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ double		radian_to_degree(double radian);
 double		degree_to_radian(double degree);
 void		set_vector_d(t_vector2_d *vector, int x, int y);
 void		set_vector_f(t_vector2_f *vector, float x, float y);
-t_vector2_d	create_vector_d(int x, int y);
-t_vector2_f	create_vector_f(float x, float y);
 t_vector2_f	vector_d_to_f(t_vector2_d vector_d);
 t_vector2_d	vector_f_to_d(t_vector2_f vector_f);
 t_vector2_d	vector_d_lerp(t_vector2_d start, t_vector2_d end, float timestamp);
