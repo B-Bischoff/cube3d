@@ -24,9 +24,7 @@ typedef struct s_ray
 
 	double		wall_x; // Where the wall was hit 
 	double		wall_x_2;
-	unsigned int *text_buf[2];
-
-	// Might add texture, color, etc
+	unsigned int *text_buf;
 
 }	t_ray;
 
@@ -93,7 +91,9 @@ typedef struct s_data {
 	char		*texture_name[6];
 
 	// Textures
-	t_text				text[6];
+	t_text		text[6];
+
+	unsigned int	*floor_celling;		
 
 }	t_data;
 

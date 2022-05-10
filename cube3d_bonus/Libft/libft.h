@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azanane <azanane@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:32:51 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/02 11:13:59 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:16:14 by azanane          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ float		vector_d_inv_lerp_length(t_vector2_d start, int max_length, \
 				t_vector2_d curr);
 t_vector2_d	rotate_vector_d(t_vector2_d vector, double radian);
 t_vector2_f	rotate_vector_f(t_vector2_f vector, double radian);
+t_vector2_d	create_vector_d(int x, int y);
+t_vector2_f	create_vector_f(float x, float y);
 t_vector2_d	create_vect_d_from_origin(t_vector2_d origin, double radian, \
 				double length);
 t_vector2_f	create_vect_f_from_origin(t_vector2_f origin, double radian, \

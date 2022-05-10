@@ -6,10 +6,9 @@ void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
 	{
 		if (y >= 0 && y < data->win_height)
 		{
-			my_mlx_pixel_put(data, x, y, ray->text_buf[0][y]);
-			my_mlx_pixel_put(data, x + 1, y, ray->text_buf[0][y]);
-			ray->text_buf[0][y] = 0;
-			ray->text_buf[1][y] = 0;
+			my_mlx_pixel_put(data, x, y, ray->text_buf[y]);
+			my_mlx_pixel_put(data, x + 1, y, ray->text_buf[y]);
+			ray->text_buf[y] = 0;
 		}
 	}
 }
@@ -17,10 +16,8 @@ void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
 void	rays_render(t_data *data)
 {
 	int slice_width;
-	int	index;
 
 	slice_width = data->win_width / data->rays_nb;
-	index = 0;
 
 	for (int i = 0; i < data->rays_nb; i++)
 	{
@@ -58,10 +55,12 @@ void	rays_render(t_data *data)
 		// 	color = color_lerp(DARK_GRAY, GREEN, j);
 		
 		// dprintf(1, "%f\n", (line_height / data->text[0].long_img));
+		
 		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height};
 		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height};
+		
 		// draw_rect_filled_color(data, tl, br, color);
-		draw_ray(data, i + index, ray, tl, br);
-		index += 1;
+		
+		draw_ray(data, i * 2, ray, tl, br);
 	}
 }
