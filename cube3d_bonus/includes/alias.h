@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:00:41 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/06 10:48:45 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:16:10 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_W 13
+# define KEY_E 14
 # define KEY_S 1
 # define KEY_A 0
 # define KEY_D 2

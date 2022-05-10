@@ -39,7 +39,10 @@ int	update_mouse_pos(int x, int y, t_data *data)
 int	key_press(int keycode, t_data *data)
 {
 	if (keycode < 200)
+	{
+		data->prev_keyboard[keycode] = data->keyboard[keycode];
 		data->keyboard[keycode] = 1;
+	}
 	
 	if (data->keyboard[KEY_ESC])
 	{
@@ -53,6 +56,9 @@ int	key_press(int keycode, t_data *data)
 int	key_release(int keycode, t_data *data)
 {
 	if (keycode < 200)
+	{
+		data->prev_keyboard[keycode] = data->keyboard[keycode];
 		data->keyboard[keycode] = 0;
+	}
 	return (1);
 }

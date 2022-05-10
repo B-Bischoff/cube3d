@@ -63,6 +63,7 @@ typedef struct s_data {
 	// Keyboard
 	// !! Need to change keyboard array system for Linux OS !!
 	int			keyboard[200]; // Each cell correspond to a key state
+	int			prev_keyboard[200]; // Keep in memory the previous states of keyboard
 
 	// Player
 	t_player	player;
@@ -114,6 +115,7 @@ void		draw_triangle_color(t_data *data, t_vector2_d points[3], int color);
 void		print_grid(t_data *data);
 void		set_grid_cell(t_data *data, int x, int y);
 int			is_in_map(t_data *data, t_vector2_d pos);
+int			is_colliding_cell(t_data *data, float x, float y);
 
 // Utils
 void		print_fps(t_data *data);
