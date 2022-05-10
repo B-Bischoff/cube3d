@@ -4,7 +4,6 @@ int	update(t_data *data)
 {
 	clock_gettime(CLOCK_MONOTONIC_RAW, &(data->prev_time)); // Taking time to calculate fps
 
-<<<<<<< HEAD
 	
 
 	
@@ -25,7 +24,6 @@ int	update(t_data *data)
 	
 	
 	draw_circle_color(data, data->plane, YELLOW);
-=======
 	player_input(data);
 
 	if (data->mouse_pressed == 1)
@@ -38,8 +36,8 @@ int	update(t_data *data)
 		bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
 		draw_circle(data, vector_f_to_d(data->player.pos)); // Player visualization
 	}
->>>>>>> 8037a78ee73af35d7aafed126e16fafd8398f113
 	create_rays(data, data->player.dir);
+
 	calculate_collisions(data);
 
 	if (!data->show_map)
