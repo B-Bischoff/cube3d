@@ -8,7 +8,6 @@ void	create_rays(t_data *data, t_vector2_f direction)
 	angle = get_angle(vector_f_to_d(data->player.pos), data->plane);
 
 	direction = vector_d_to_f(data->plane);
-	draw_circle_color(data, vector_f_to_d(direction), GREEN);
 
 
 	// Calculating perpendicular line size

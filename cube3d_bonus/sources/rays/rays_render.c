@@ -19,7 +19,7 @@ void	rays_render(t_data *data)
 		line_height = 1.0f / ray->perp_length;
 		// dprintf(1, "%lf\n", line_height);
 		line_height *= (double)data->win_height;
-		if (line_height > 500)
+		if (line_height > 1000)
 			line_height = data->win_height;
 		// line_height *= .5f;
 
@@ -27,20 +27,25 @@ void	rays_render(t_data *data)
 		// dprintf(1, "height %lf %d\n", line_height, (int)line_height);
 		// dprintf(1, "i %d | perp %lf | length %lf | %lf\n", i, ray->perp_length, ray->length, ray->length / ray->perp_length);
 
-		float j = ft_inv_lerp_f(10.0f, 75.0f, line_height);
+		float j = ft_inv_lerp_f(10.0f, 100.0f, line_height);
 
 		int color;
-		if (ray->side_hit == 0)
-			color = color_lerp(DARK_GRAY, RED, j);
-		else if (ray->side_hit == 1)
-			color = color_lerp(DARK_GRAY, BLUE, j);
-		else if (ray->side_hit == 2)
-			color = color_lerp(DARK_GRAY, YELLOW, j);
+		if (data->tab[ray->cell.y][ray->cell.x] == 1)
+		{
+			if (ray->side_hit == 0)
+				color = color_lerp(DARK_GRAY, RED, j);
+			else if (ray->side_hit == 1)
+				color = color_lerp(DARK_GRAY, BLUE, j);
+			else if (ray->side_hit == 2)
+				color = color_lerp(DARK_GRAY, YELLOW, j);
+			else
+				color = color_lerp(DARK_GRAY, GREEN, j);
+		}
 		else
-			color = color_lerp(DARK_GRAY, GREEN, j);
+			color = PURPLE;
 		
-		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height};
-		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height};
+		t_vector2_d tl = {i * slice_width, (data->win_height / 2 + data->mouse_move.y) - line_height};
+		t_vector2_d br = {i * slice_width + slice_width, (data->win_height / 2 + data->mouse_move.y) + line_height};
 		draw_rect_filled_color(data, tl, br, color);
 
 	}
