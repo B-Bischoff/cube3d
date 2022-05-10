@@ -39,7 +39,6 @@ SRCS += fps_counter.c \
 		return_error.c \
 		minimap.c \
 		player_movement.c \
-		garbage_collector.c \
 		free_cube.c \
 
 # Rays

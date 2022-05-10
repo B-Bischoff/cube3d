@@ -19,7 +19,6 @@ int	get_description(t_data *data, int fd)
 	int		i;
 
 	buf = get_next_line(fd);
-	add_to_garbage(buf, &data->garbage);
 	while (buf)
 	{
 		i = is_valid_description(buf);
@@ -34,10 +33,10 @@ int	get_description(t_data *data, int fd)
 			data->texture_name[i - 1] = str;
 			count++;
 		}
+		free(buf);
 		if (count >= 6)
 			break ;
 		buf = get_next_line(fd);
-		add_to_garbage(buf, &data->garbage);
 	}
 	if (count < 6)
 		return (print_error("Texture indication missing\n"));

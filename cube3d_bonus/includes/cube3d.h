@@ -83,9 +83,6 @@ typedef struct s_data {
 	char		*texture_name[6];
 
 	int			show_map; // Boolean
-
-	t_list		*garbage;
-
 }	t_data;
 
 int			update(t_data *data);
@@ -125,9 +122,6 @@ void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
 void		print_minimap(t_data *data);
 void		player_input(t_data *data);
-void		*calloc_garbage(size_t count, size_t size, t_list **garbage);
-void		add_to_garbage(void *ptr, t_list **garbage);
-void		add_array_to_garbage(void **array, t_list **garbage);
 void		free_all(t_data *data);
 
 // Rays

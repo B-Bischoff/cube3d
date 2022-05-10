@@ -25,6 +25,7 @@ int	parsing(t_data *data, int argc, char *argv[])
 	t_list	*map = NULL;
 	t_list	*errors = NULL;
 	int	fd;
+
 	data->cell_size = 40;
 	init_parsing(data);
 	if (argc != 2)
@@ -36,6 +37,7 @@ int	parsing(t_data *data, int argc, char *argv[])
 		return (print_error("Description error\n"));
 	if (get_map(data, fd, &map) == 1)
 		return (print_error("Get map error\n"));
+	close(fd);
 	if (convert_map_to_int(data, &map) == 1)
 		return (print_error("Map conversion error\n"));
 
@@ -49,6 +51,7 @@ int	parsing(t_data *data, int argc, char *argv[])
 	if (check_map_format(data, &errors) == 1)
 	{
 		print_map(data, errors);
+		ft_lstclear(&errors, free);
 		return (print_error("Map format error\n"));
 	}
 	print_map(data, errors);
@@ -68,7 +71,7 @@ int	parsing(t_data *data, int argc, char *argv[])
 	dprintf(1, "X : %f Y :%f\n", data->player.pos.x / data->cell_size, data->player.pos.y / data->cell_size);
 	dprintf(1, "Orientation : %f %f\n", data->player.dir.x, data->player.dir.y);
 
-	ft_lstclear(&data->garbage, free);
+	ft_lstclear(&map, free);
 	ft_lstclear(&errors, free);
 
 	return (0);
@@ -86,7 +89,6 @@ int	init_parsing(t_data *data)
 		data->keyboard[i++] = 0;
 	data->tab_height = 0;
 	data->tab_width = 0;
-	data->garbage = NULL;
 	return (0);
 }
 
@@ -97,7 +99,6 @@ int get_map(t_data *data, int fd, t_list **map)
 	int		length;
 
 	buf = get_next_line(fd);
-	add_to_garbage(buf, &data->garbage);
 	while (buf)
 	{
 		length = ft_strlen(buf);
@@ -108,16 +109,13 @@ int get_map(t_data *data, int fd, t_list **map)
 		new_elem = ft_lstnew(buf);
 		if (new_elem == NULL)
 			return (1);
-		add_to_garbage(new_elem, &data->garbage);
 		ft_lstadd_back(map, new_elem);
 		data->tab_height++;
 		buf = get_next_line(fd);
-		add_to_garbage(buf, &data->garbage);
 	}
 	new_elem = ft_lstnew(NULL);
 	if (new_elem == NULL)
 		return (1);
-	add_to_garbage(new_elem, &data->garbage);
 	ft_lstadd_back(map, new_elem);
 	return (0);
 }
