@@ -75,6 +75,10 @@ typedef struct s_data {
 	int			mouse_pressed; // Boolean
 	int			mouse_button;
 
+	// Keyboard
+	// !! Need to change keyboard array system for Linux OS !!
+	int			keyboard[200]; // Each cell correspond to a key state
+
 	// Player
 	t_player	player;
 
@@ -88,6 +92,7 @@ typedef struct s_data {
 	// Fps
 	struct		timespec curr_time;
 	struct		timespec prev_time;
+	double		delta_time;
 
 	// Textures
 	char		*texture_name[6];
@@ -109,7 +114,8 @@ void		clear_window(t_data *img);
 int			mouse_hook(int keycode, int x, int y, t_data *data);
 int			mouse_release(int keycode, int x, int y, t_data *data);
 int			update_mouse_pos(int x, int y, t_data *data);
-int			key_hook(int keycode, t_data *data);
+int			key_press(int keycode, t_data *data);
+int			key_release(int keycode, t_data *data);
 
 // Drawing functions
 void		bresenham(t_data *data, t_vector2_d p1, t_vector2_d p2, int color);
@@ -123,15 +129,16 @@ int			get_text_pix(t_text *text, int x, int y);
 void		add_text_pix(t_data *data);
 
 // Grid functions
-int			init_grid(t_data *data);
 void		print_grid(t_data *data);
 void		set_grid_cell(t_data *data, int x, int y);
+int			is_in_map(t_data *data, t_vector2_d pos);
 
 // Utils
 void		print_fps(t_data *data);
 int			ft_init_vision(t_data *data);
 void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
+void		player_input(t_data *data);
 
 // Rays
 void		create_rays(t_data *data, t_vector2_f direction);
@@ -142,5 +149,11 @@ double		get_perp_wall_dst(t_ray ray, double dir_angle);
 
 // Parsing
 int			parsing(t_data *data, int argc, char *argv[]);
+int			get_description(t_data *data, int fd);
+int			get_map(t_data *data, int fd, t_list **map);
+int			convert_map_to_int(t_data *data, t_list **map);
+int			check_map_format(t_data *data, t_list **errors);
+int			check_player_pos(t_data *data);
+void		print_map(t_data *data, t_list *errors);
 
 #endif

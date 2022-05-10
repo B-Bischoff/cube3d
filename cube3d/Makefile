@@ -27,9 +27,9 @@ SRCS += get_text_pixel.c \
 		add_text_pixel.c \
 
 # Grid
-SRCS +=	init_grid.c \
-		print_grid.c \
+SRCS +=	print_grid.c \
 		set_grid_cell.c \
+		grid_utils.c \
 
 # Mlx utils
 SRCS +=	hooks.c \
@@ -41,6 +41,7 @@ SRCS += fps_counter.c \
 		init_vision.c \
 		floor_and_ceiling.c \
 		return_error.c \
+		player_movement.c \
 
 # Rays
 SRCS += create_rays.c \
@@ -54,6 +55,7 @@ SRCS += parsing.c \
 		map_check.c \
 		description_check.c \
 		print_map.c \
+		get_map.c \
 
 MAIN = main.c
 

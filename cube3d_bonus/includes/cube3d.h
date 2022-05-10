@@ -83,9 +83,6 @@ typedef struct s_data {
 	char		*texture_name[6];
 
 	int			show_map; // Boolean
-
-	t_list		*garbage;
-
 }	t_data;
 
 int			update(t_data *data);
@@ -125,9 +122,6 @@ void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
 void		print_minimap(t_data *data);
 void		player_input(t_data *data);
-void		*calloc_garbage(size_t count, size_t size, t_list **garbage);
-void		add_to_garbage(void *ptr, t_list **garbage);
-void		add_array_to_garbage(void **array, t_list **garbage);
 void		free_all(t_data *data);
 
 // Rays
@@ -139,6 +133,11 @@ double		get_perp_wall_dst(t_ray ray, double dir_angle);
 
 // Parsing
 int			parsing(t_data *data, int argc, char *argv[]);
+int			get_description(t_data *data, int fd);
+int			get_map(t_data *data, int fd, t_list **map);
+int			convert_map_to_int(t_data *data, t_list **map);
+int			check_map_format(t_data *data, t_list **errors);
 int			check_player_pos(t_data *data);
+void		print_map(t_data *data, t_list *errors);
 
 #endif
