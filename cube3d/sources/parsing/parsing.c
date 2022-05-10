@@ -25,6 +25,7 @@ int	parsing(t_data *data, int argc, char *argv[])
 	t_list *errors = NULL;
 	int	fd;
 
+	data->cell_size = 40;
 	init_parsing(data);
 	if (argc != 2)
 		return (print_error("Wrong number of arguments\n"));
@@ -37,6 +38,9 @@ int	parsing(t_data *data, int argc, char *argv[])
 		return (print_error("Get map error\n"));
 	if (convert_map_to_int(data) == 1)
 		return (print_error("Map conversion error\n"));
+	
+	data->width_size = data->cell_size * data->tab_width;
+	data->height_size = data->cell_size * data->tab_height;
 
 	if (check_map_format(data, &errors) == 1)
 	{

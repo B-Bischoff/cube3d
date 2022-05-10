@@ -23,8 +23,7 @@ SRCS += bresenham.c \
 		triangle.c \
 
 # Grid
-SRCS +=	init_grid.c \
-		print_grid.c \
+SRCS +=	print_grid.c \
 		set_grid_cell.c \
 		grid_utils.c \
 
@@ -40,6 +39,8 @@ SRCS += fps_counter.c \
 		return_error.c \
 		minimap.c \
 		player_movement.c \
+		garbage_collector.c \
+		free_cube.c \
 
 # Rays
 SRCS += create_rays.c \

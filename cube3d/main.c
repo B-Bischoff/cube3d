@@ -6,8 +6,6 @@ int main(int argc, char *argv[])
 
 	if (parsing(&data, argc, argv) == 1)
 		exit (1);
-	if (init_grid(&data) == 1) // Free everything instead of exit 1 ??
-		exit (1);
 	if (ft_mlx_init(&data) == 1)
 		exit (1);
 	if (ft_init_vision(&data) == 1)
