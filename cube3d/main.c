@@ -3,8 +3,7 @@
 void	initialize_text(t_data *data)
 {
 	int	i;
-	// int	n;
-
+	
 	i = -1;
 	while (++i < 6)
 	{
@@ -15,10 +14,9 @@ void	initialize_text(t_data *data)
 
 	i = -1;
 	while (++i < data->rays_nb)
-	{
-		data->rays[i].text_buf[0] = calloc(data->win_height, sizeof(unsigned int));
-		data->rays[i].text_buf[1] = calloc(data->win_height, sizeof(unsigned int));
-	}
+		data->rays[i].text_buf = calloc(data->win_height, sizeof(unsigned int));
+
+	data->floor_celling = malloc(sizeof(unsigned int) * data->win_width * data->win_height / 2);
 }
 
 int main(int argc, char *argv[])
@@ -31,6 +29,20 @@ int main(int argc, char *argv[])
 		exit (1);
 	if (ft_init_vision(&data) == 1)
 		exit (1);
+<<<<<<< HEAD
+
+	// Player init
+	data.player.pos.x = data.win_width / 4;
+	data.player.pos.y = data.win_height / 4;
+	data.player.angle = 0.0f;
+	data.player.dir.x = -1;
+	data.player.dir.y = 0;
+	data.plane.x = data.player.pos.x + data.view_dst * data.player.dir.x;
+	data.plane.y = data.player.pos.y + data.view_dst * data.player.dir.y;
+
+
+=======
+>>>>>>> 4a235b11143c3e1dfd726da81346b9a90424187e
 	initialize_text(&data);
 
 	ft_mlx_hooks_and_loop(&data);
