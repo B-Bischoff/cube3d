@@ -23,8 +23,10 @@ void clear_window(t_data *img)
 
 int	ft_mlx_init(t_data *data)
 {
-	data->win_height = data->cell_size * data->tab_height;
-	data->win_width = data->cell_size * data->tab_width;
+	// data->win_height = data->cell_size * data->tab_height;
+	// data->win_width = data->cell_size * data->tab_width;
+	data->win_width = 1600;
+	data->win_height = 900;
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		return (1);
@@ -42,7 +44,8 @@ int	ft_mlx_init(t_data *data)
 
 void	ft_mlx_hooks_and_loop(t_data *data)
 {
-	mlx_hook(data->mlx_win, 2, 1L << 0, key_hook, data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx_win, 4, 1L << 2, mouse_hook, data);
 	mlx_hook(data->mlx_win, 5, 1L << 3, mouse_release, data);
 	mlx_hook(data->mlx_win, 6, 1L << 6, update_mouse_pos, data);

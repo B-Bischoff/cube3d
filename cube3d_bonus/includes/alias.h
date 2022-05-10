@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:00:41 by bbischof          #+#    #+#             */
-/*   Updated: 2022/04/28 10:05:35 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/05/06 10:48:45 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@
 # define KEY_R 15
 # define KEY_O 31
 # define KEY_P 35
+# define KEY_TAB 48
 # define KEY_ESC 53
-# define KEY_UP 125
-# define KEY_DOWN 126
+# define KEY_UP 126
+# define KEY_DOWN 125
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_W 13

@@ -4,7 +4,7 @@ int	init_grid(t_data *data)
 {
 	// int	i;
 
-	data->cell_size = 50;
+	data->cell_size = 30;
 	/*
 	data->tab_height = 50;
 	data->tab_width = 70;
