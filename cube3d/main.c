@@ -8,7 +8,7 @@ void	initialize_text(t_data *data)
 	i = -1;
 	while (++i < 6)
 	{
-		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "../assets/eagle.xpm",
+		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "../assets/purplestone.xpm",
 												&data->text[i].long_img, &data->text[i].lar_img);
 		data->text[i].text_adr = mlx_get_data_addr(data->text[i].text, &data->text[i].bit, &data->text[i].size_line, &data->text[i].endian);
 	}
@@ -35,6 +35,6 @@ int main(int argc, char *argv[])
 
 	ft_mlx_hooks_and_loop(&data);
 
-	return (0);
+	exit (0);
 }
 

@@ -7,7 +7,7 @@ int	update(t_data *data)
 	
 
 	
-	clear_window(data);
+	// clear_window(data);
 	floor_and_ceiling(data);
 
 	set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime

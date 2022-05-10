@@ -63,6 +63,9 @@ int	init_parsing(t_data *data)
 	i = 0;
 	while (i < 6)
 		data->texture_name[i++] = NULL;
+	i = 0;
+	while (i < 200)
+		data->keyboard[i++] = 0;
 	data->map = NULL;
 	data->tab_height = 0;
 	data->tab_width = 0;

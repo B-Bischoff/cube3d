@@ -2,6 +2,10 @@
 
 void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
 {
+	if (tl.y < 0)
+		tl.y = 0;
+	if (br.y > data->win_height)
+		br.y = data->win_height;
 	for (int y = tl.y + 1; y < br.y; y++)
 	{
 		if (y >= 0 && y < data->win_height)
@@ -31,13 +35,6 @@ void	rays_render(t_data *data)
 
 		float line_height = (float)data->win_height / (float)(ray->perp_length);
 		
-<<<<<<< HEAD
-		line_height = 1.0f / ray->perp_length;
-		// dprintf(1, "%lf\n", line_height);
-		line_height *= (double)data->win_height;
-		if (line_height > 1000)
-			line_height = data->win_height;
-=======
 		// double line_height;
 		
 		// line_height = 1.0f / ray->perp_length;
@@ -45,7 +42,6 @@ void	rays_render(t_data *data)
 		// line_height *= (double)data->win_height;
 		// if (line_height > 500)
 		// 	line_height = data->win_height;
->>>>>>> 3ba47e90d177c4ab545873242d17002cbe08c4a7
 		// line_height *= .5f;
 
 		// dprintf(1, "i %d | hit point y %f x %f | length %lf | perp %lf | ", i, ray->hit_point.y, ray->hit_point.x, ray->length, ray->perp_length);
