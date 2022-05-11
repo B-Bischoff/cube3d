@@ -33,6 +33,26 @@ typedef	struct s_player
 	double		angle; // Looking direction
 }	t_player;
 
+typedef struct s_sprite
+{
+	t_vector2_f	pos;
+	// NEED TO ADD SPRITE TEXTURE
+
+	// Might add some life, movements, etc
+}	t_sprite;
+
+
+typedef struct s_text
+{
+	void	*text;
+	int		width_img;
+	int		height_img;
+	char	*text_adr;
+	int		bit;
+	int		size_line;
+	int		endian;
+}	t_text;
+
 typedef struct s_data {
 	// Mlx datas
 	void		*mlx;
@@ -81,8 +101,17 @@ typedef struct s_data {
 
 	// Textures
 	char		*texture_name[6];
+	t_text		*textures;
+
+	// Sprites	
+	int			nb_sprites;
+	t_sprite	*sprites;
+	int			*sprite_order;
+	double		*sprite_dst;
+
 
 	int			show_map; // Boolean
+
 }	t_data;
 
 int			update(t_data *data);
@@ -139,5 +168,9 @@ int			convert_map_to_int(t_data *data, t_list **map);
 int			check_map_format(t_data *data, t_list **errors);
 int			check_player_pos(t_data *data);
 void		print_map(t_data *data, t_list *errors);
+
+// Sprites
+int			sprites_init(t_data *data);
+void		render_sprite(t_data *data);
 
 #endif
