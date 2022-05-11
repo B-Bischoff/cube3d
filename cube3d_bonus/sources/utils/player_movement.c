@@ -25,7 +25,7 @@ void	player_input(t_data *data)
 
 	if (data->keyboard[KEY_E] && !data->prev_keyboard[KEY_E])
 	{
-		// data->prev_keyboard[KEY_E] = 1; // Check if that line can be removed
+		data->prev_keyboard[KEY_E] = 1; // Check if that line can be removed
 		toggle_door(data);
 	}
 
@@ -80,13 +80,11 @@ void	move_forward(t_data *data)
 	// Check collision
 	if (!is_in_map(data, create_vector_d(p_pos->x + new_pos.x, p_pos->y)))
 		p_pos->x += new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y))
+	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
 		p_pos->x += new_pos.x;
-	// else if (data->tab[(int)p_pos->y / data->cell_size][(int)(p_pos->x + new_pos.x) / data->cell_size] != 1)
 	if (!is_in_map(data, create_vector_d(p_pos->x, p_pos->y + new_pos.y)))
 		p_pos->y += new_pos.y;
-	// else if (data->tab[(int)(p_pos->y + new_pos.y) / data->cell_size][(int)p_pos->x / data->cell_size] != 1)
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y))
+	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
 		p_pos->y += new_pos.y;
 }
 
@@ -102,11 +100,11 @@ void	move_backward(t_data *data)
 	// check collision
 	if (!is_in_map(data, create_vector_d(p_pos->x - new_pos.x, p_pos->y)))
 		p_pos->x -= new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x - new_pos.x, p_pos->y))
+	else if (!is_colliding_cell(data, p_pos->x - new_pos.x, p_pos->y, 1))
 		p_pos->x -= new_pos.x;
 	if (!is_in_map(data, create_vector_d(p_pos->x, p_pos->y - new_pos.y)))
 		p_pos->y -= new_pos.y;
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y - new_pos.y))
+	else if (!is_colliding_cell(data, p_pos->x, p_pos->y - new_pos.y, 1))
 		p_pos->y -= new_pos.y;
 }
 
@@ -128,11 +126,11 @@ void	move_left(t_data *data)
 	// Check collision
 	if (!is_in_map(data, create_vector_d(new_pos.x + p_pos->x, p_pos->y))) // If coord is out of tab, increment player pos
 		p_pos->x += new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y))
+	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
 		p_pos->x += new_pos.x;
 	if (!is_in_map(data, create_vector_d(p_pos->x, new_pos.y + p_pos->y)))
 		p_pos->y += new_pos.y;
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y))
+	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
 		p_pos->y += new_pos.y;
 }
 
@@ -155,11 +153,11 @@ void	move_right(t_data *data)
 
 	if (!is_in_map(data, create_vector_d(new_pos.x + p_pos->x, p_pos->y))) // If coord is out of tab, increment player pos
 		p_pos->x += new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y))
+	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
 		p_pos->x += new_pos.x;
 	if (!is_in_map(data, create_vector_d(p_pos->x, new_pos.y + p_pos->y)))
 		p_pos->y += new_pos.y;
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y))
+	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
 		p_pos->y += new_pos.y;
 }
 

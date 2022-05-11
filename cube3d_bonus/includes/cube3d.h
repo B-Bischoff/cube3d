@@ -115,7 +115,7 @@ void		draw_triangle_color(t_data *data, t_vector2_d points[3], int color);
 void		print_grid(t_data *data);
 void		set_grid_cell(t_data *data, int x, int y);
 int			is_in_map(t_data *data, t_vector2_d pos);
-int			is_colliding_cell(t_data *data, float x, float y);
+int			is_colliding_cell(t_data *data, float x, float y, int plain_cell);
 
 // Utils
 void		print_fps(t_data *data);

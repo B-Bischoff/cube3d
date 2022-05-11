@@ -9,7 +9,11 @@ int is_in_map(t_data *data, t_vector2_d pos)
 	return (1);
 }
 
-int		is_colliding_cell(t_data *data, float x, float y)
+/*
+	x & y are the coordinate in world space to check
+	plain_cell is used to differenciate full cell (walls) and half cell (doors)
+*/
+int		is_colliding_cell(t_data *data, float x, float y, int plain_cell)
 {
 	t_vector2_d	cell;
 
@@ -17,6 +21,10 @@ int		is_colliding_cell(t_data *data, float x, float y)
 	if (data->tab[cell.y][cell.x] == 1)
 		return (1);
 	if (data->tab[cell.y][cell.x] == 2)
-		return (1);
+	{
+		if (plain_cell || (int)y % data->cell_size == data->cell_size / 2)
+			return (1);
+	}
 	return (0);
 }
+
