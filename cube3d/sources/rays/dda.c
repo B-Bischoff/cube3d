@@ -8,9 +8,16 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	t_vector2_f side_dist;
 	t_vector2_f	delta_dist;
 
+
+
+
 	(void)ray_index;
 	ray_dir.x = ray_dir.x - data->player.pos.x;
 	ray_dir.y = ray_dir.y - data->player.pos.y;
+
+
+
+
 
 	if (ray_dir.x == 0.0f)
 		delta_dist.x = 1e30; // Large value
@@ -33,7 +40,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	{
 		step.x = 1;
 		side_dist.x = (map.x + 1.0f - data->player.pos.x) * delta_dist.x;
-	}
+	}	
 	if (ray_dir.y < 0)
 	{
 		step.y = -1;
@@ -48,6 +55,10 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 
 	double length = 0.0f;
 	t_vector2_d side_hit;
+
+
+
+
 
 	while (1)
 	{
@@ -92,8 +103,17 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			else
 				ray->side_hit = 2;
 
+			
+			
+			
+			// double camera_x = 2 * (ray_index * 2) / (double)data->win_width - 1;
+			// double ray_drr = data->player.pos.y / (double)data->cell_size + data->planeY * camera_x;
+			// double ray_dr = data->player.pos.x / (double)data->cell_size + data->planeX * camera_x;
+
+			// dprintf(2, "%f   %f\n", ray_drr, ray_dr);
+			
 			double	wall_pos;
-			if (side == 0) 
+			if (side == 0)
 			{
 				wall_pos = (double)((double)map.y / (double)data->cell_size);
 				ray->wall_x = (double)(wall_pos - (int)wall_pos);
@@ -101,7 +121,9 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 				// if (ray_dir.y < 0)
 				// 	ray_dir.y = ray_dir.y * -1;
 
-				// ray->wall_x = ((data->player.pos.y + ray->perp_length) / (double)data->cell_size) * (ray_dir.y / (double)data->cell_size);
+				// ray->wall_x = (data->player.pos.y / (double)data->cell_size + ray->perp_length) * ray_drr;
+				// ray->wall_x -= floor(ray->wall_x);
+				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.y = %f; perp = %f; ray_dir.y = %f; ", ray_index, ray->wall_x, data->player.pos.y, ray->perp_length, ray_dir.y);
 			}
 			else
 			{
@@ -110,7 +132,9 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 				// if (ray_dir.x < 0)
 				// 	ray_dir.x = ray_dir.x * -1;
 
-				// ray->wall_x = ((data->player.pos.x + ray->perp_length) / (double)data->cell_size) * (ray_dir.x / (double)data->cell_size);
+				// ray->wall_x = (data->player.pos.x / (double)data->cell_size + ray->perp_length) * ray_dr;
+				// dprintf(2, "%f\n", ray_dr);
+				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.x = %f; perp = %f; ray_dir.x = %f; ", ray_index, ray->wall_x, data->player.pos.x, ray->perp_length, ray_dir.x);
 			}
 			// ray->wall_x -= floor(ray->wall_x);
 
@@ -120,7 +144,9 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
       		
 			if (side == 1 && ray_dir.y < 0) ray->tex_x = data->text[0].width_img - ray->tex_x - 1;
 
-			dprintf(1, "pos.x = %f; perp: %f; tex_x = %d; ray_dir.x = %f\n", data->player.pos.x, ray->perp_length, ray->tex_x, ray_dir.x);
+			// dprintf(1, "tex_x = %d\n", ray->tex_x);
+
+
 
 
 			return (vector_d_to_f(map));

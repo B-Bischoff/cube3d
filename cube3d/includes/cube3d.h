@@ -98,7 +98,10 @@ typedef struct s_data {
 	// Textures
 	t_text		text[6];
 
-	unsigned int	*floor_celling;		
+	unsigned int	*floor_celling;
+
+	double planeX;
+	double planeY;
 
 }	t_data;
 
