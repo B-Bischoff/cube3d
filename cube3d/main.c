@@ -7,7 +7,7 @@ void	initialize_text(t_data *data)
 	i = -1;
 	while (++i < 6)
 	{
-		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "../assets/azanane.xpm",
+		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "../assets/eagle.xpm",
 												&data->text[i].width_img, &data->text[i].height_img);
 		data->text[i].text_adr = mlx_get_data_addr(data->text[i].text, &data->text[i].bit, &data->text[i].size_line, &data->text[i].endian);
 	}
@@ -37,12 +37,6 @@ int main(int argc, char *argv[])
 	data.player.angle = 0.0f;
 	data.player.dir.x = -1;
 	data.player.dir.y = 0;
-	data.plane.x = data.player.pos.x + data.view_dst * data.player.dir.x;
-	data.plane.y = data.player.pos.y + data.view_dst * data.player.dir.y;
-
-	data.planeX = 0.0;
-	data.planeY = 0.66;
-	dprintf(2, "%f %f\n", data.planeX, data.planeY);
 
 	initialize_text(&data);
 

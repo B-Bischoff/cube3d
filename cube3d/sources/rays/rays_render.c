@@ -8,7 +8,7 @@ void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
 		br.y = data->win_height;
 	for (int y = tl.y + 1; y < br.y; y++)
 	{
-		if (y >= 0 && y < data->win_height)
+		if (ray->text_buf[y] != 255 && y >= 0 && y < data->win_height)
 		{
 			my_mlx_pixel_put(data, x, y, ray->text_buf[y]);
 			my_mlx_pixel_put(data, x + 1, y, ray->text_buf[y]);
@@ -60,8 +60,8 @@ void	rays_render(t_data *data)
 		
 		// dprintf(1, "%f\n", (line_height / data->text[0].width_img));
 		
-		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height};
-		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height};
+		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height / 2};
+		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height / 2};
 		
 		// draw_rect_filled_color(data, tl, br, color);
 		

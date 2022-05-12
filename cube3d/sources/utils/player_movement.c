@@ -99,12 +99,6 @@ void	rotate_left(t_data *data, float coef)
 	double old_dir_x = data->player.dir.x;
 	data->player.dir.x = data->player.dir.x * cos(-rot_speed) - data->player.dir.y * sin(-rot_speed);
 	data->player.dir.y = old_dir_x * sin(-rot_speed) + data->player.dir.y * cos(-rot_speed);
-
-	
-	
-	double old_planeX = data->planeX;
-    data->planeX = data->planeX * cos(-rot_speed) - data->planeY * sin(-rot_speed);
-	data->planeY = old_planeX * sin(-rot_speed) + data->planeY * cos(-rot_speed);
 }
 void	rotate_right(t_data *data, float coef)
 {
@@ -112,10 +106,4 @@ void	rotate_right(t_data *data, float coef)
 	double old_dir_x = data->player.dir.x;
 	data->player.dir.x = data->player.dir.x * cos(rot_speed) - data->player.dir.y * sin(rot_speed);
 	data->player.dir.y = old_dir_x * sin(rot_speed) + data->player.dir.y * cos(rot_speed);
-
-	
-	
-	double old_planeX = data->planeX;
-	data->planeX = data->planeX * cos(rot_speed) - data->planeY * sin(rot_speed);
-    data->planeY = old_planeX * sin(rot_speed) + data->planeY * cos(rot_speed);
 }

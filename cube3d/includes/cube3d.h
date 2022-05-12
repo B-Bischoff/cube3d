@@ -22,8 +22,7 @@ typedef struct s_ray
 	double		angle;
 	int			side_hit; // Which side of the wall was hit : 0 bottom | 1 : left | 2 : top | 3 : right
 
-	double		wall_x; // Where the wall was hit
-	int			tex_x;
+	int			tex_x; // Where the wall was hit
 	unsigned int *text_buf;
 
 }	t_ray;
@@ -99,9 +98,6 @@ typedef struct s_data {
 	t_text		text[6];
 
 	unsigned int	*floor_celling;
-
-	double planeX;
-	double planeY;
 
 }	t_data;
 

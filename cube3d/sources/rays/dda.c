@@ -8,9 +8,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	t_vector2_f side_dist;
 	t_vector2_f	delta_dist;
 
-
-
-
 	(void)ray_index;
 	ray_dir.x = ray_dir.x - data->player.pos.x;
 	ray_dir.y = ray_dir.y - data->player.pos.y;
@@ -103,51 +100,48 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			else
 				ray->side_hit = 2;
 
+			t_vector2_f	plane;
+			plane.x = data->player.dir.x * cos(PI_2) - data->player.dir.y * sin(PI_2);
+			plane.y = data->player.dir.x * sin(PI_2) + data->player.dir.y * cos(PI_2);
+			plane.x *= 0.66f;
+			plane.y *= 0.66f; // Because the field view is 60 degree
 			
+			double camera_x = (double)(2 * (double)ray_index * 2) / (double)data->win_width - 1;
+			double ray_dr_y = data->player.dir.y + plane.y * camera_x;
+			double ray_dr_x = data->player.dir.x + plane.x * camera_x;
 			
-			
-			// double camera_x = 2 * (ray_index * 2) / (double)data->win_width - 1;
-			// double ray_drr = data->player.pos.y / (double)data->cell_size + data->planeY * camera_x;
-			// double ray_dr = data->player.pos.x / (double)data->cell_size + data->planeX * camera_x;
+			// if (ray_dr_x > 1)
+			// 	ray_dr_x = 1;
+			// else if (ray_dr_x < -1)
+			// 	ray_dr_x = -1;
 
-			// dprintf(2, "%f   %f\n", ray_drr, ray_dr);
-			
-			double	wall_pos;
+			// if (ray_dr_y > 1)
+			// 	ray_dr_y = 1;
+			// else if (ray_dr_y < -1)
+			// 	ray_dr_y = -1;
+
+			double wall_x;
 			if (side == 0)
 			{
-				wall_pos = (double)((double)map.y / (double)data->cell_size);
-				ray->wall_x = (double)(wall_pos - (int)wall_pos);
+				// wall_x = (double)((double)map.x / (double)data->cell_size);
 
-				// if (ray_dir.y < 0)
-				// 	ray_dir.y = ray_dir.y * -1;
-
-				// ray->wall_x = (data->player.pos.y / (double)data->cell_size + ray->perp_length) * ray_drr;
-				// ray->wall_x -= floor(ray->wall_x);
-				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.y = %f; perp = %f; ray_dir.y = %f; ", ray_index, ray->wall_x, data->player.pos.y, ray->perp_length, ray_dir.y);
+				wall_x = data->player.pos.y + ray->perp_length * ray_dr_y;
+				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.y = %f; perp = %f; ray_dir.y = %f; ", ray_index, wall_x, data->player.pos.y, ray->perp_length, ray_dir.y);
 			}
 			else
 			{
-				wall_pos = (double)((double)map.x / (double)data->cell_size);
-			    ray->wall_x = (double)(wall_pos - (int)wall_pos);
-				// if (ray_dir.x < 0)
-				// 	ray_dir.x = ray_dir.x * -1;
+				// wall_x = (double)((double)map.x / (double)data->cell_size);
 
-				// ray->wall_x = (data->player.pos.x / (double)data->cell_size + ray->perp_length) * ray_dr;
-				// dprintf(2, "%f\n", ray_dr);
-				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.x = %f; perp = %f; ray_dir.x = %f; ", ray_index, ray->wall_x, data->player.pos.x, ray->perp_length, ray_dir.x);
+				wall_x = data->player.pos.x + ray->perp_length * ray_dr_x;
+				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.x = %f; perp = %f; ray_dir.x = %f; ", ray_index, wall_x, data->player.pos.x, ray->perp_length, ray_dir.x);
 			}
-			// ray->wall_x -= floor(ray->wall_x);
+			wall_x -= floor(wall_x);
 
-			ray->tex_x = (int)(ray->wall_x * (double)data->text[0].width_img);
+			ray->tex_x = (int)(wall_x * (double)data->text[0].width_img);
 
 			if (side == 0 && ray_dir.x > 0) ray->tex_x = data->text[0].width_img - ray->tex_x - 1;
       		
 			if (side == 1 && ray_dir.y < 0) ray->tex_x = data->text[0].width_img - ray->tex_x - 1;
-
-			// dprintf(1, "tex_x = %d\n", ray->tex_x);
-
-
-
 
 			return (vector_d_to_f(map));
 		}
