@@ -10,13 +10,18 @@ void	render_sprite(t_data *data)
 	// WILL NEED TO SORT SPRITES IN data->sprite_order
 
 	t_vector2_f	plane;
-	set_vector_f(&plane, data->plane.x / data->player.pos.x, data->plane.y / data->player.pos.y);
+	plane.x = data->player.dir.x * cos(PI_2) - data->player.dir.y * sin(PI_2);
+	plane.y = data->player.dir.x * sin(PI_2) + data->player.dir.y * cos(PI_2);
+	plane.x *= 0.66f;
+	plane.y *= 0.66f; // Because the field view is 60 degree
+
+	const int slice_width = data->win_width / data->rays_nb;
 
 	for (int i = 0; i < data->nb_sprites; i++)
 	{
 		t_vector2_f	sprite_pos;
-		sprite_pos.x = data->player.pos.x - data->sprites[i].pos.x;
-		sprite_pos.y = data->player.pos.y - data->sprites[i].pos.y;
+		sprite_pos.x = data->sprites[i].pos.x - data->player.pos.x;
+		sprite_pos.y = data->sprites[i].pos.y - data->player.pos.y;
 
 		sprite_pos.x /= data->cell_size;
 		sprite_pos.y /= data->cell_size;
@@ -32,27 +37,28 @@ void	render_sprite(t_data *data)
 
 		int	sprite_height = ft_abs_d((int)(data->win_height / transform.y));
 
+		// Calculating sprite dimensions
 		t_vector2_d	tl, br;
-		tl.y = data->win_height / 2 - sprite_height / 2 + sprite_screen_x;
+		tl.y = data->win_height / 2 - sprite_height / 2;
 		tl.y = ft_clamp_d(tl.y, 0, data->win_height / 2);
-		br.y = data->win_height / 2 + sprite_height / 2 + sprite_screen_x;
+		br.y = data->win_height / 2 + sprite_height / 2;
 		br.y = ft_clamp_d(br.y, data->win_height / 2, data->win_height);
 
 		int	sprite_width = ft_abs_d((int)data->win_height / transform.y);
-		tl.x = data->win_width / 2 - sprite_width;
-		br.x = data->win_width / 2 + sprite_width;
+		tl.x = -sprite_width / 2 + sprite_screen_x;
+		tl.x = ft_clamp_d(tl.x, 0, data->win_width);
+		br.x = sprite_width / 2 + sprite_screen_x;
+		br.x = ft_clamp_d(br.x, 0, data->win_width);
 
-		draw_rect_filled_color(data, tl, br, BLACK);
+		// dprintf(1, "tl : %d %d | br : %d %d\n", tl.x, tl.y, br.x, br.y);
 
-/*
-		for (int stripe = tl.x; stripe < br.x; stripe++)
+		// draw_rect_filled_color(data, tl, br, BLACK);
+		for (int stripe = tl.x; stripe < br.x; stripe += slice_width)
 		{
-			if (transform.y > 0 && stripe > 0 && stripe < data->win_width && transform.y < data->rays[stripe].perp_length)
+			if (transform.y > 0 && (transform.y * 1.33f) < data->rays[(stripe) / 2].perp_length)
 			{
-				dprintf(1, "YES\n");
-				draw_rect_filled_color(data, create_vector_d(stripe, tl.y), create_vector_d(stripe + 2, br.y), BLACK);
+				draw_rect_filled_color(data, create_vector_d(stripe, tl.y), create_vector_d(stripe + slice_width, br.y), WHITE);
 			}
 		}
-*/
 	}
 }

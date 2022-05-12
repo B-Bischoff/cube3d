@@ -16,6 +16,6 @@ int	sprites_init(t_data *data)
 		return (1);
 
 	// Setting sprites position
-	set_vector_f(&data->sprites[0].pos, data->cell_size * 3 + data->cell_size / 2, data->cell_size * 3 + data->cell_size / 2);
+	set_vector_f(&data->sprites[0].pos, data->cell_size * 40 + data->cell_size / 2, data->cell_size * 4 + data->cell_size / 2);
 	return (0);
 }
