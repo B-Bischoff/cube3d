@@ -169,7 +169,8 @@ int			check_map_format(t_data *data, t_list **errors);
 int			check_player_pos(t_data *data);
 void		print_map(t_data *data, t_list *errors);
 
-// Sprites
+// Sprites & Textures
+int			get_text_pix(t_text *text, int x, int y);
 int			sprites_init(t_data *data);
 void		render_sprite(t_data *data);
 

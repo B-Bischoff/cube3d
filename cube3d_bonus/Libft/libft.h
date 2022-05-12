@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azanane <azanane@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:32:51 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/10 10:16:14 by azanane          ###   ########.fr       */
+/*   Updated: 2022/05/12 10:41:48 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,10 @@ void		ft_swap_v2_d(t_vector2_d *a, t_vector2_d *b);
 void		ft_swap_v2_f(t_vector2_f *a, t_vector2_f *b);
 
 // Color
-int			get_r(int color);
-int			get_g(int color);
-int			get_b(int color);
+int			ft_get_r(int color);
+int			ft_get_g(int color);
+int			ft_get_b(int color);
+int			ft_get_t(int color);
 int			create_rgbt(int r, int g, int b, int t);
 int			color_lerp(int color1, int color2, float timestamp);
 int			create_trgb(int t, int r, int g, int b);

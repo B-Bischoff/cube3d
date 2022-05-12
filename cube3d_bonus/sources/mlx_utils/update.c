@@ -39,10 +39,10 @@ int	update(t_data *data)
 	{
 		floor_and_ceiling(data);
 		rays_render(data);
+		render_sprite(data);
 		print_minimap(data);
-	}
 
-	render_sprite(data);
+	}
 
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 

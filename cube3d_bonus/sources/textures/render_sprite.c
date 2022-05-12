@@ -39,10 +39,10 @@ void	render_sprite(t_data *data)
 
 		// Calculating sprite dimensions
 		t_vector2_d	tl, br;
-		tl.y = data->win_height / 2 - sprite_height / 2;
-		tl.y = ft_clamp_d(tl.y, 0, data->win_height / 2);
-		br.y = data->win_height / 2 + sprite_height / 2;
-		br.y = ft_clamp_d(br.y, data->win_height / 2, data->win_height);
+		tl.y = data->win_height / 2 - sprite_height / 2 + data->mouse_move.y;
+		tl.y = ft_clamp_d(tl.y, 0, data->win_height + data->mouse_pos.y);
+		br.y = data->win_height / 2 + sprite_height / 2 + data->mouse_move.y;
+		br.y = ft_clamp_d(br.y, 0, data->win_height + data->mouse_move.y);
 
 		int	sprite_width = ft_abs_d((int)data->win_height / transform.y);
 		tl.x = -sprite_width / 2 + sprite_screen_x;
@@ -50,14 +50,28 @@ void	render_sprite(t_data *data)
 		br.x = sprite_width / 2 + sprite_screen_x;
 		br.x = ft_clamp_d(br.x, 0, data->win_width);
 
-		// dprintf(1, "tl : %d %d | br : %d %d\n", tl.x, tl.y, br.x, br.y);
-
 		// draw_rect_filled_color(data, tl, br, BLACK);
 		for (int stripe = tl.x; stripe < br.x; stripe += slice_width)
 		{
-			if (transform.y > 0 && (transform.y * 1.33f) < data->rays[(stripe) / 2].perp_length)
+			if (transform.y > 0 && (transform.y * 1.33f) < data->rays[(stripe) / slice_width].perp_length)
 			{
-				draw_rect_filled_color(data, create_vector_d(stripe, tl.y), create_vector_d(stripe + slice_width, br.y), WHITE);
+				// draw_rect_filled_color(data, create_vector_d(stripe, tl.y), create_vector_d(stripe + slice_width, br.y), WHITE);
+				
+				float text_factor_y = (float)data->textures[0].height_img / (float)sprite_height;
+				float text_factor_x = (float)data->textures[0].width_img / (float)sprite_width;
+				for (int y = tl.y; y < br.y; y++)
+				{
+					int x_pos = (stripe - tl.x) * text_factor_x;
+					int	y_pos = (y - tl.y) * text_factor_y;
+					// dprintf(1, "factors x %f y %f ------ x %d | y %d\n", text_factor_x, text_factor_y, x_pos, y_pos);
+
+					int color = get_text_pix(&data->textures[0], x_pos, y_pos);
+					if (ft_get_t(color) != 255)
+					{
+						for (int pixel = 0; pixel < slice_width; pixel++)
+							my_mlx_pixel_put(data, stripe + pixel, y, color);
+					}
+				}
 			}
 		}
 	}

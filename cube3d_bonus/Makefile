@@ -59,6 +59,7 @@ SRCS += parsing.c \
 # Textures
 SRCS += render_sprite.c \
 		sprites_init.c \
+		get_text_pixel.c \
 
 OBJS = $(addprefix .objects/, $(SRCS:.c=.o))
 
