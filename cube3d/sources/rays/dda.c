@@ -123,7 +123,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			double wall_x;
 			if (side == 0)
 			{
-				// wall_x = (double)((double)map.x / (double)data->cell_size);
+				// wall_x = (double)((double)map.y / (double)data->cell_size);
 
 				wall_x = data->player.pos.y + ray->perp_length * ray_dr_y;
 				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.y = %f; perp = %f; ray_dir.y = %f; ", ray_index, wall_x, data->player.pos.y, ray->perp_length, ray_dir.y);
@@ -137,11 +137,11 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			}
 			wall_x -= floor(wall_x);
 
-			ray->tex_x = (int)(wall_x * (double)data->text[0].width_img);
+			ray->tex_x = (int)(wall_x * (double)data->text[0].height_img);
 
-			if (side == 0 && ray_dir.x > 0) ray->tex_x = data->text[0].width_img - ray->tex_x - 1;
+			if (side == 0 && ray_dir.x > 0) ray->tex_x = data->text[0].height_img - ray->tex_x - 1;
       		
-			if (side == 1 && ray_dir.y < 0) ray->tex_x = data->text[0].width_img - ray->tex_x - 1;
+			if (side == 1 && ray_dir.y < 0) ray->tex_x = data->text[0].height_img - ray->tex_x - 1;
 
 			return (vector_d_to_f(map));
 		}
