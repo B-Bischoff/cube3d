@@ -33,15 +33,6 @@ typedef	struct s_player
 	double		angle; // Looking direction
 }	t_player;
 
-typedef struct s_sprite
-{
-	t_vector2_f	pos;
-	// NEED TO ADD SPRITE TEXTURE
-
-	// Might add some life, movements, etc
-}	t_sprite;
-
-
 typedef struct s_text
 {
 	void	*text;
@@ -52,6 +43,19 @@ typedef struct s_text
 	int		size_line;
 	int		endian;
 }	t_text;
+
+typedef struct s_sprite
+{
+	t_vector2_f	pos;
+	t_text		*text;
+	int			nb_text;
+
+	float		timer;	// Used to change sprites according to anim_speed
+	float		anim_speed;
+	int			curr_text;
+
+	// Might add some life, movements, etc
+}	t_sprite;
 
 typedef struct s_data {
 	// Mlx datas
@@ -109,6 +113,10 @@ typedef struct s_data {
 	int			*sprite_order;
 	double		*sprite_dst;
 
+	// Animated sprites
+	int				nb_anim_sprites;
+	double			*anim_sprite_dst;
+	int				*anim_sprite_order;
 
 	int			show_map; // Boolean
 
@@ -173,5 +181,6 @@ void		print_map(t_data *data, t_list *errors);
 int			get_text_pix(t_text *text, int x, int y);
 int			sprites_init(t_data *data);
 void		render_sprite(t_data *data);
+void		render_anim_sprite(t_data *data);
 
 #endif
