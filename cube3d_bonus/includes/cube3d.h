@@ -113,11 +113,6 @@ typedef struct s_data {
 	int			*sprite_order;
 	double		*sprite_dst;
 
-	// Animated sprites
-	int				nb_anim_sprites;
-	double			*anim_sprite_dst;
-	int				*anim_sprite_order;
-
 	int			show_map; // Boolean
 
 }	t_data;
