@@ -4,7 +4,6 @@ int	update(t_data *data)
 {
 	clock_gettime(CLOCK_MONOTONIC_RAW, &(data->prev_time)); // Taking time to calculate fps
 
-	floor_and_ceiling(data);
 
 	if (data->mouse_pressed)
 		set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime

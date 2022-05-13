@@ -66,6 +66,11 @@ void	toggle_door(t_data *data)
 	else if (data->tab[cell.y][cell.x] == 3)
 		data->tab[cell.y][cell.x] = 2;
 
+	if (data->tab[cell.y][cell.x] == 4)
+		data->tab[cell.y][cell.x] = 5;
+	else if (data->tab[cell.y][cell.x] == 5)
+		data->tab[cell.y][cell.x] = 4;
+
 }
 
 void	move_forward(t_data *data)

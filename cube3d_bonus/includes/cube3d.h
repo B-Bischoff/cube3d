@@ -33,6 +33,19 @@ typedef	struct s_player
 	double		angle; // Looking direction
 }	t_player;
 
+/*
+	Tab values :
+	-1: Out of map cell
+	0 : Empty cell
+	1 : Wall
+	2 : Horizontal door closed
+	3 : Horizontal door opened
+	4 : Vertical door closed
+	5 : Vertical door opened
+	6 : Barrel sprite
+	7 : Pillar sprite
+	8 : Soldier sprite
+*/
 typedef struct s_data {
 	// Mlx datas
 	void		*mlx;

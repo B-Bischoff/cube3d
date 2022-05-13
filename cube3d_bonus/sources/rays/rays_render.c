@@ -41,7 +41,7 @@ void	rays_render(t_data *data)
 			else
 				color = color_lerp(DARK_GRAY, GREEN, j);
 		}
-		else if (data->tab[ray->cell.y][ray->cell.x] == 2)
+		else if (data->tab[ray->cell.y][ray->cell.x] == 2 || data->tab[ray->cell.y][ray->cell.x] == 4)
 			color = PURPLE;
 		else
 			color = BLACK;
