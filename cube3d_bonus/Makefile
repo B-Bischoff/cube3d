@@ -10,7 +10,8 @@ VPATH = sources/:\
 		sources/mlx_utils/:\
 		sources/utils/:\
 		sources/rays/:\
-		sources/parsing/\
+		sources/parsing/:\
+		sources/textures/\
 
 
 SRCS = main.c 
@@ -54,6 +55,11 @@ SRCS += parsing.c \
 		description_check.c \
 		print_map.c \
 		get_map.c \
+
+# Textures
+SRCS += render_sprite.c \
+		sprites_init.c \
+		get_text_pixel.c \
 
 OBJS = $(addprefix .objects/, $(SRCS:.c=.o))
 
