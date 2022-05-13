@@ -33,6 +33,19 @@ typedef	struct s_player
 	double		angle; // Looking direction
 }	t_player;
 
+/*
+	Tab values :
+	-1: Out of map cell
+	0 : Empty cell
+	1 : Wall
+	2 : Horizontal door closed
+	3 : Horizontal door opened
+	4 : Vertical door closed
+	5 : Vertical door opened
+	6 : Barrel sprite
+	7 : Pillar sprite
+	8 : Soldier sprite
+*/
 typedef struct s_text
 {
 	void	*text;
@@ -87,6 +100,7 @@ typedef struct s_data {
 	// Keyboard
 	// !! Need to change keyboard array system for Linux OS !!
 	int			keyboard[200]; // Each cell correspond to a key state
+	int			prev_keyboard[200]; // Keep in memory the previous states of keyboard
 
 	// Player
 	t_player	player;
@@ -146,6 +160,7 @@ void		draw_triangle_color(t_data *data, t_vector2_d points[3], int color);
 void		print_grid(t_data *data);
 void		set_grid_cell(t_data *data, int x, int y);
 int			is_in_map(t_data *data, t_vector2_d pos);
+int			is_colliding_cell(t_data *data, float x, float y, int plain_cell);
 
 // Utils
 void		print_fps(t_data *data);

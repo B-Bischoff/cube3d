@@ -77,7 +77,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			continue; ;
 		// draw_circle_color(data, map, RED);
 		t_vector2_d	cell = {map.x / data->cell_size, map.y / data->cell_size};
-		if (data->tab[cell.y][cell.x] > 0)
+		if (is_colliding_cell(data, map.x, map.y, 0))
 		{
 			if (side == 0)
 				ray->perp_length = side_dist.x - delta_dist.x;

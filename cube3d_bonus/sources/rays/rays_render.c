@@ -41,8 +41,10 @@ void	rays_render(t_data *data)
 			else
 				color = color_lerp(DARK_GRAY, GREEN, j);
 		}
-		else
+		else if (data->tab[ray->cell.y][ray->cell.x] == 2 || data->tab[ray->cell.y][ray->cell.x] == 4)
 			color = PURPLE;
+		else
+			color = BLACK;
 		
 		t_vector2_d tl = {i * slice_width, (data->win_height / 2 + data->mouse_move.y) - line_height};
 		t_vector2_d br = {i * slice_width + slice_width, (data->win_height / 2 + data->mouse_move.y) + line_height};
