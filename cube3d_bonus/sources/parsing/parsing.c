@@ -41,6 +41,8 @@ int	parsing(t_data *data, int argc, char *argv[])
 
 	if (check_player_pos(data) == 1)
 		return (print_error("Player pos error\n"));
+	if (count_sprites(data) == 1)
+		return (print_error("Sprite couting error\n"));
 
 	if (check_map_format(data, &errors) == 1)
 	{

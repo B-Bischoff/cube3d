@@ -5,6 +5,7 @@
 */
 void	print_grid(t_data *data)
 {
+	// Walls
 	for (int y = 0; y < data->tab_height; y++)
 	{
 		for (int x = 0; x < data->tab_width; x++)
@@ -17,4 +18,8 @@ void	print_grid(t_data *data)
 				draw_rect_filled_color(data, top_left, bot_right, GREEN);
 		}
 	}
+
+	// Sprites
+	for (int i = 0; i < data->nb_sprites; i++)
+		draw_circle_color_radius(data, vector_f_to_d(data->sprites[i].pos), RED, 5);
 }

@@ -8,13 +8,11 @@ int	is_valid_char(char c)
 		return (1);
 	if (c == '0')
 		return (1);
-	if (c == '2')
+	if (c >= '2' && c <= '5') // Doors
 		return (1);
-	if (c == '3')
+	if (c >= '6' && c <= '8') // Sprites
 		return (1);
-	if (c == '4')
-		return (1);
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W') // Player
 		return (1);
 	return (0);
 }

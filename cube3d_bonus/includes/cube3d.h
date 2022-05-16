@@ -191,5 +191,6 @@ void		print_map(t_data *data, t_list *errors);
 int			get_text_pix(t_text *text, int x, int y);
 int			sprites_init(t_data *data);
 void		render_sprite(t_data *data);
+int			count_sprites(t_data *data);
 
 #endif
