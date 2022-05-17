@@ -69,7 +69,6 @@ int	parsing(t_data *data, int argc, char *argv[])
 	dprintf(1, "X : %f Y :%f\n", data->player.pos.x / data->cell_size, data->player.pos.y / data->cell_size);
 	dprintf(1, "Orientation : %f %f\n", data->player.dir.x, data->player.dir.y);
 
-
 	return (0);
 }
 

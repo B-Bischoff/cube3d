@@ -117,9 +117,11 @@ typedef struct s_data {
 	struct		timespec prev_time;
 	double		delta_time;
 
-	// Textures
+	// Textures & colors
 	char		*texture_name[6];
 	t_text		*textures;
+	int			floor_color;
+	int			ceiling_color;
 
 	// Sprites	
 	int			nb_sprites;
@@ -169,7 +171,7 @@ void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
 void		print_minimap(t_data *data);
 void		player_input(t_data *data);
-void		free_all(t_data *data);
+int			free_all(t_data *data);
 
 // Rays
 void		create_rays(t_data *data, t_vector2_f direction);
@@ -188,6 +190,7 @@ int			check_player_pos(t_data *data);
 void		print_map(t_data *data, t_list *errors);
 
 // Sprites & Textures
+int			init_textures(t_data *data);
 int			get_text_pix(t_text *text, int x, int y);
 int			sprites_init(t_data *data);
 void		render_sprite(t_data *data);

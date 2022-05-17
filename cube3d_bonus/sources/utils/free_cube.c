@@ -1,6 +1,6 @@
 #include "cube3d.h"
 
-void	free_all(t_data *data)
+int	free_all(t_data *data)
 {
 	// Map
 	for (int y = 0; y < data->tab_height; y++)
@@ -17,4 +17,6 @@ void	free_all(t_data *data)
 	// Mlx
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	free(data->mlx);
+
+	exit (0);
 }

@@ -49,6 +49,7 @@ void	ft_mlx_hooks_and_loop(t_data *data)
 	mlx_hook(data->mlx_win, 4, 1L << 2, mouse_hook, data);
 	mlx_hook(data->mlx_win, 5, 1L << 3, mouse_release, data);
 	mlx_hook(data->mlx_win, 6, 1L << 6, update_mouse_pos, data);
+	mlx_hook(data->mlx_win, 17, 1L << 0, free_all, data);
 	mlx_loop_hook(data->mlx, update, data);
 	mlx_loop(data->mlx);
 }
