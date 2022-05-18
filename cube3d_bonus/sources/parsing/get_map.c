@@ -24,6 +24,11 @@ int get_map(t_data *data, int fd, t_list **map)
 	int		length;
 
 	buf = get_next_line(fd);
+	while (buf && ft_is_empty_str(buf))
+	{
+		free(buf);
+		buf = get_next_line(fd);
+	}
 	while (buf)
 	{
 		length = ft_strlen(buf);
