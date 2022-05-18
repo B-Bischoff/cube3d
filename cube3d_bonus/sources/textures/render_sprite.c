@@ -10,18 +10,16 @@ void	sort_sprite(t_data *data)
 
 void	render_sprite(t_data *data)
 {
+	if (data->nb_sprites == 0)
+		return ;
+
 	for (int i = 0; i < data->nb_sprites; i++)
 	{
 		data->sprite_order[i] = i;
 		data->sprite_dst[i] = get_vector_f_length_squared(data->player.pos, data->sprites[i].pos);
 	}
-	// for (int i = 0; i < data->nb_sprites; i++)
-		// dprintf(1, "[%d] : %d %f | ", i, data->sprite_order[i], data->sprite_dst[data->sprite_order[i]]);
-	// dprintf(1, "\n");
 	sort_sprite(data);
-	// for (int i = 0; i < data->nb_sprites; i++)
-		// dprintf(1, "[%d] : %d %f | ", i, data->sprite_order[i], data->sprite_dst[data->sprite_order[i]]);
-	// dprintf(1, "\n\n");
+
 
 	t_vector2_f	plane;
 	plane.x = data->player.dir.x * cos(PI_2) - data->player.dir.y * sin(PI_2);

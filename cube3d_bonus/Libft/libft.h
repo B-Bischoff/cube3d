@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:32:51 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/12 10:41:48 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/05/16 10:35:09 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 int			ft_is_empty_str(char *str);
+char		*get_word(char *str);
 
 // Get next line
 int			is_newline_gnl(char *str);

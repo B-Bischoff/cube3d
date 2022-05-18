@@ -41,6 +41,8 @@ int	parsing(t_data *data, int argc, char *argv[])
 
 	if (check_player_pos(data) == 1)
 		return (print_error("Player pos error\n"));
+	if (count_sprites(data) == 1)
+		return (print_error("Sprite couting error\n"));
 
 	if (check_map_format(data, &errors) == 1)
 	{
@@ -66,7 +68,6 @@ int	parsing(t_data *data, int argc, char *argv[])
 	dprintf(1, "----- PLAYER ------\n");
 	dprintf(1, "X : %f Y :%f\n", data->player.pos.x / data->cell_size, data->player.pos.y / data->cell_size);
 	dprintf(1, "Orientation : %f %f\n", data->player.dir.x, data->player.dir.y);
-
 
 	return (0);
 }
