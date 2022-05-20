@@ -54,16 +54,13 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	t_vector2_d side_hit;
 
 
-
-
-
 	while (1)
 	{
 		if (side_dist.x < side_dist.y)
 		{
 			side_dist.x += delta_dist.x;
 			map.x += step.x;
-			length = side_dist.x;
+			length += side_dist.x;
 			side = 0; // Side hit will be equal to : 1 or 3 (meaning, the hit is on the vertical axis)
 			side_hit.x = step.x;
 			side_hit.y = 0;
@@ -72,7 +69,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		{
 			side_dist.y += delta_dist.y;
 			map.y += step.y;
-			length = side_dist.y;
+			length += side_dist.y;
 			side = 1; // Side hit will be equal to : 0 or 2 (meaning, the hit is on the horizontal axis)
 			side_hit.y = step.y;
 			side_hit.x = 0;
@@ -89,6 +86,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 				ray->perp_length = side_dist.x - delta_dist.x;
 			else
 				ray->perp_length = side_dist.y - delta_dist.y; 
+			
 			ray->perp_length *= data->cell_size;
 
 			if (side_hit.x == 1)
@@ -100,44 +98,42 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			else
 				ray->side_hit = 2;
 
-			t_vector2_f	plane;
-			plane.x = data->player.dir.x * cos(PI_2) - data->player.dir.y * sin(PI_2);
-			plane.y = data->player.dir.x * sin(PI_2) + data->player.dir.y * cos(PI_2);
-			plane.x *= 0.66f;
-			plane.y *= 0.66f; // Because the field view is 60 degree
-			
-			double camera_x = (double)(2 * (double)ray_index * 2) / (double)data->win_width - 1;
-			double ray_dr_y = data->player.dir.y + plane.y * camera_x;
-			double ray_dr_x = data->player.dir.x + plane.x * camera_x;
-			
-			// if (ray_dr_x > 1)
-			// 	ray_dr_x = 1;
-			// else if (ray_dr_x < -1)
-			// 	ray_dr_x = -1;
+			double angle = get_angle_f(data->player.pos, ray->hit_point);
 
-			// if (ray_dr_y > 1)
-			// 	ray_dr_y = 1;
-			// else if (ray_dr_y < -1)
-			// 	ray_dr_y = -1;
+			double _angle = PI_2 - angle + data->player.angle;
 
-			double wall_x;
+			t_vector2_f _wall_x = create_vect_f_from_origin(data->player.pos, -angle, ray->perp_length / 2 * data->cell_size * sin(degree_to_radian(90)) / sin(_angle));
+		
 			if (side == 0)
 			{
-				// wall_x = (double)((double)map.y / (double)data->cell_size);
+				_wall_x.y = _wall_x.y - (double)((int)floor(_wall_x.y / (double)data->cell_size) * data->cell_size);
+				_wall_x.y = 1 - _wall_x.y / (double)data->cell_size;
 
-				wall_x = data->player.pos.y + ray->perp_length * ray_dr_y;
-				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.y = %f; perp = %f; ray_dir.y = %f; ", ray_index, wall_x, data->player.pos.y, ray->perp_length, ray_dir.y);
+				ray->tex_x = (int)(_wall_x.y * (double)data->text[0].height_img);
+
+				if (ray_index == 1)
+					dprintf(1, "wall_x %f  tex_x %d\n", _wall_x.y, ray->tex_x);
 			}
 			else
 			{
-				// wall_x = (double)((double)map.x / (double)data->cell_size);
-
-				wall_x = data->player.pos.x + ray->perp_length * ray_dr_x;
-				// dprintf(1, "ray_nb = %d; wall_x = %f; pos.x = %f; perp = %f; ray_dir.x = %f; ", ray_index, wall_x, data->player.pos.x, ray->perp_length, ray_dir.x);
+				_wall_x.x = _wall_x.x - (double)((int)floor(_wall_x.x / (double)data->cell_size) * data->cell_size);
+				_wall_x.x = 1 - _wall_x.x / (double)data->cell_size;
+	
+				ray->tex_x = (int)(_wall_x.x * (double)data->text[0].height_img);
+				
+				if (ray_index == 1)
+					dprintf(1, "wall_x %f  tex_x %d\n", _wall_x.x, ray->tex_x);
 			}
-			wall_x -= floor(wall_x);
 
-			ray->tex_x = (int)(wall_x * (double)data->text[0].height_img);
+			// t_vector2_f	plane;
+			// plane.x = data->player.dir.x * cos(PI_2) - data->player.dir.y * sin(PI_2);
+			// plane.y = data->player.dir.x * sin(PI_2) + data->player.dir.y * cos(PI_2);
+			// plane.x *= 0.66f;
+			// plane.y *= 0.66f; // Because the field view is 60 degree
+			
+			// double camera_x = (double)(2 * (double)ray_index * 2) / (double)data->win_width - 1;
+			// double ray_dr_y = data->player.dir.y + plane.y * camera_x;
+			// double ray_dr_x = data->player.dir.x + plane.x * camera_x;
 
 			if (side == 0 && ray_dir.x > 0) ray->tex_x = data->text[0].height_img - ray->tex_x - 1;
       		

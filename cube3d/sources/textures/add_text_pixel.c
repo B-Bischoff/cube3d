@@ -9,15 +9,15 @@ void	add_text_pix(t_data *data)
 	{
 		int line_height = (double)(data->win_height / data->rays[i].perp_length);
 
-    	double step = 1.0 * data->text[0].height_img / (line_height);
+    	double step = 1.0 * data->text[0].height_img / line_height;
 
-      	int draw_start = (data->win_height >> 1) - line_height / 2;
+      	int draw_start = (data->win_height / 2) - line_height / 2;
 		if (draw_start < 0) draw_start = 0;
 
-    	int draw_end = (data->win_height >> 1) + line_height / 2;
+    	int draw_end = (data->win_height / 2) + line_height / 2;
 		if (draw_end >= data->win_height) draw_end = data->win_height - 1;
 	
-    	double tex_pos = (double)(draw_start - (data->win_height >> 1) + (line_height >> 1)) * step;
+    	double tex_pos = (double)(draw_start - (data->win_height / 2) + (line_height / 2)) * step;
 
 		for (int y = draw_start; y < draw_end; y++)
     	{
