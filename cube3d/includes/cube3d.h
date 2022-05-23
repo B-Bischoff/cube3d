@@ -21,8 +21,8 @@ typedef struct s_ray
 	double		perp_length;
 	double		angle;
 	int			side_hit; // Which side of the wall was hit : 0 bottom | 1 : left | 2 : top | 3 : right
+	t_vector2_f	ray_dir;
 
-	int			tex_x; // Where the wall was hit
 	unsigned int *text_buf;
 
 }	t_ray;

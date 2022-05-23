@@ -1,20 +1,32 @@
 #include "cube3d.h"
 
-void	draw_ray(t_data *data, int x, t_ray *ray, t_vector2_d tl, t_vector2_d br)
+int	get_tex_x(t_data *data, t_ray *ray)
 {
-	if (tl.y < 0)
-		tl.y = 0;
-	if (br.y > data->win_height)
-		br.y = data->win_height;
-	for (int y = tl.y + 1; y < br.y; y++)
+	double _angle = PI_2 - ray->angle + data->player.angle;
+
+	t_vector2_f _wall_x = create_vect_f_from_origin(data->player.pos, -ray->angle, ray->perp_length / 2 * data->cell_size * sin(degree_to_radian(90)) / sin(_angle));
+
+	int	tex_x;
+	if (ray->side_hit == 0)
 	{
-		if (ray->text_buf[y] != 255 && y >= 0 && y < data->win_height)
-		{
-			my_mlx_pixel_put(data, x, y, ray->text_buf[y]);
-			my_mlx_pixel_put(data, x + 1, y, ray->text_buf[y]);
-			ray->text_buf[y] = 0;
-		}
+		_wall_x.y = _wall_x.y - (double)((int)floor(_wall_x.y / (double)data->cell_size) * data->cell_size);
+		_wall_x.y = 1 - _wall_x.y / (double)data->cell_size;
+		tex_x = (int)(_wall_x.y * (double)data->text[0].width_img);
 	}
+	else
+	{
+		_wall_x.x = _wall_x.x - (double)((int)floor(_wall_x.x / (double)data->cell_size) * data->cell_size);
+		_wall_x.x = 1 - _wall_x.x / (double)data->cell_size;
+		tex_x = (int)(_wall_x.x * (double)data->text[0].width_img);
+	}
+
+	if (ray->side_hit == 0 && ray->ray_dir.x > 0)
+		tex_x = data->text[0].width_img - tex_x - 1;
+
+	if (ray->side_hit == 1 && ray->ray_dir.y < 0)
+		tex_x = data->text[0].width_img - tex_x - 1;
+
+	return (tex_x);
 }
 
 void	rays_render(t_data *data)
@@ -23,48 +35,43 @@ void	rays_render(t_data *data)
 
 	slice_width = data->win_width / data->rays_nb;
 
-	for (int i = 0; i < data->rays_nb; i++)
+	for (int x = 0; x < data->rays_nb; x++)
 	{
-		t_ray *ray = &data->rays[i];
+		t_ray *ray = &data->rays[x];
 
 		if (ray->length == -1)
 			continue ;
 
 		float line_height = (float)data->win_height / (float)(ray->perp_length);
 		
-		// double line_height;
-		
-		// line_height = 1.0f / ray->perp_length;
-		// // dprintf(1, "%lf\n", line_height);
-		// line_height *= (double)data->win_height;
-		// if (line_height > 500)
-		// 	line_height = data->win_height;
-		// line_height *= .5f;
+		double step = 1.0 * data->text[0].height_img / line_height;
 
-		// dprintf(1, "i %d | hit point y %f x %f | length %lf | perp %lf | ", i, ray->hit_point.y, ray->hit_point.x, ray->length, ray->perp_length);
-		// dprintf(1, "height %lf %d\n", line_height, (int)line_height);
-		// dprintf(1, "i %d | perp %lf | length %lf | %lf\n", i, ray->perp_length, ray->length, ray->length / ray->perp_length);
+		int draw_start_y = (data->win_height / 2) - line_height / 2;
+		if (draw_start_y < 0)
+			draw_start_y = 0;
 
+		int draw_end_y = (data->win_height / 2) + line_height / 2;
+		if (draw_end_y >= data->win_height) 
+			draw_end_y = data->win_height - 1;
 
-		// float j = ft_inv_lerp_f(10.0f, 75.0f, line_height);
+		t_vector2_d tl = {x * slice_width, draw_start_y};
+		t_vector2_d br = {x * slice_width + slice_width, draw_end_y};
 
-		// int color;
-		// if (ray->side_hit == 0)
-		// 	color = color_lerp(DARK_GRAY, RED, j);
-		// else if (ray->side_hit == 1)
-		// 	color = color_lerp(DARK_GRAY, BLUE, j);
-		// else if (ray->side_hit == 2)
-		// 	color = color_lerp(DARK_GRAY, YELLOW, j);
-		// else
-		// 	color = color_lerp(DARK_GRAY, GREEN, j);
-		
-		// dprintf(1, "%f\n", (line_height / data->text[0].width_img));
-		
-		t_vector2_d tl = {i * slice_width, data->win_height / 2 - line_height / 2};
-		t_vector2_d br = {i * slice_width + slice_width, data->win_height / 2 + line_height / 2};
-		
-		// draw_rect_filled_color(data, tl, br, color);
-		
-		draw_ray(data, i * 2, ray, tl, br);
+		int	tex_x = get_tex_x(data, ray);
+
+		double tex_pos = (double)(tl.y - (data->win_height / 2) + (line_height / 2)) * step;
+
+		for (int y = tl.y + 1; y < br.y; y++)
+		{
+			if (y >= 0 && y < data->win_height)
+			{
+				int tex_y = (int)tex_pos;
+	    		tex_pos += step;
+
+				int color = get_text_pix(&data->text[0], tex_x, tex_y);
+				my_mlx_pixel_put(data, x * 2, y, color);
+				my_mlx_pixel_put(data, x * 2 + 1, y, color);
+			}
+		}	
 	}
 }

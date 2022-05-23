@@ -19,7 +19,7 @@ int	update(t_data *data)
 	create_rays(data, data->player.dir);
 	calculate_collisions(data);
 	// floor_and_ceiling(data);
-	add_text_pix(data);
+	// add_text_pix(data);
 	rays_render(data);
 
 
