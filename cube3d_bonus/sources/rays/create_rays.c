@@ -26,7 +26,8 @@ void	create_rays(t_data *data)
 	{
 		t_vector2_f vector; 
 		vector = vector_f_lerp(perpendicular[0], perpendicular[1], incr * i);
-		// draw_circle_color(data, vector_f_to_d(vector), BLUE);
+		data->rays[data->rays_nb - 1 - i].angle = -get_angle_f(data->player.pos, vector);
+		// draw_circle_color(data, vector_f_to_d(test), BLUE);
 		// bresenham(data, vector_f_to_d(vector), vector_f_to_d(data->player.pos), PURPLE);
 		data->rays[data->rays_nb - 1 - i].hit_point = vector;
 	}
