@@ -174,7 +174,7 @@ void		player_input(t_data *data);
 int			free_all(t_data *data);
 
 // Rays
-void		create_rays(t_data *data, t_vector2_f direction);
+void		create_rays(t_data *data);
 t_vector2_f	dda(t_data *data, t_ray *ray, int ray_index);
 void		calculate_collisions(t_data *data);
 void		rays_render(t_data *data);

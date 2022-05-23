@@ -18,7 +18,7 @@ int	update(t_data *data)
 		draw_circle(data, vector_f_to_d(data->player.pos)); // Player visualization
 	}
 
-	create_rays(data, data->player.dir);
+	create_rays(data);
 	calculate_collisions(data);
 	if (!data->show_map)
 	{

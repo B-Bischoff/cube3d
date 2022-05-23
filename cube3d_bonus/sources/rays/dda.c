@@ -79,6 +79,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		t_vector2_d	cell = {map.x / data->cell_size, map.y / data->cell_size};
 		if (is_colliding_cell(data, map.x, map.y, 0))
 		{
+
 			if (side == 0)
 				ray->perp_length = side_dist.x - delta_dist.x;
 			else
@@ -102,3 +103,4 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	t_vector2_f error = {-1, -1};
 	return (error);
 }
+
