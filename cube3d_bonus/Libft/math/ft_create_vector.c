@@ -23,8 +23,8 @@ t_vector2_d	create_vect_d_from_origin(t_vector2_d origin, double radian, \
 {
 	t_vector2_d	vector;
 
-	vector.x = cos(radian) * length + origin.x;
-	vector.y = sin(radian) * length + origin.y;
+	vector.x = cos(-radian) * length + origin.x;
+	vector.y = sin(-radian) * length + origin.y;
 	return (vector);
 }
 
@@ -33,7 +33,7 @@ t_vector2_f	create_vect_f_from_origin(t_vector2_f origin, double radian, \
 {
 	t_vector2_f	vector;
 
-	vector.x = cos(radian) * length + origin.x;
-	vector.y = sin(radian) * length + origin.y;
+	vector.x = cos(-radian) * length + origin.x;
+	vector.y = sin(-radian) * length + origin.y;
 	return (vector);
 }

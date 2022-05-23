@@ -178,7 +178,6 @@ void		create_rays(t_data *data);
 t_vector2_f	dda(t_data *data, t_ray *ray, int ray_index);
 void		calculate_collisions(t_data *data);
 void		rays_render(t_data *data);
-double		get_perp_wall_dst(t_ray ray, double dir_angle);
 
 // Parsing
 int			parsing(t_data *data, int argc, char *argv[]);

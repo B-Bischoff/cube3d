@@ -47,7 +47,6 @@ SRCS += create_rays.c \
 		dda.c \
 		calculate_collisions.c \
 		rays_render.c \
-		perp_wall_dist.c \
 
 # Parsing
 SRCS += parsing.c \
