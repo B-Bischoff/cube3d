@@ -139,7 +139,7 @@ int			update(t_data *data);
 int			ft_mlx_init(t_data *data);
 void		ft_mlx_hooks_and_loop(t_data *data);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		clear_window(t_data *img);
+void		clear_window(t_data *data);
 
 // Mlx hooks
 int			mouse_hook(int keycode, int x, int y, t_data *data);
@@ -178,7 +178,6 @@ void		create_rays(t_data *data);
 t_vector2_f	dda(t_data *data, t_ray *ray, int ray_index);
 void		calculate_collisions(t_data *data);
 void		rays_render(t_data *data);
-double		get_perp_wall_dst(t_ray ray, double dir_angle);
 
 // Parsing
 int			parsing(t_data *data, int argc, char *argv[]);

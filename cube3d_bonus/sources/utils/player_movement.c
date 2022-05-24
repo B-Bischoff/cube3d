@@ -42,6 +42,8 @@ void	player_input(t_data *data)
 	// Update plane position
 	data->plane.x = data->player.dir.x * data->view_dst + data->player.pos.x;
 	data->plane.y = data->player.dir.y * data->view_dst + data->player.pos.y;
+
+	data->player.angle = get_angle_f(data->player.pos, vector_d_to_f(data->plane));
 }
 
 void	toggle_door(t_data *data)

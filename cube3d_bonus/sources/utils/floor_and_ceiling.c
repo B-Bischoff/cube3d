@@ -2,16 +2,26 @@
 
 void	floor_and_ceiling(t_data *data)
 {
-	t_vector2_d	tl;
-	t_vector2_d	br;
+	int floor_start = data->win_width * (data->win_height / 2 + data->mouse_move.y);
+	int total = data->win_width * data->win_height;
+	int	size = data->bits_per_pixel / 8;
 
-	// Floor
-	set_vector_d(&tl, 0, data->win_height / 2 + data->mouse_move.y);
-	set_vector_d(&br, data->win_width, data->win_height);
-	draw_rect_filled_color(data, tl, br, data->floor_color);
+	// Using my_mlx_pixel_put is slower than directly accessing img address
 
 	// Ceiling
-	set_vector_d(&tl, 0, 0);
-	set_vector_d(&br, data->win_width, data->win_height / 2 + data->mouse_move.y);
-	draw_rect_filled_color(data, tl, br, data->ceiling_color);
+	for (int i = 0; i < floor_start; i++)
+	{
+		if (i >= 0)
+		{
+			char *dst = data->addr + i * size;
+			*(unsigned int *)dst = data->ceiling_color;
+		}
+	}
+	
+	// Floor
+	for (int i = floor_start; i < total; i++)
+	{
+		char *dst = data->addr + i * size;
+		*(unsigned int *)dst = data->floor_color;
+	}
 }

@@ -2,12 +2,9 @@
 
 void	calculate_collisions(t_data *data)
 {
-	int	i;
 	t_vector2_f	res;
 
-	i = 0;
-	data->player.angle = get_angle_f(data->player.pos, vector_d_to_f(data->plane));
-	while (i < data->rays_nb)
+	for (int i = 0; i < data->rays_nb; i++)
 	{
 		res = dda(data, &data->rays[i], i);
 
@@ -25,10 +22,13 @@ void	calculate_collisions(t_data *data)
 			if (data->show_map)
 			{
 				// Setting the vector length to view_dst (to create the "rounded" effect in fov display)
-				t_vector2_f ray_full_dst = create_vect_f_from_origin(data->player.pos, data->rays[i].angle, data->view_dst);
+				t_vector2_f ray_full_dst = create_vect_f_from_origin(
+					data->player.pos,
+					get_angle_f(data->player.pos, data->rays[i].hit_point),
+					data->view_dst
+				);
 				bresenham(data, vector_f_to_d(data->player.pos), vector_f_to_d(ray_full_dst), YELLOW);
 			}
 		}
-		i++;
 	}
 }
