@@ -10,29 +10,24 @@ int	get_tex_x(t_data *data, t_ray *ray)
 
 	int	tex_x;
 
-	int	tex_size = data->text[0].width_img;
-
-	if (data->text[0].width_img > data->text[0].height_img)
-		tex_size = data->text[0].height_img;
-
 	if (ray->side_hit == 1 || ray->side_hit == 3) // Horizontal hit
 	{
 		_wall_x.y = _wall_x.y - (double)((int)floor(_wall_x.y / (double)data->cell_size) * data->cell_size);
 		_wall_x.y = 1 - _wall_x.y / (double)data->cell_size;
-		tex_x = (int)(_wall_x.y * (double)tex_size);
+		tex_x = (int)(_wall_x.y * (double)data->text[0].width_img);
 	}
 	else
 	{
 		_wall_x.x = _wall_x.x - (double)((int)floor(_wall_x.x / (double)data->cell_size) * data->cell_size);
 		_wall_x.x = 1 - _wall_x.x / (double)data->cell_size;
-		tex_x = (int)(_wall_x.x * (double)tex_size);
+		tex_x = (int)(_wall_x.x * (double)data->text[0].width_img);
 	}
 
 	if ((ray->side_hit == 1 || ray->side_hit == 3) && ray->ray_dir.x > 0)
-		tex_x = tex_size - tex_x - 1;
+		tex_x = data->text[0].width_img - tex_x - 1;
 
 	if ((ray->side_hit == 0 || ray->side_hit == 2) && ray->ray_dir.y < 0)
-		tex_x = tex_size - tex_x - 1;
+		tex_x = data->text[0].width_img - tex_x - 1;
 
 	return (tex_x);
 }
