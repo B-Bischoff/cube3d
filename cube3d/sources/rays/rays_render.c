@@ -2,29 +2,37 @@
 
 int	get_tex_x(t_data *data, t_ray *ray)
 {
-	double _angle = PI_2 - ray->angle + data->player.angle;
+	double perp_angle = PI_2 - ray->angle + data->player.angle;
 
-	t_vector2_f _wall_x = create_vect_f_from_origin(data->player.pos, -ray->angle, ray->perp_length / 2 * data->cell_size * sin(degree_to_radian(90)) / sin(_angle));
+	double	hit_length = ray->perp_length / 2 * data->cell_size * sin(degree_to_radian(90)) / sin(perp_angle);
+
+	t_vector2_f _wall_x = create_vect_f_from_origin(data->player.pos, -ray->angle, hit_length);
 
 	int	tex_x;
-	if (ray->side_hit == 0)
+
+	int	tex_size = data->text[0].width_img;
+
+	if (data->text[0].width_img > data->text[0].height_img)
+		tex_size = data->text[0].height_img;
+
+	if (ray->side_hit == 1 || ray->side_hit == 3) // Horizontal hit
 	{
 		_wall_x.y = _wall_x.y - (double)((int)floor(_wall_x.y / (double)data->cell_size) * data->cell_size);
 		_wall_x.y = 1 - _wall_x.y / (double)data->cell_size;
-		tex_x = (int)(_wall_x.y * (double)data->text[0].width_img);
+		tex_x = (int)(_wall_x.y * (double)tex_size);
 	}
 	else
 	{
 		_wall_x.x = _wall_x.x - (double)((int)floor(_wall_x.x / (double)data->cell_size) * data->cell_size);
 		_wall_x.x = 1 - _wall_x.x / (double)data->cell_size;
-		tex_x = (int)(_wall_x.x * (double)data->text[0].width_img);
+		tex_x = (int)(_wall_x.x * (double)tex_size);
 	}
 
-	if (ray->side_hit == 0 && ray->ray_dir.x > 0)
-		tex_x = data->text[0].width_img - tex_x - 1;
+	if ((ray->side_hit == 1 || ray->side_hit == 3) && ray->ray_dir.x > 0)
+		tex_x = tex_size - tex_x - 1;
 
-	if (ray->side_hit == 1 && ray->ray_dir.y < 0)
-		tex_x = data->text[0].width_img - tex_x - 1;
+	if ((ray->side_hit == 0 || ray->side_hit == 2) && ray->ray_dir.y < 0)
+		tex_x = tex_size - tex_x - 1;
 
 	return (tex_x);
 }
@@ -42,6 +50,8 @@ void	rays_render(t_data *data)
 		if (ray->length == -1)
 			continue ;
 
+		int	tex_x = get_tex_x(data, ray);
+
 		float line_height = (float)data->win_height / (float)(ray->perp_length);
 		
 		double step = 1.0 * data->text[0].height_img / line_height;
@@ -57,21 +67,19 @@ void	rays_render(t_data *data)
 		t_vector2_d tl = {x * slice_width, draw_start_y};
 		t_vector2_d br = {x * slice_width + slice_width, draw_end_y};
 
-		int	tex_x = get_tex_x(data, ray);
-
 		double tex_pos = (double)(tl.y - (data->win_height / 2) + (line_height / 2)) * step;
 
-		for (int y = tl.y + 1; y < br.y; y++)
+		for (int y = tl.y; y < br.y; y++)
 		{
 			if (y >= 0 && y < data->win_height)
 			{
 				int tex_y = (int)tex_pos;
-	    		tex_pos += step;
 
 				int color = get_text_pix(&data->text[0], tex_x, tex_y);
 				my_mlx_pixel_put(data, x * 2, y, color);
 				my_mlx_pixel_put(data, x * 2 + 1, y, color);
 			}
+	    	tex_pos += step;
 		}	
 	}
 }

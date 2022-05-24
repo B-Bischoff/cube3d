@@ -23,8 +23,6 @@ typedef struct s_ray
 	int			side_hit; // Which side of the wall was hit : 0 bottom | 1 : left | 2 : top | 3 : right
 	t_vector2_f	ray_dir;
 
-	unsigned int *text_buf;
-
 }	t_ray;
 
 typedef	struct s_player
@@ -125,7 +123,6 @@ void		draw_circle_color(t_data *data, t_vector2_d center, int color);
 
 // Textures functions
 int			get_text_pix(t_text *text, int x, int y);
-void		add_text_pix(t_data *data);
 
 // Grid functions
 void		print_grid(t_data *data);

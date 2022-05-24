@@ -24,7 +24,6 @@ SRCS += bresenham.c \
 
 # Textures
 SRCS += get_text_pixel.c \
-		add_text_pixel.c \
 
 # Grid
 SRCS +=	print_grid.c \

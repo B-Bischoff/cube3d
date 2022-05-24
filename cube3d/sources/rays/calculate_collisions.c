@@ -14,7 +14,6 @@ void	calculate_collisions(t_data *data)
 		if (res.x != -1 && res.y != -1) // Hit
 		{
 			data->rays[i].hit_point = res;
-			data->rays[i].angle = get_angle(vector_f_to_d(data->player.pos), vector_f_to_d(res));
 			data->rays[i].length = get_vector_f_length(data->player.pos, res);
 			bresenham(data, vector_f_to_d(data->player.pos), vector_f_to_d(res), YELLOW);
 		}

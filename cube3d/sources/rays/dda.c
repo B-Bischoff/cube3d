@@ -27,7 +27,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 
 
 	t_vector2_d step;
-	int			side;
 	if (ray->ray_dir.x < 0)
 	{
 		step.x = -1;
@@ -61,7 +60,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			side_dist.x += delta_dist.x;
 			map.x += step.x;
 			length += side_dist.x;
-			side = 0; // Side hit will be equal to : 1 or 3 (meaning, the hit is on the vertical axis)
 			side_hit.x = step.x;
 			side_hit.y = 0;
 		}
@@ -70,7 +68,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			side_dist.y += delta_dist.y;
 			map.y += step.y;
 			length += side_dist.y;
-			side = 1; // Side hit will be equal to : 0 or 2 (meaning, the hit is on the horizontal axis)
 			side_hit.y = step.y;
 			side_hit.x = 0;
 		}
@@ -82,7 +79,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		// draw_circle_color(data, map, RED);
 		if (data->tab[map.y / data->cell_size][map.x / data->cell_size] > 0)
 		{
-			if (side == 0)
+			if (side_hit.y == 0) 
 				ray->perp_length = side_dist.x - delta_dist.x;
 			else
 				ray->perp_length = side_dist.y - delta_dist.y; 
@@ -98,36 +95,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			else
 				ray->side_hit = 2;
 
-			// double angle = get_angle_f(data->player.pos, ray->hit_point);
-
-			// double _angle = PI_2 - angle + data->player.angle;
-
-			// t_vector2_f _wall_x = create_vect_f_from_origin(data->player.pos, -angle, ray->perp_length / 2 * data->cell_size * sin(degree_to_radian(90)) / sin(_angle));
-		
-			// if (side == 0)
-			// {
-			// 	_wall_x.y = _wall_x.y - (double)((int)floor(_wall_x.y / (double)data->cell_size) * data->cell_size);
-			// 	_wall_x.y = 1 - _wall_x.y / (double)data->cell_size;
-
-			// 	ray->tex_x = (int)(_wall_x.y * (double)data->text[0].height_img);
-
-			// 	if (ray_index == 1)
-			// 		dprintf(1, "wall_x %f  tex_x %d\n", _wall_x.y, ray->tex_x);
-			// }
-			// else
-			// {
-			// 	_wall_x.x = _wall_x.x - (double)((int)floor(_wall_x.x / (double)data->cell_size) * data->cell_size);
-			// 	_wall_x.x = 1 - _wall_x.x / (double)data->cell_size;
-	
-			// 	ray->tex_x = (int)(_wall_x.x * (double)data->text[0].height_img);
-				
-			// 	if (ray_index == 1)
-			// 		dprintf(1, "wall_x %f  tex_x %d\n", _wall_x.x, ray->tex_x);
-			// }
-
-			// if (side == 0 && ray->ray_dir.x > 0) ray->tex_x = data->text[0].height_img - ray->tex_x - 1;
-      		
-			// if (side == 1 && ray->ray_dir.y < 0) ray->tex_x = data->text[0].height_img - ray->tex_x - 1;
+			ray->angle = get_angle_f(data->player.pos, ray->hit_point);
 
 			return (vector_d_to_f(map));
 		}
