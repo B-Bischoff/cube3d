@@ -10,14 +10,15 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void clear_window(t_data *img)
+void clear_window(t_data *data)
 {
-	for (int y = 0; y < img->win_height; y++)
+	int total = data->win_width * data->win_height;
+	int	size = data->bits_per_pixel / 8;
+
+	for (int i = 0; i < total; i++)
 	{
-		for (int x = 0; x < img->win_width; x++)
-		{
-			my_mlx_pixel_put(img, x, y, DARK_GRAY);
-		}
+		char *dst = data->addr + i * size;
+		*(unsigned int *)dst = DARK_GRAY;
 	}
 }
 

@@ -139,7 +139,7 @@ int			update(t_data *data);
 int			ft_mlx_init(t_data *data);
 void		ft_mlx_hooks_and_loop(t_data *data);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		clear_window(t_data *img);
+void		clear_window(t_data *data);
 
 // Mlx hooks
 int			mouse_hook(int keycode, int x, int y, t_data *data);

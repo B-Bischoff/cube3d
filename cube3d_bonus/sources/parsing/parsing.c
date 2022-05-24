@@ -21,8 +21,8 @@ int	parsing(t_data *data, int argc, char *argv[])
 	t_list	*errors = NULL;
 	int	fd;
 
-	data->cell_size = 40;
 	init_parsing(data);
+	data->cell_size = 40;
 	if (argc != 2)
 		return (print_error("Wrong number of arguments\n"));
 	fd = open(argv[1], O_RDONLY);	
@@ -84,6 +84,9 @@ int	init_parsing(t_data *data)
 		data->keyboard[i++] = 0;
 	data->tab_height = 0;
 	data->tab_width = 0;
+	data->nb_sprites = 0;
+	data->show_map = 0;
+
 	return (0);
 }
 
