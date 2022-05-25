@@ -21,6 +21,7 @@ typedef struct s_ray
 	double		perp_length;
 	double		angle;
 	int			side_hit;
+	t_vector2_f	ray_dir;
 	
 	// Might add texture, color, etc
 
@@ -45,6 +46,7 @@ typedef	struct s_player
 	6 : Barrel sprite
 	7 : Pillar sprite
 	8 : Soldier sprite
+	9 : Commandant sprite
 */
 typedef struct s_text
 {

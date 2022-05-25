@@ -38,7 +38,7 @@ void	rays_render(t_data *data)
 
 	slice_width = data->win_width / data->rays_nb;
 
-	for (int x = 0; x < data->rays_nb; x++)
+	for (int x = 0; i < data->rays_nb; i++)
 	{
 		t_ray *ray = &data->rays[x];
 
@@ -59,8 +59,8 @@ void	rays_render(t_data *data)
 		if (draw_end_y >= data->win_height) 
 			draw_end_y = data->win_height - 1;
 
-		t_vector2_d tl = {x * slice_width, draw_start_y};
-		t_vector2_d br = {x * slice_width + slice_width, draw_end_y};
+		t_vector2_d tl = {i * slice_width, draw_start_y};
+		t_vector2_d br = {i * slice_width + slice_width, draw_end_y};
 
 		double tex_pos = (double)(tl.y - (data->win_height / 2) + (line_height / 2)) * step;
 
@@ -71,8 +71,8 @@ void	rays_render(t_data *data)
 				int tex_y = (int)tex_pos;
 
 				int color = get_text_pix(&data->text[0], tex_x, tex_y);
-				my_mlx_pixel_put(data, x * 2, y, color);
-				my_mlx_pixel_put(data, x * 2 + 1, y, color);
+				my_mlx_pixel_put(data, i * 2, y, color);
+				my_mlx_pixel_put(data, i * 2 + 1, y, color);
 			}
 	    	tex_pos += step;
 		}	

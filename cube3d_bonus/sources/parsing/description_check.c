@@ -65,7 +65,7 @@ int	format_description(t_data *data, char *str, int *count)
 		*count += 1;
 	}
 	free(id);
-	// dprintf(1, "format description : %d | str : %s\n", error, str);
+	// dprintf(1, "data->texture_name : %s | id : %d\n", data->texture_name[id_value - 1], id_value - 1);
 	return (error);
 }
 
