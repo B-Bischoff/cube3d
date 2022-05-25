@@ -117,9 +117,11 @@ typedef struct s_data {
 	struct		timespec prev_time;
 	double		delta_time;
 
-	// Textures
+	// Textures & colors
 	char		*texture_name[6];
 	t_text		*textures;
+	int			floor_color;
+	int			ceiling_color;
 
 	// Sprites	
 	int			nb_sprites;
@@ -137,7 +139,7 @@ int			update(t_data *data);
 int			ft_mlx_init(t_data *data);
 void		ft_mlx_hooks_and_loop(t_data *data);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		clear_window(t_data *img);
+void		clear_window(t_data *data);
 
 // Mlx hooks
 int			mouse_hook(int keycode, int x, int y, t_data *data);
@@ -169,14 +171,13 @@ void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
 void		print_minimap(t_data *data);
 void		player_input(t_data *data);
-void		free_all(t_data *data);
+int			free_all(t_data *data);
 
 // Rays
-void		create_rays(t_data *data, t_vector2_f direction);
+void		create_rays(t_data *data);
 t_vector2_f	dda(t_data *data, t_ray *ray, int ray_index);
 void		calculate_collisions(t_data *data);
 void		rays_render(t_data *data);
-double		get_perp_wall_dst(t_ray ray, double dir_angle);
 
 // Parsing
 int			parsing(t_data *data, int argc, char *argv[]);
@@ -188,8 +189,10 @@ int			check_player_pos(t_data *data);
 void		print_map(t_data *data, t_list *errors);
 
 // Sprites & Textures
+int			init_textures(t_data *data);
 int			get_text_pix(t_text *text, int x, int y);
 int			sprites_init(t_data *data);
 void		render_sprite(t_data *data);
+int			count_sprites(t_data *data);
 
 #endif

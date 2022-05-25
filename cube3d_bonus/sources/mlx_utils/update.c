@@ -6,9 +6,8 @@ int	update(t_data *data)
 
 	player_input(data);
 
-	if (data->mouse_pressed == 1)
-		set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime
-
+	if (data->mouse_pressed == 1) // TO REMOVE
+		set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime (TO REMOVE)
 
 	if (data->show_map)
 	{
@@ -18,7 +17,7 @@ int	update(t_data *data)
 		draw_circle(data, vector_f_to_d(data->player.pos)); // Player visualization
 	}
 
-	create_rays(data, data->player.dir);
+	create_rays(data);
 	calculate_collisions(data);
 	if (!data->show_map)
 	{

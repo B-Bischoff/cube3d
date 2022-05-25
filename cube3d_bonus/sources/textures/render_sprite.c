@@ -10,18 +10,16 @@ void	sort_sprite(t_data *data)
 
 void	render_sprite(t_data *data)
 {
+	if (data->nb_sprites == 0)
+		return ;
+
 	for (int i = 0; i < data->nb_sprites; i++)
 	{
 		data->sprite_order[i] = i;
 		data->sprite_dst[i] = get_vector_f_length_squared(data->player.pos, data->sprites[i].pos);
 	}
-	// for (int i = 0; i < data->nb_sprites; i++)
-		// dprintf(1, "[%d] : %d %f | ", i, data->sprite_order[i], data->sprite_dst[data->sprite_order[i]]);
-	// dprintf(1, "\n");
 	sort_sprite(data);
-	// for (int i = 0; i < data->nb_sprites; i++)
-		// dprintf(1, "[%d] : %d %f | ", i, data->sprite_order[i], data->sprite_dst[data->sprite_order[i]]);
-	// dprintf(1, "\n\n");
+
 
 	t_vector2_f	plane;
 	plane.x = data->player.dir.x * cos(PI_2) - data->player.dir.y * sin(PI_2);
@@ -86,11 +84,16 @@ void	render_sprite(t_data *data)
 			if (transform.y > 0 && stripe > 0 && stripe < data->win_width - 1 && (transform.y * 1.66f) < data->rays[(stripe) / slice_width].perp_length)
 			{
 				// draw_rect_filled_color(data, create_vector_d(stripe, tl.y), create_vector_d(stripe + slice_width, br.y), WHITE);
-				
+
 				float text_factor_y = sprite->text[sprite->curr_text].height_img / (float)sprite_height;
 				float text_factor_x = sprite->text[sprite->curr_text].width_img / (float)sprite_width;
+
 				for (int y = tl.y; y < br.y; y++)
 				{
+					if (y < 0)
+						y = 0;
+					if (y > data->win_height)
+						break ;
 					int x_pos = (stripe - tl.x) * text_factor_x;
 					int	y_pos = (y - tl.y) * text_factor_y;
 

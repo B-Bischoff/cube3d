@@ -47,7 +47,6 @@ SRCS += create_rays.c \
 		dda.c \
 		calculate_collisions.c \
 		rays_render.c \
-		perp_wall_dist.c \
 
 # Parsing
 SRCS += parsing.c \
@@ -57,7 +56,8 @@ SRCS += parsing.c \
 		get_map.c \
 
 # Textures
-SRCS += render_sprite.c \
+SRCS += init_textures.c	\
+		render_sprite.c \
 		sprites_init.c \
 		get_text_pixel.c \
 

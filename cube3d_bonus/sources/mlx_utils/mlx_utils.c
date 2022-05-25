@@ -10,23 +10,22 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void clear_window(t_data *img)
+void clear_window(t_data *data)
 {
-	for (int y = 0; y < img->win_height; y++)
+	int total = data->win_width * data->win_height;
+	int	size = data->bits_per_pixel / 8;
+
+	for (int i = 0; i < total; i++)
 	{
-		for (int x = 0; x < img->win_width; x++)
-		{
-			my_mlx_pixel_put(img, x, y, DARK_GRAY);
-		}
+		char *dst = data->addr + i * size;
+		*(unsigned int *)dst = DARK_GRAY;
 	}
 }
 
 int	ft_mlx_init(t_data *data)
 {
-	// data->win_height = data->cell_size * data->tab_height;
-	// data->win_width = data->cell_size * data->tab_width;
-	data->win_width = 1200;
-	data->win_height = 800;
+	data->win_width = 1920;
+	data->win_height = 1080;
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		return (1);
@@ -49,6 +48,7 @@ void	ft_mlx_hooks_and_loop(t_data *data)
 	mlx_hook(data->mlx_win, 4, 1L << 2, mouse_hook, data);
 	mlx_hook(data->mlx_win, 5, 1L << 3, mouse_release, data);
 	mlx_hook(data->mlx_win, 6, 1L << 6, update_mouse_pos, data);
+	mlx_hook(data->mlx_win, 17, 1L << 0, free_all, data);
 	mlx_loop_hook(data->mlx, update, data);
 	mlx_loop(data->mlx);
 }
