@@ -5,14 +5,13 @@ void	create_rays(t_data *data)
 	t_vector2_f opposite_vect[2];
 	double angle;
 
-	angle = get_angle(vector_f_to_d(data->player.pos), data->plane);
+	angle = get_angle(vector_f_to_d(data->player.pos), data->player.view_dst_pos);
 
 	int opposite_length = tan(degree_to_radian(data->fov / 2)) * data->view_dst;
 
-	t_vector2_f origin_resized = create_vect_f_from_origin(vector_d_to_f(data->plane), angle, opposite_length);
-	draw_circle_color(data, vector_f_to_d(origin_resized), YELLOW);
-	opposite_vect[0] = create_vect_f_from_origin(vector_d_to_f(data->plane), angle + PI_2, opposite_length);
-	opposite_vect[1] = create_vect_f_from_origin(vector_d_to_f(data->plane), angle - PI_2, opposite_length);
+	// draw_circle_color(data, vector_f_to_d(origin_resized), YELLOW);
+	opposite_vect[0] = create_vect_f_from_origin(vector_d_to_f(data->player.view_dst_pos), angle + PI_2, opposite_length);
+	opposite_vect[1] = create_vect_f_from_origin(vector_d_to_f(data->player.view_dst_pos), angle - PI_2, opposite_length);
 
 	draw_circle_color(data, vector_f_to_d(opposite_vect[0]), RED);
 	draw_circle_color(data, vector_f_to_d(opposite_vect[1]), BLUE);

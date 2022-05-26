@@ -30,6 +30,7 @@ typedef struct s_ray
 typedef	struct s_player
 {
 	t_vector2_f	pos;
+	t_vector2_d	view_dst_pos;
 	t_vector2_f	dir;
 	double		angle; // Looking direction
 }	t_player;
@@ -108,7 +109,6 @@ typedef struct s_data {
 	t_player	player;
 
 	// Vision properties
-	t_vector2_d	plane;
 	int			view_dst;
 	int			fov; // Degree
 	int			rays_nb;
