@@ -17,7 +17,7 @@ void	calculate_collisions(t_data *data)
 		}
 		else
 		{
-			data->rays[i].length = -1;
+			data->rays[i].perp_length = -1;
 			if (data->show_map)
 			{
 				// Setting the vector length to view_dst (to create the "rounded" effect in fov display)
