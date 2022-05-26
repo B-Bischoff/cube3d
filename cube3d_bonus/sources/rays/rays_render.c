@@ -43,7 +43,7 @@ void	rays_render(t_data *data)
 	{
 		t_ray *ray = &data->rays[i];
 
-		if (ray->length == -1)
+		if (ray->perp_length == -1)
 			continue;
 
 		t_text *texture;
