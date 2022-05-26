@@ -34,7 +34,11 @@ int	parsing(t_data *data, int argc, char *argv[])
 		return (print_error("Get map error\n"));
 	close(fd);
 	if (convert_map_to_int(data, &map) == 1)
+	{
+		ft_lstclear(&map, free);
 		return (print_error("Map conversion error\n"));
+	}
+	ft_lstclear(&map, free);
 	
 	data->width_size = data->cell_size * data->tab_width;
 	data->height_size = data->cell_size * data->tab_height;
@@ -45,10 +49,10 @@ int	parsing(t_data *data, int argc, char *argv[])
 	if (check_map_format(data, &errors) == 1)
 	{
 		print_map(data, errors);
+		ft_lstclear(&errors, free);
 		return (print_error("Map format error\n"));
 	}
 	print_map(data, errors);
-	ft_lstclear(&map, free);
 	ft_lstclear(&errors, free);
 
 	dprintf(1, "number of line : %d\n", data->tab_height);

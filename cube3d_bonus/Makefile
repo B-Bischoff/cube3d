@@ -56,7 +56,7 @@ SRCS += parsing.c \
 		get_map.c \
 
 # Textures
-SRCS += init_textures.c	\
+SRCS += init_textures.c \
 		render_sprite.c \
 		sprites_init.c \
 		get_text_pixel.c \

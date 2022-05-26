@@ -36,7 +36,7 @@ void	player_input(t_data *data)
 
 	data->show_map = data->keyboard[KEY_TAB];
 
-	// Resest mouse movement
+	// Reset mouse movement
 	data->mouse_move.x = 0;
 
 	// Update plane position

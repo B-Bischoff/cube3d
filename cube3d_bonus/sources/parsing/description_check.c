@@ -41,7 +41,6 @@ int	get_description(t_data *data, int fd)
 	}
 	if (buf)
 		free(buf);
-	dprintf(1, "count : %d\n", count);
 	if (count < 6)
 		return (print_error("Texture indication missing\n"));
 	return (0);
@@ -65,7 +64,7 @@ int	format_description(t_data *data, char *str, int *count)
 		*count += 1;
 	}
 	free(id);
-	// dprintf(1, "format description : %d | str : %s\n", error, str);
+	// dprintf(1, "data->texture_name : %s | id : %d\n", data->texture_name[id_value - 1], id_value - 1);
 	return (error);
 }
 

@@ -22,8 +22,8 @@ int	parsing(t_data *data, int argc, char *argv[])
 	t_list	*errors = NULL;
 	int	fd;
 
-	init_parsing(data);
 	data->cell_size = 40;
+	init_parsing(data);
 	if (argc != 2)
 		return (print_error("Wrong number of arguments\n"));
 	if (check_file_extension(argv[1]) == 1)
@@ -42,11 +42,13 @@ int	parsing(t_data *data, int argc, char *argv[])
 		return (print_error("Map conversion error\n"));
 	}
 
+	ft_lstclear(&map, free);
 	data->width_size = data->cell_size * data->tab_width;
 	data->height_size = data->cell_size * data->tab_height;
 
 	if (check_player_pos(data) == 1)
 		return (print_error("Player pos error\n"));
+
 	if (count_sprites(data) == 1)
 		return (print_error("Sprite couting error\n"));
 
@@ -57,7 +59,6 @@ int	parsing(t_data *data, int argc, char *argv[])
 		return (print_error("Map format error\n"));
 	}
 	print_map(data, errors);
-	ft_lstclear(&map, free);
 	ft_lstclear(&errors, free);
 
 	// Print logs :

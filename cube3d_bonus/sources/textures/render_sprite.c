@@ -48,7 +48,7 @@ void	render_sprite(t_data *data)
 		int	sprite_screen_x;
 		sprite_screen_x = (int)((data->win_width / 2) * (1 + transform.x / transform.y));
 
-		int	sprite_height = ft_abs_d((int)(data->win_height / transform.y));
+		int	sprite_height = ft_abs_d((int)(data->win_height / (transform.y * 1.5f)));
 
 		// Calculating sprite dimensions
 		t_vector2_d	tl, br;
@@ -81,8 +81,11 @@ void	render_sprite(t_data *data)
 		// Drawing texture on the screen
 		for (int stripe = tl.x; stripe < br.x; stripe += slice_width)
 		{
-			if (transform.y > 0 && stripe > 0 && stripe < data->win_width - 1 && (transform.y * 1.66f) < data->rays[(stripe) / slice_width].perp_length)
+			if (transform.y > 0 && stripe > 0 && stripe < data->win_width - 1 && (transform.y * 1.66f < data->rays[stripe / slice_width].perp_length || data->rays[stripe / slice_width].perp_length == -1))
 			{
+				if (get_vector_f_length_squared(data->player.pos, sprite->pos) > data->view_dst * data->view_dst)
+					break ;
+
 				// draw_rect_filled_color(data, create_vector_d(stripe, tl.y), create_vector_d(stripe + slice_width, br.y), WHITE);
 
 				float text_factor_y = sprite->text[sprite->curr_text].height_img / (float)sprite_height;

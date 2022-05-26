@@ -21,10 +21,7 @@ typedef struct s_ray
 	double		perp_length;
 	double		angle;
 	int			side_hit; // Which side of the wall was hit : 0 bottom | 1 : left | 2 : top | 3 : right
-
-	double		wall_x; // Where the wall was hit 
-	double		wall_x_2;
-	unsigned int *text_buf;
+	t_vector2_f	ray_dir;
 
 }	t_ray;
 
@@ -38,8 +35,8 @@ typedef	struct s_player
 typedef struct s_text
 {
 	void	*text;
-	int		long_img;
-	int		lar_img;
+	int		width_img;
+	int		height_img;
 	char	*text_adr;
 	int		bit;
 	int		size_line;
@@ -94,11 +91,14 @@ typedef struct s_data {
 
 	// Textures
 	char		*texture_name[6];
+	t_text		*textures;
+	int			floor_color;
+	int			ceiling_color;
 
 	// Textures
 	t_text		text[6];
 
-	unsigned int	*floor_celling;		
+	unsigned int	*floor_celling;
 
 }	t_data;
 
@@ -125,8 +125,9 @@ void		draw_circle(t_data *data, t_vector2_d center);
 void		draw_circle_color(t_data *data, t_vector2_d center, int color);
 
 // Textures functions
+int			init_text(t_data *data);
+int			init_floor_and_ceiling(t_data *data);
 int			get_text_pix(t_text *text, int x, int y);
-void		add_text_pix(t_data *data);
 
 // Grid functions
 void		print_grid(t_data *data);
@@ -139,9 +140,10 @@ int			ft_init_vision(t_data *data);
 void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
 void		player_input(t_data *data);
+int			free_all(t_data *data);
 
 // Rays
-void		create_rays(t_data *data, t_vector2_f direction);
+void		create_rays(t_data *data);
 t_vector2_f	dda(t_data *data, t_ray *ray, int ray_index);
 void		calculate_collisions(t_data *data);
 void		rays_render(t_data *data);

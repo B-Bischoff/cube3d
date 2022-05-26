@@ -21,6 +21,7 @@ typedef struct s_ray
 	double		perp_length;
 	double		angle;
 	int			side_hit;
+	t_vector2_f	ray_dir;
 	
 	// Might add texture, color, etc
 
@@ -46,6 +47,7 @@ typedef	struct s_player
 	6 : Barrel sprite
 	7 : Pillar sprite
 	8 : Soldier sprite
+	9 : Commandant sprite
 */
 typedef struct s_text
 {
@@ -189,7 +191,8 @@ int			check_player_pos(t_data *data);
 void		print_map(t_data *data, t_list *errors);
 
 // Sprites & Textures
-int			init_textures(t_data *data);
+int			init_text(t_data *data);
+int			init_floor_and_ceiling(t_data *data);
 int			get_text_pix(t_text *text, int x, int y);
 int			sprites_init(t_data *data);
 void		render_sprite(t_data *data);

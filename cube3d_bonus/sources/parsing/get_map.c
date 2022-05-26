@@ -10,7 +10,7 @@ int	is_valid_char(char c)
 		return (1);
 	if (c >= '2' && c <= '5') // Doors
 		return (1);
-	if (c >= '6' && c <= '8') // Sprites
+	if (c >= '6' && c <= '9') // Sprites
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W') // Player
 		return (1);
