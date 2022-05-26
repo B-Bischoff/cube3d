@@ -34,8 +34,17 @@ int	convert_colors_to_int(char *str_color)
 	i = 0;
 	while (tab[i])
 	{
+		int j = 0;
+		while (tab[i][j] == ' ')
+			j++;
 		if (i < 3)
 		{
+			while (tab[i][j])
+			{
+				if (ft_isdigit(tab[i][j]) == 0)
+					error = 1;
+				j++;
+			}
 			color[i] = ft_atoi(tab[i]);
 			if (color[i] < 0 || color[i] > 255)
 				error = 1;

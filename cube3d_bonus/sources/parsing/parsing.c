@@ -100,8 +100,8 @@ int	init_parsing(t_data *data)
 int	check_file_extension(char *str)
 {
 	int length = ft_strlen(str);
-	
-	if (length <= 4)
+
+	if (length <= 4 || str[length - 5] == '/')
 		return (1);
 	if (ft_strncmp(str + length - 4, ".cub", 4))
 		return (1);

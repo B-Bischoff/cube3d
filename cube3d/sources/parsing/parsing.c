@@ -1,5 +1,8 @@
 #include "cube3d.h"
 
+int	check_file_extension(char *str);
+int	init_parsing(t_data *data);
+
 int	init_parsing(t_data *data);
 
 /*
@@ -25,6 +28,8 @@ int	parsing(t_data *data, int argc, char *argv[])
 	init_parsing(data);
 	if (argc != 2)
 		return (print_error("Wrong number of arguments\n"));
+	if (check_file_extension(argv[1]) == 1)
+		return (print_error("Wrong file extension"));
 	fd = open(argv[1], O_RDONLY);	
 	if (fd == -1)
 		return (print_error("Map opening error\n"));
@@ -75,3 +80,15 @@ int	init_parsing(t_data *data)
 	data->tab_width = 0;
 	return (0);
 }
+
+int	check_file_extension(char *str)
+{
+	int length = ft_strlen(str);
+
+	if (length <= 4 || str[length - 5] == '/')
+		return (1);
+	if (ft_strncmp(str + length - 4, ".cub", 4))
+		return (1);
+	return (0);
+}
+
