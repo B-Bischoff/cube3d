@@ -94,8 +94,8 @@ void	rays_render(t_data *data)
 						color = color_lerp(BLACK, color, j);
 
 			
-				my_mlx_pixel_put(data, i * 2, y, color);
-				my_mlx_pixel_put(data, i * 2 + 1, y, color);
+				for (int stripe = tl.x; stripe < br.x; stripe++)	
+					my_mlx_pixel_put(data, stripe, y, color);
 
 			}
 	    	tex_pos += step;
