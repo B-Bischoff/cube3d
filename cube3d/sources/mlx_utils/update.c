@@ -6,7 +6,8 @@ int	update(t_data *data)
 
 	player_input(data);
 
-	clear_window(data);
+	// clear_window(data);
+	floor_and_ceiling(data);
 
 	// set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime
 	// print_grid(data); // Show walls
@@ -17,7 +18,7 @@ int	update(t_data *data)
 
 	
 	// floor_and_ceiling(data);
-	create_rays(data, data->player.dir);
+	create_rays(data);
 	calculate_collisions(data);
 	rays_render(data);
 

@@ -60,22 +60,6 @@ void	rays_render(t_data *data)
 		float j = ft_inv_lerp_f(10.0f, 100.0f, line_height);
 
 		int color;
-		// if (data->tab[ray->cell.y][ray->cell.x] == 1)
-		// {
-		// 	if (ray->side_hit == 0)
-		// 		color = color_lerp(DARK_GRAY, RED, j);
-		// 	else if (ray->side_hit == 1)
-		// 		color = color_lerp(DARK_GRAY, BLUE, j);
-		// 	else if (ray->side_hit == 2)
-		// 		color = color_lerp(DARK_GRAY, YELLOW, j);
-		// 	else
-		// 		color = color_lerp(DARK_GRAY, GREEN, j);
-		// }
-		// if (data->tab[ray->cell.y][ray->cell.x] == 2 || data->tab[ray->cell.y][ray->cell.x] == 4)
-		// 	color = PURPLE;
-		// else
-		// 	color = BLACK;
-	
 		double step = 1.0 * texture->height_img / line_height;
 
 		int draw_start_y = (data->win_height / 2) - line_height / 2;

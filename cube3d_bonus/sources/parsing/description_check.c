@@ -41,7 +41,6 @@ int	get_description(t_data *data, int fd)
 	}
 	if (buf)
 		free(buf);
-	dprintf(1, "count : %d\n", count);
 	if (count < 6)
 		return (print_error("Texture indication missing\n"));
 	return (0);

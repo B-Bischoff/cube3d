@@ -12,10 +12,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	ray->ray_dir.x = ray->ray_dir.x - data->player.pos.x;
 	ray->ray_dir.y = ray->ray_dir.y - data->player.pos.y;
 
-
-
-
-
 	if (ray->ray_dir.x == 0.0f)
 		delta_dist.x = 1e30; // Large value
 	else
@@ -24,7 +20,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		delta_dist.y = 1e30; // Large value
 	else
 		delta_dist.y = ft_abs_f(1.0f / ray->ray_dir.y);
-
 
 	t_vector2_d step;
 	if (ray->ray_dir.x < 0)
@@ -47,7 +42,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		step.y = 1;
 		side_dist.y = (map.y + 1.0f - data->player.pos.y) * delta_dist.y;
 	}
-
 
 	double length = 0.0f;
 	t_vector2_d side_hit;
@@ -83,7 +77,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 				ray->perp_length = side_dist.x - delta_dist.x;
 			else
 				ray->perp_length = side_dist.y - delta_dist.y; 
-			
 			ray->perp_length *= data->cell_size;
 
 			if (side_hit.x == 1)

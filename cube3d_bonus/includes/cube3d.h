@@ -191,7 +191,8 @@ int			check_player_pos(t_data *data);
 void		print_map(t_data *data, t_list *errors);
 
 // Sprites & Textures
-int			init_textures(t_data *data);
+int			init_text(t_data *data);
+int			init_floor_and_ceiling(t_data *data);
 int			get_text_pix(t_text *text, int x, int y);
 int			sprites_init(t_data *data);
 void		render_sprite(t_data *data);

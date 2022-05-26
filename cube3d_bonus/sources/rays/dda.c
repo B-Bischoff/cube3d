@@ -1,6 +1,5 @@
 #include "cube3d.h"
 
-
 t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 {
 	ray->ray_dir = ray->hit_point;
@@ -21,7 +20,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		delta_dist.y = 1e30; // Large value
 	else
 		delta_dist.y = ft_abs_f(1.0f / ray->ray_dir.y);
-
 
 	t_vector2_d step;
 	int			side;
@@ -45,7 +43,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		step.y = 1;
 		side_dist.y = (map.y + 1.0f - data->player.pos.y) * delta_dist.y;
 	}
-
 
 	double length = 0.0f;
 	t_vector2_d side_hit;

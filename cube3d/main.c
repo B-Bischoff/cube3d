@@ -1,18 +1,5 @@
 #include "cube3d.h"
 
-void	initialize_text(t_data *data)
-{
-	int	i;
-	
-	i = -1;
-	while (++i < 6)
-	{
-		data->text[i].text = mlx_xpm_file_to_image(data->mlx, "../assets/purplestone.xpm",
-												&data->text[i].width_img, &data->text[i].height_img);
-		data->text[i].text_adr = mlx_get_data_addr(data->text[i].text, &data->text[i].bit, &data->text[i].size_line, &data->text[i].endian);
-	}
-}
-
 int main(int argc, char *argv[])
 {
 	t_data	data;
@@ -23,6 +10,10 @@ int main(int argc, char *argv[])
 		exit (1);
 	if (ft_init_vision(&data) == 1)
 		exit (1);
+	if (init_floor_and_ceiling(&data) == 1)
+		exit (1);
+	if (init_text(&data) == 1)
+		exit (1);
 
 	// Player init
 
@@ -31,8 +22,6 @@ int main(int argc, char *argv[])
 	data.player.angle = 0.0f;
 	data.player.dir.x = -1;
 	data.player.dir.y = 0;
-
-	initialize_text(&data);
 
 	ft_mlx_hooks_and_loop(&data);
 

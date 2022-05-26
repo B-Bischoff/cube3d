@@ -24,6 +24,7 @@ SRCS += bresenham.c \
 
 # Textures
 SRCS += get_text_pixel.c \
+		init_textures.c \
 
 # Grid
 SRCS +=	print_grid.c \
@@ -41,6 +42,7 @@ SRCS += fps_counter.c \
 		floor_and_ceiling.c \
 		return_error.c \
 		player_movement.c \
+		free_cube.c \
 
 # Rays
 SRCS += create_rays.c \

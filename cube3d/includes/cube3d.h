@@ -91,6 +91,9 @@ typedef struct s_data {
 
 	// Textures
 	char		*texture_name[6];
+	t_text		*textures;
+	int			floor_color;
+	int			ceiling_color;
 
 	// Textures
 	t_text		text[6];
@@ -122,6 +125,8 @@ void		draw_circle(t_data *data, t_vector2_d center);
 void		draw_circle_color(t_data *data, t_vector2_d center, int color);
 
 // Textures functions
+int			init_text(t_data *data);
+int			init_floor_and_ceiling(t_data *data);
 int			get_text_pix(t_text *text, int x, int y);
 
 // Grid functions
@@ -135,9 +140,10 @@ int			ft_init_vision(t_data *data);
 void		floor_and_ceiling(t_data *data);
 int			print_error(char *str);
 void		player_input(t_data *data);
+int			free_all(t_data *data);
 
 // Rays
-void		create_rays(t_data *data, t_vector2_f direction);
+void		create_rays(t_data *data);
 t_vector2_f	dda(t_data *data, t_ray *ray, int ray_index);
 void		calculate_collisions(t_data *data);
 void		rays_render(t_data *data);
