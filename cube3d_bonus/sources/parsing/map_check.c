@@ -139,7 +139,7 @@ int	count_sprites(t_data *data)
 		for (int x = 0; x < data->tab_width; x++)
 		{
 			int c = data->tab[y][x];
-			if (c >= 6 && c <= 8)
+			if (c >= 6 && c <= 9)
 				data->nb_sprites += 1;
 		}
 	}

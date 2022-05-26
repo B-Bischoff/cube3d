@@ -9,9 +9,9 @@ int	get_text_pix(t_text *text, int x, int y)
 		dprintf(1, "Invalid texture pointer\n");
 		return (0);
 	}
-	if (x < 0 || x > text->lar_img || y < 0 || y > text->long_img)
+	if (x < 0 || x > text->width_img || y < 0 || y > text->height_img)
 	{
-		dprintf(1, "Invalid texture coordinate\n");
+		// dprintf(1, "Invalid texture coordinate\n");
 		return (0);
 	}
 	color = (*(int *)(text->text_adr + (x * text->bit / 8) + (y * text->size_line)));

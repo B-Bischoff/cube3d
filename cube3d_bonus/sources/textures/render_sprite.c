@@ -48,7 +48,7 @@ void	render_sprite(t_data *data)
 		int	sprite_screen_x;
 		sprite_screen_x = (int)((data->win_width / 2) * (1 + transform.x / transform.y));
 
-		int	sprite_height = ft_abs_d((int)(data->win_height / transform.y));
+		int	sprite_height = ft_abs_d((int)(data->win_height / (transform.y * 1.5f)));
 
 		// Calculating sprite dimensions
 		t_vector2_d	tl, br;
