@@ -1,6 +1,7 @@
 #include "cube3d.h"
 
 int	init_parsing(t_data *data);
+int	check_file_extension(char *str);
 
 /*
 	textures name are stored in data->texture_name
@@ -25,6 +26,8 @@ int	parsing(t_data *data, int argc, char *argv[])
 	data->cell_size = 40;
 	if (argc != 2)
 		return (print_error("Wrong number of arguments\n"));
+	if (check_file_extension(argv[1]) == 1)
+		return (print_error("Wrong file extension"));
 	fd = open(argv[1], O_RDONLY);	
 	if (fd == -1)
 		return (print_error("Map opening error\n"));
@@ -34,7 +37,10 @@ int	parsing(t_data *data, int argc, char *argv[])
 		return (print_error("Get map error\n"));
 	close(fd);
 	if (convert_map_to_int(data, &map) == 1)
+	{
+		ft_lstclear(&map, free);
 		return (print_error("Map conversion error\n"));
+	}
 
 	data->width_size = data->cell_size * data->tab_width;
 	data->height_size = data->cell_size * data->tab_height;
@@ -90,3 +96,13 @@ int	init_parsing(t_data *data)
 	return (0);
 }
 
+int	check_file_extension(char *str)
+{
+	int length = ft_strlen(str);
+	
+	if (length <= 4)
+		return (1);
+	if (ft_strncmp(str + length - 4, ".cub", 4))
+		return (1);
+	return (0);
+}

@@ -19,6 +19,8 @@ int	initialize_text(t_data *data)
 	data->textures = malloc(sizeof(t_text) * 6);
 	if (data->textures == NULL)
 		return (1);
+	
+
 	error |= load_texture(data, &data->textures[0], "../assets/barrel.xpm");
 	error |= load_texture(data, &data->textures[1], "../assets/pillar.xpm");
 
@@ -27,6 +29,8 @@ int	initialize_text(t_data *data)
 	error |= load_texture(data, &data->textures[3], "../assets/mguard/mguard_w2_1.xpm");
 	error |= load_texture(data, &data->textures[4], "../assets/mguard/mguard_w3_1.xpm");
 	error |= load_texture(data, &data->textures[5], "../assets/mguard/mguard_w4_1.xpm");
+	if (error)
+		dprintf(1, "Texture loading error\n");
 	return (error);
 }
 

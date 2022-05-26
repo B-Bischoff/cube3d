@@ -40,10 +40,10 @@ void	player_input(t_data *data)
 	data->mouse_move.x = 0;
 
 	// Update plane position
-	data->plane.x = data->player.dir.x * data->view_dst + data->player.pos.x;
-	data->plane.y = data->player.dir.y * data->view_dst + data->player.pos.y;
+	data->player.view_dst_pos.x = data->player.dir.x * data->view_dst + data->player.pos.x;
+	data->player.view_dst_pos.y = data->player.dir.y * data->view_dst + data->player.pos.y;
 
-	data->player.angle = get_angle_f(data->player.pos, vector_d_to_f(data->plane));
+	data->player.angle = get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
 }
 
 void	toggle_door(t_data *data)

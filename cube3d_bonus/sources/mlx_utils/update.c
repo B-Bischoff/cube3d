@@ -13,7 +13,7 @@ int	update(t_data *data)
 	{
 		clear_window(data);
 		print_grid(data); // Show walls
-		bresenham(data, vector_f_to_d(data->player.pos), data->plane, WHITE);
+		bresenham(data, vector_f_to_d(data->player.pos), data->player.view_dst_pos, WHITE);
 		draw_circle(data, vector_f_to_d(data->player.pos)); // Player visualization
 	}
 
