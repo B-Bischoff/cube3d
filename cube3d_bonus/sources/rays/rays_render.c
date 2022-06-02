@@ -2,9 +2,9 @@
 
 int	get_tex_x(t_data *data, t_ray *ray, t_text *texture)
 {
-	double perp_angle = PI_2 - ray->angle + data->player.angle;
+	double perp_angle = PI_2 - ray->angle + get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
 
-	double	hit_length = ray->perp_length / 2 * data->cell_size * sin(degree_to_radian(90)) / sin(perp_angle);
+	double	hit_length = ray->perp_length / 2 * data->cell_size * sin(PI_2) / sin(perp_angle);
 
 	t_vector2_f _wall_x = create_vect_f_from_origin(data->player.pos, ray->angle, hit_length);
 
@@ -61,14 +61,6 @@ void	rays_render(t_data *data)
 
 		int color;
 		double step = 1.0 * texture->height_img / line_height;
-
-		int draw_start_y = (data->win_height / 2) - line_height / 2;
-		if (draw_start_y < 0)
-			draw_start_y = 0;
-
-		int draw_end_y = (data->win_height / 2) + line_height / 2;
-		if (draw_end_y >= data->win_height) 
-			draw_end_y = data->win_height - 1;
 		
 		t_vector2_d tl = {i * slice_width, (data->win_height / 2 + data->mouse_move.y) - line_height / 2};
 		t_vector2_d br = {i * slice_width + slice_width, (data->win_height / 2 + data->mouse_move.y) + line_height / 2};

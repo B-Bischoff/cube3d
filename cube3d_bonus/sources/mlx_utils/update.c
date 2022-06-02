@@ -6,8 +6,8 @@ int	update(t_data *data)
 
 	player_input(data);
 
-	if (data->mouse_pressed == 1) // TO REMOVE
-		set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime (TO REMOVE)
+	if (data->mouse_pressed == 1)
+		set_grid_cell(data, data->mouse_pos.x, data->mouse_pos.y); // Add or remove walls with mouse in runtime
 
 	if (data->show_map)
 	{

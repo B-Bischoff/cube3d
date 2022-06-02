@@ -28,7 +28,6 @@ int	convert_colors_to_int(char *str_color)
 	int		error;
 
 	error = 0;
-	dprintf(1, "--> %s\n", str_color);
 	tab = ft_split(str_color, ',');
 	if (tab == NULL)
 		return (-1);

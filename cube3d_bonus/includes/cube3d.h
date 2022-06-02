@@ -32,7 +32,6 @@ typedef	struct s_player
 	t_vector2_f	pos;
 	t_vector2_d	view_dst_pos;
 	t_vector2_f	dir;
-	double		angle; // Looking direction
 }	t_player;
 
 /*

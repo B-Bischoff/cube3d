@@ -61,7 +61,7 @@ void	print_minimap(t_data *data)
 		{
 			t_vector2_d dot = {x1, y1};
 			set_vector_d(&dot, dot.x - offset.x, dot.y - offset.y); // Substracting offset makes the position accurate
-			dot = rot_vect_offset(dot, center, data->player.angle + PI);
+			dot = rot_vect_offset(dot, center, get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos)) + PI);
 
 			t_vector2_d map_pos = {x, y};
 			map_pos.y -= mp_cell_size;
