@@ -47,8 +47,6 @@ void	player_input(t_data *data)
 	data->player.view_dst_pos.x = data->player.dir.x * data->view_dst + data->player.pos.x;
 	data->player.view_dst_pos.y = data->player.dir.y * data->view_dst + data->player.pos.y;
 
-	dprintf(1, "dir | x : %lf | y : %lf\n", data->player.dir.x, data->player.dir.y);
-
 	// data->player.angle = get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
 }
 
