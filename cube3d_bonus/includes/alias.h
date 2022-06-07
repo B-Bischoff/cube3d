@@ -6,13 +6,18 @@
 /*   By: brice <brice@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:00:41 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/29 12:14:45 by brice            ###   ########.fr       */
+/*   Updated: 2022/06/07 10:33:13 by brice            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALIAS_H
 # define ALIAS_H
 
+/*
+	OS
+	1 : Mac OS
+	2 : Linux
+*/
 #ifndef OS
 # define OS 1
 # endif
@@ -65,6 +70,12 @@
 	# define KEY_8 91
 	# define KEY_PLUS 69
 	# define KEY_MINUS 78
+
+	// MLX MOUSE FUNCTIONS
+	// Those functions need differents arguments depending on the OS
+	# define MLX_MOUSE_HIDE mlx_mouse_hide();
+	# define MLX_MOUSE_SHOW mlx_mouse_show();
+	# define MLX_MOUSE_MOVE mlx_mouse_move(data->mlx_win, data->win_width / 2, data->win_height / 2);
 #endif
 
 #if (OS == 2) // LINUX
@@ -96,8 +107,8 @@
 	# define KEY_P 112
 	# define KEY_E 101
 	# define KEY_ESC 65307 % 200
-	# define KEY_UP 65364 % 200
-	# define KEY_DOWN 65362 % 200
+	# define KEY_UP 65362 % 200
+	# define KEY_DOWN 65364 % 200
 	# define KEY_LEFT 65361 % 200
 	# define KEY_RIGHT 65363 % 200
 	# define KEY_W 119 % 200
@@ -114,6 +125,11 @@
 	# define KEY_8 55 % 200
 	# define KEY_TAB 65289 % 200
 
+	// MLX MOUSE FUNCTIONS
+	// Those functions need differents arguments depending on the OS
+	# define MLX_MOUSE_HIDE mlx_mouse_hide(data->mlx, data->mlx_win)
+	# define MLX_MOUSE_SHOW mlx_mouse_show(data->mlx, data->mlx_win)
+	# define MLX_MOUSE_MOVE mlx_mouse_move(data->mlx, data->mlx_win, data->win_width / 2, data->win_height / 2)
 #endif
 
 // MLX Colors

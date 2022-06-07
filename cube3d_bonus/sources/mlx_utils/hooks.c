@@ -32,11 +32,12 @@ int	update_mouse_pos(int x, int y, t_data *data)
 
 	// Clamp mouse in window
 	if (data->keyboard[KEY_TAB])
-		mlx_mouse_show();
+		MLX_MOUSE_SHOW;
+		//mlx_mouse_show();
 	else
 	{
-		mlx_mouse_hide();
-		mlx_mouse_move(data->mlx_win, data->win_width / 2, data->win_height / 2);	
+		MLX_MOUSE_MOVE;
+		MLX_MOUSE_HIDE;
 	}
 
 
@@ -45,10 +46,7 @@ int	update_mouse_pos(int x, int y, t_data *data)
 
 int	key_press(int keycode, t_data *data)
 {
-	dprintf(1, "Raw keycode : %d | ", keycode);
 	keycode = keycode % 200;
-
-	dprintf(1, "Keycode : %d\n", keycode);
 	if (keycode < 200)
 	{
 		data->prev_keyboard[keycode] = data->keyboard[keycode];
