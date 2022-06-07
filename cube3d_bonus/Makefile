@@ -1,9 +1,3 @@
-END=$'\x1b[0m
-RED=$'\x1b[31m
-GREEN=$'\x1b[32m
-BLUE=$'\x1b[34m
-ERASE=\033[2K\r
-
 VPATH = sources/:\
 		sources/draw/:\
 		sources/grid/:\
@@ -76,13 +70,31 @@ OPTI_FLAGS = #-O3
 
 NAME = cube_3d
 
-LIB = libft/libft.a
+LIB = Libft/libft.a
 
-LFT = -L libft -lft
+LFT = -L Libft -lft
 
-MLX = ../mlx_mac
+MLX = ../minilibx-linux
 
 RM = rm -rf
+
+ifeq ($(OS), Darwin)
+	OS_VAL = 1
+	MLX_FLAGS = -L${MLX} -lmlx -framework OpenGL -framework Appkit $(LFT)
+	END=$'\x1b[0m
+	RED=$'\x1b[31m
+	GREEN=$'\x1b[32m
+	BLUE=$'\x1b[34m
+	ERASE=\033[2K\r
+else
+	OS_VAL = 2
+	MLX_FLAGS = -L${MLX} -lmlx -lXext -lX11 -lm -lz $(LFT)
+	END=\033[0m
+	RED=\033[31m
+	GREEN=\033[32m
+	BLUE=\033[34m
+	ERASE=\033[2K\r
+endif
 
 all: mlx_lib lib $(NAME)
 
@@ -92,20 +104,21 @@ mlx_lib:
 	make -C ${MLX}
 
 lib:
-	make -C libft
+	make -C Libft
 
 $(NAME): $(OBJS) $(INCLUDES) $(LIB) Makefile
-	@$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -L${MLX} -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
+# @$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -L${MLX} -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
+	@$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) $(MLX_FLAGS) -I includes -o $@
 	@echo "$(ERASE)$(GREEN)[CREATED $(NAME)]$(END)"
 
 .objects/%.o:	%.c Makefile $(INCLUDES)
 	@mkdir -p .objects
-	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(OPTI_FLAGS) -I${MLX} -I includes -c $< -o $@
+	@$(CC) -D OS=$(OS_VAL) $(CFLAGS) $(DEBUG_FLAGS) $(OPTI_FLAGS) -I${MLX} -I includes -c $< -o $@
 	@printf "$(ERASE)$(BLUE)[BUILDING]$(END) $@"
 
 clean:
 	@${RM} ${OBJS} ${MAIN_OBJ} ${MAIN_BONUS_OBJ} 
-	@make fclean -C libft
+	@make fclean -C Libft
 	@echo "${RED}[DELETED CUBE3D OBJS]${END}"
 
 fclean:	clean

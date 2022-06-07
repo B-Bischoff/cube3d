@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+         #
+#    By: brice <brice@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/04 11:20:06 by bbischof          #+#    #+#              #
-#    Updated: 2022/05/16 10:27:00 by bbischof         ###   ########.fr        #
+#    Updated: 2022/05/29 12:07:41 by brice            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ ifeq ($(OS), Darwin)
 	BLUE=$'\x1b[34m
 	ERASE=\033[2K\r
 else
-	END=$'\033b[0m
-	RED=$'\033[31m
-	GREEN=$'\033[32m
-	BLUE=$'\033[34m
-	ERASE=$'\033b[2K\r
+	END=\033[0m
+	RED=\033[31m
+	GREEN=\033[32m
+	BLUE=\033[34m
+	ERASE=\033[2K\r
 endif
 
 VPATH = ./:\

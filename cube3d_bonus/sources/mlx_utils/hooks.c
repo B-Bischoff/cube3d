@@ -38,6 +38,10 @@ int	update_mouse_pos(int x, int y, t_data *data)
 
 int	key_press(int keycode, t_data *data)
 {
+	dprintf(1, "Raw keycode : %d | ", keycode);
+	keycode = keycode % 200;
+
+	dprintf(1, "Keycode : %d\n", keycode);
 	if (keycode < 200)
 	{
 		data->prev_keyboard[keycode] = data->keyboard[keycode];
@@ -55,6 +59,7 @@ int	key_press(int keycode, t_data *data)
 
 int	key_release(int keycode, t_data *data)
 {
+	keycode = keycode % 200;
 	if (keycode < 200)
 	{
 		data->prev_keyboard[keycode] = data->keyboard[keycode];

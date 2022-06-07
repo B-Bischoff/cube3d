@@ -32,4 +32,3 @@ int		is_colliding_cell(t_data *data, float x, float y, int plain_cell)
 	}
 	return (0);
 }
-

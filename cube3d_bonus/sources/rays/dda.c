@@ -44,7 +44,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		side_dist.y = (map.y + 1.0f - data->player.pos.y) * delta_dist.y;
 	}
 
-	double length = 0.0f;
 	t_vector2_d side_hit;
 
 	while (1)
@@ -53,7 +52,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		{
 			side_dist.x += delta_dist.x;
 			map.x += step.x;
-			length = side_dist.x;
 			side = 0;
 			side_hit.x = step.x;
 			side_hit.y = 0;
@@ -62,7 +60,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		{
 			side_dist.y += delta_dist.y;
 			map.y += step.y;
-			length = side_dist.y;
 			side = 1;
 			side_hit.y = step.y;
 			side_hit.x = 0;
