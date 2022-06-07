@@ -2,25 +2,25 @@
 
 int	get_tex_x(t_data *data, t_ray *ray, t_text *texture)
 {
-	double perp_angle = PI_2 - ray->angle + data->player.angle;
+	double perp_angle = PI_2 - ray->angle + get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
 
-	double	hit_length = ray->perp_length / 2 * data->cell_size * sin(degree_to_radian(90)) / sin(perp_angle);
+	double	hit_length = ray->perp_length / 2.0f * data->cell_size * sin(PI_2) / sin(perp_angle);
 
-	t_vector2_f _wall_x = create_vect_f_from_origin(data->player.pos, ray->angle, hit_length);
+	t_vector2_f wall_x = create_vect_f_from_origin(data->player.pos, ray->angle, hit_length);
 
 	int	tex_x;
 
 	if (ray->side_hit == 1 || ray->side_hit == 3) // Horizontal hit
 	{
-		_wall_x.y = _wall_x.y - (double)((int)floor(_wall_x.y / (double)data->cell_size) * data->cell_size);
-		_wall_x.y = 1 - _wall_x.y / (double)data->cell_size;
-		tex_x = (int)(_wall_x.y * (double)texture->width_img);
+		wall_x.y = wall_x.y - (double)((int)floor(wall_x.y / (double)data->cell_size) * data->cell_size);
+		wall_x.y = 1 - wall_x.y / (double)data->cell_size;
+		tex_x = (int)(wall_x.y * (double)texture->width_img);
 	}
 	else
 	{
-		_wall_x.x = _wall_x.x - (double)((int)floor(_wall_x.x / (double)data->cell_size) * data->cell_size);
-		_wall_x.x = 1 - _wall_x.x / (double)data->cell_size;
-		tex_x = (int)(_wall_x.x * (double)texture->width_img);
+		wall_x.x = wall_x.x - (double)((int)floor(wall_x.x / (double)data->cell_size) * data->cell_size);
+		wall_x.x = 1 - wall_x.x / (double)data->cell_size;
+		tex_x = (int)(wall_x.x * (double)texture->width_img);
 	}
 
 	if ((ray->side_hit == 1 || ray->side_hit == 3) && ray->ray_dir.x > 0)
@@ -34,9 +34,7 @@ int	get_tex_x(t_data *data, t_ray *ray, t_text *texture)
 
 void	rays_render(t_data *data)
 {
-	int slice_width;
-
-	slice_width = data->win_width / data->rays_nb;
+	const int slice_width = data->win_width / data->rays_nb;
 
 
 	for (int i = 0; i < data->rays_nb; i++)
@@ -61,20 +59,14 @@ void	rays_render(t_data *data)
 
 		int color;
 		double step = 1.0 * texture->height_img / line_height;
-
-		int draw_start_y = (data->win_height / 2) - line_height / 2;
-		if (draw_start_y < 0)
-			draw_start_y = 0;
-
-		int draw_end_y = (data->win_height / 2) + line_height / 2;
-		if (draw_end_y >= data->win_height) 
-			draw_end_y = data->win_height - 1;
 		
 		t_vector2_d tl = {i * slice_width, (data->win_height / 2 + data->mouse_move.y) - line_height / 2};
 		t_vector2_d br = {i * slice_width + slice_width, (data->win_height / 2 + data->mouse_move.y) + line_height / 2};
 		
 		double tex_pos = (double)(tl.y - (data->win_height / 2 + data->mouse_move.y) + (line_height / 2)) * step;
 
+
+		// dprintf(2, "%d | pLength : %lf\n", i, ray->perp_length);
 		for (int y = tl.y; y < br.y; y++)
 		{
 			if (y < 0)
@@ -89,9 +81,11 @@ void	rays_render(t_data *data)
 			{
 				int tex_y = (int)tex_pos;
 
+				color = YELLOW;
+
 				color = get_text_pix(texture, tex_x, tex_y);
-					if (j <= 0.98f)
-						color = color_lerp(BLACK, color, j);
+				if (j <= 0.98f)
+					color = color_lerp(BLACK, color, j);
 
 			
 				for (int stripe = tl.x; stripe < br.x; stripe++)	

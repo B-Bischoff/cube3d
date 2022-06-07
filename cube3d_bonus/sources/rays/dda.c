@@ -22,7 +22,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		delta_dist.y = ft_abs_f(1.0f / ray->ray_dir.y);
 
 	t_vector2_d step;
-	int			side;
 	if (ray->ray_dir.x < 0)
 	{
 		step.x = -1;
@@ -52,7 +51,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		{
 			side_dist.x += delta_dist.x;
 			map.x += step.x;
-			side = 0;
 			side_hit.x = step.x;
 			side_hit.y = 0;
 		}
@@ -60,7 +58,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		{
 			side_dist.y += delta_dist.y;
 			map.y += step.y;
-			side = 1;
 			side_hit.y = step.y;
 			side_hit.x = 0;
 		}
@@ -70,15 +67,17 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		if (!is_in_map(data, map))
 			continue; ;
 		// draw_circle_color(data, map, RED);
-		t_vector2_d	cell = {map.x / data->cell_size, map.y / data->cell_size};
 		if (is_colliding_cell(data, map.x, map.y, 0))
 		{
 
-			if (side == 0)
+			if (side_hit.y == 0)
 				ray->perp_length = side_dist.x - delta_dist.x;
 			else
 				ray->perp_length = side_dist.y - delta_dist.y; 
+
+
 			ray->perp_length *= data->cell_size;
+			// ray->perp_length *= 0.75f + (1.0f / (double)data->view_dst);
 
 			if (side_hit.x == 1)
 				ray->side_hit = 3;
@@ -89,6 +88,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			else
 				ray->side_hit = 2;
 
+			t_vector2_d	cell = {map.x / data->cell_size, map.y / data->cell_size};
 			set_vector_d(&ray->cell, cell.x, cell.y);
 
 			ray->angle = get_angle_f(data->player.pos, ray->hit_point);

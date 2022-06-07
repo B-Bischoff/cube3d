@@ -29,12 +29,16 @@ void	player_input(t_data *data)
 		toggle_door(data);
 	}
 
-	if (data->mouse_move.x > 4)
-		rotate_right(data, -(float)data->mouse_move.x / 50.0f);
-	if (data->mouse_move.x < 4)
-		rotate_left(data, (float)data->mouse_move.x / 50.0f);
-
 	data->show_map = data->keyboard[KEY_TAB];
+
+	if (data->keyboard[KEY_TAB] == 0) // Disable rotation with mouse when map is shown
+	{
+		if (data->mouse_move.x > 4)
+			rotate_right(data, -(float)data->mouse_move.x / 50.0f);
+		if (data->mouse_move.x < 4)
+			rotate_left(data, (float)data->mouse_move.x / 50.0f);
+	}
+
 
 	// Reset mouse movement
 	data->mouse_move.x = 0;
@@ -43,7 +47,7 @@ void	player_input(t_data *data)
 	data->player.view_dst_pos.x = data->player.dir.x * data->view_dst + data->player.pos.x;
 	data->player.view_dst_pos.y = data->player.dir.y * data->view_dst + data->player.pos.y;
 
-	data->player.angle = get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
+	// data->player.angle = get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
 }
 
 void	toggle_door(t_data *data)
@@ -148,7 +152,7 @@ void	move_right(t_data *data)
 	t_vector2_f	new_dir;
 	t_vector2_f	new_pos;
 
-	// Calculating direction 90 degree (PI / 2) to the left
+	// Calculating direction 90 degree (PI / 2) to the right
 	new_dir.x = data->player.dir.x * cos(PI_2) - data->player.dir.y * sin(PI_2);
 	new_dir.y = data->player.dir.x * sin(PI_2) + data->player.dir.y * cos(PI_2);
 
