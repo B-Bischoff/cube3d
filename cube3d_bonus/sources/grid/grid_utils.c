@@ -17,6 +17,8 @@ int		is_colliding_cell(t_data *data, float x, float y, int plain_cell)
 {
 	t_vector2_d	cell;
 
+	if (!is_in_map(data, create_vector_d(x, y)))
+		return (0);
 	set_vector_d(&cell, x / data->cell_size, y / data->cell_size);
 	if (data->tab[cell.y][cell.x] == 1) // Wall
 		return (1);

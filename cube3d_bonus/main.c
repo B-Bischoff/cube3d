@@ -6,11 +6,11 @@ int main(int argc, char *argv[])
 
 	if (parsing(&data, argc, argv) == 1)
 		exit(1);
+	if (init_floor_and_ceiling(&data) == 1)
+		exit(1);
 	if (ft_mlx_init(&data) == 1)
 		exit(1);
 	if (ft_init_vision(&data) == 1)
-		exit(1);
-	if (init_floor_and_ceiling(&data) == 1)
 		exit(1);
 	if (init_text(&data) == 1)
 		exit (1);

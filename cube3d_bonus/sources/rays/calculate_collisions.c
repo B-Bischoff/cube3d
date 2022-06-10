@@ -6,7 +6,7 @@ void	calculate_collisions(t_data *data)
 
 	for (int i = 0; i < data->rays_nb; i++)
 	{
-		res = dda(data, &data->rays[i], i);
+		res = dda(data, &data->rays[i]);
 
 		if (res.x != -1 && res.y != -1) // Hit
 		{

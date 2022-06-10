@@ -54,7 +54,6 @@ int	format_description(t_data *data, char *str, int *count)
 	error = 0;
 	id = ft_get_word(str);
 	id_value = is_valid_description(id);
-	dprintf(1, "str : %s -> id %d\n", str, id_value);
 	if (id_value != 0)
 	{
 		if (data->texture_name[id_value - 1] != NULL)

@@ -30,17 +30,6 @@ int	update_mouse_pos(int x, int y, t_data *data)
 	data->mouse_pos.x = x;
 	data->mouse_pos.y = y;
 
-	// Clamp mouse in window
-	if (data->keyboard[KEY_TAB])
-		MLX_MOUSE_SHOW;
-		//mlx_mouse_show();
-	else
-	{
-		MLX_MOUSE_MOVE;
-		MLX_MOUSE_HIDE;
-	}
-
-
 	return (0);
 }
 

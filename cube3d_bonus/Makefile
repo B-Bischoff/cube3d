@@ -108,7 +108,6 @@ lib:
 	make -C Libft
 
 $(NAME): $(OBJS) $(INCLUDES) $(LIB) Makefile
-# @$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) -L${MLX} -lmlx -framework OpenGL -framework Appkit $(LFT) -I includes -o $@
 	@$(CC) $(OBJS) ${CFLAGS} $(DEBUG_FLAGS) $(OPTI_FLAGS) $(MLX_FLAGS) -I includes -o $@
 	@echo "$(ERASE)$(GREEN)[CREATED $(NAME)]$(END)"
 

@@ -38,8 +38,7 @@ void	player_input(t_data *data)
 		if (data->mouse_move.x < 4)
 			rotate_left(data, (float)data->mouse_move.x / 50.0f);
 	}
-
-
+	
 	// Reset mouse movement
 	data->mouse_move.x = 0;
 
@@ -89,13 +88,9 @@ void	move_forward(t_data *data)
 	new_pos.y = data->player.dir.y * move_speed * data->delta_time;
 
 	// Check collision
-	if (!is_in_map(data, create_vector_d(p_pos->x + new_pos.x, p_pos->y)))
+	if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
 		p_pos->x += new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
-		p_pos->x += new_pos.x;
-	if (!is_in_map(data, create_vector_d(p_pos->x, p_pos->y + new_pos.y)))
-		p_pos->y += new_pos.y;
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
+	if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
 		p_pos->y += new_pos.y;
 }
 
@@ -109,13 +104,9 @@ void	move_backward(t_data *data)
 	new_pos.y = data->player.dir.y * move_speed * data->delta_time; 
 
 	// check collision
-	if (!is_in_map(data, create_vector_d(p_pos->x - new_pos.x, p_pos->y)))
+	if (!is_colliding_cell(data, p_pos->x - new_pos.x, p_pos->y, 1))
 		p_pos->x -= new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x - new_pos.x, p_pos->y, 1))
-		p_pos->x -= new_pos.x;
-	if (!is_in_map(data, create_vector_d(p_pos->x, p_pos->y - new_pos.y)))
-		p_pos->y -= new_pos.y;
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y - new_pos.y, 1))
+	if (!is_colliding_cell(data, p_pos->x, p_pos->y - new_pos.y, 1))
 		p_pos->y -= new_pos.y;
 }
 
@@ -135,13 +126,9 @@ void	move_left(t_data *data)
 	new_pos.y = new_dir.y * move_speed * data->delta_time;
 
 	// Check collision
-	if (!is_in_map(data, create_vector_d(new_pos.x + p_pos->x, p_pos->y))) // If coord is out of tab, increment player pos
+	if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
 		p_pos->x += new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
-		p_pos->x += new_pos.x;
-	if (!is_in_map(data, create_vector_d(p_pos->x, new_pos.y + p_pos->y)))
-		p_pos->y += new_pos.y;
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
+	if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
 		p_pos->y += new_pos.y;
 }
 
@@ -162,13 +149,9 @@ void	move_right(t_data *data)
 
 	// Check collision
 
-	if (!is_in_map(data, create_vector_d(new_pos.x + p_pos->x, p_pos->y))) // If coord is out of tab, increment player pos
+	if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
 		p_pos->x += new_pos.x;
-	else if (!is_colliding_cell(data, p_pos->x + new_pos.x, p_pos->y, 1))
-		p_pos->x += new_pos.x;
-	if (!is_in_map(data, create_vector_d(p_pos->x, new_pos.y + p_pos->y)))
-		p_pos->y += new_pos.y;
-	else if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
+	if (!is_colliding_cell(data, p_pos->x, p_pos->y + new_pos.y, 1))
 		p_pos->y += new_pos.y;
 }
 

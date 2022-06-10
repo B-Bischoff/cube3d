@@ -52,3 +52,15 @@ void	ft_mlx_hooks_and_loop(t_data *data)
 	mlx_loop_hook(data->mlx, update, data);
 	mlx_loop(data->mlx);
 }
+
+void	clamp_mouse_in_window(t_data *data)
+{
+	// Clamp mouse in window
+	if (data->keyboard[KEY_TAB])
+		MLX_MOUSE_SHOW;
+	else
+	{
+		MLX_MOUSE_HIDE;
+		MLX_MOUSE_MOVE;
+	}
+}

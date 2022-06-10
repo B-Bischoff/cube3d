@@ -4,6 +4,7 @@ int	update(t_data *data)
 {
 	clock_gettime(CLOCK_MONOTONIC_RAW, &(data->prev_time)); // Taking time to calculate fps
 
+	clamp_mouse_in_window(data);
 	player_input(data);
 
 	if (data->mouse_pressed == 1)

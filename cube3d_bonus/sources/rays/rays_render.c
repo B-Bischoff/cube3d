@@ -4,7 +4,7 @@ int	get_tex_x(t_data *data, t_ray *ray, t_text *texture)
 {
 	double perp_angle = PI_2 - ray->angle + get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
 
-	double	hit_length = ray->perp_length / 2.0f * data->cell_size * sin(PI_2) / sin(perp_angle);
+	double	hit_length = ray->perp_length / 2 * data->cell_size * sin(PI_2) / sin(perp_angle);
 
 	t_vector2_f wall_x = create_vect_f_from_origin(data->player.pos, ray->angle, hit_length);
 
@@ -36,7 +36,6 @@ void	rays_render(t_data *data)
 {
 	const int slice_width = data->win_width / data->rays_nb;
 
-
 	for (int i = 0; i < data->rays_nb; i++)
 	{
 		t_ray *ray = &data->rays[i];
@@ -44,27 +43,28 @@ void	rays_render(t_data *data)
 		if (ray->perp_length == -1)
 			continue;
 
+		// Norming perp_length according to view dst otherwise texture scale and wall height are changing depending on the view_dst
+		ray->perp_length *= data->view_dst * 0.00125; // 0.00125 is 1 / 800 (which is the reference view dst)
+
 		t_text *texture;
 		if (data->tab[ray->cell.y][ray->cell.x] == 2 || data->tab[ray->cell.y][ray->cell.x] == 4)
 			texture = &data->textures[22];
 		else
 			texture = &data->textures[ray->side_hit];
 
-
-		float line_height = (float)data->win_height / (float)(ray->perp_length);
+		float slice_height = (float)data->win_height / (float)ray->perp_length;
 
 		int	tex_x = get_tex_x(data, ray, texture);
 
-		float j = ft_inv_lerp_f(10.0f, 100.0f, line_height);
+		float j = ft_inv_lerp_f(10.0f, 100.0f, slice_height);
 
 		int color;
-		double step = 1.0 * texture->height_img / line_height;
+		double step = 1.0 * texture->height_img / slice_height;
 		
-		t_vector2_d tl = {i * slice_width, (data->win_height / 2 + data->mouse_move.y) - line_height / 2};
-		t_vector2_d br = {i * slice_width + slice_width, (data->win_height / 2 + data->mouse_move.y) + line_height / 2};
-		
-		double tex_pos = (double)(tl.y - (data->win_height / 2 + data->mouse_move.y) + (line_height / 2)) * step;
+		t_vector2_d tl = {i * slice_width, (data->win_height / 2 + data->mouse_move.y) - slice_height / 2};
+		t_vector2_d br = {i * slice_width + slice_width, (data->win_height / 2 + data->mouse_move.y) + slice_height / 2};
 
+		double tex_pos = (double)(tl.y - (data->win_height / 2 + data->mouse_move.y) + (slice_height / 2)) * step;
 
 		// dprintf(2, "%d | pLength : %lf\n", i, ray->perp_length);
 		for (int y = tl.y; y < br.y; y++)
@@ -94,6 +94,5 @@ void	rays_render(t_data *data)
 			}
 	    	tex_pos += step;
 		}	
-
 	}
 }

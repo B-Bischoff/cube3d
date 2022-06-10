@@ -1,6 +1,6 @@
 #include "cube3d.h"
 
-t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
+t_vector2_f dda(t_data *data, t_ray *ray)
 {
 	ray->ray_dir = ray->hit_point;
 	t_vector2_d	map = vector_f_to_d(data->player.pos);
@@ -8,7 +8,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	t_vector2_f side_dist;
 	t_vector2_f	delta_dist;
 
-	(void)ray_index;
 	ray->ray_dir.x = ray->ray_dir.x - data->player.pos.x;
 	ray->ray_dir.y = ray->ray_dir.y - data->player.pos.y;
 
