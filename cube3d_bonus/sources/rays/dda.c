@@ -44,7 +44,9 @@ t_vector2_f dda(t_data *data, t_ray *ray)
 
 	t_vector2_d side_hit;
 
-	while (1)
+	float ray_length = get_vector_d_length_squared(vector_f_to_d(data->player.pos), map);
+
+	while (ray_length < data->view_dst * data->view_dst)
 	{
 		if (side_dist.x < side_dist.y)
 		{
@@ -60,9 +62,7 @@ t_vector2_f dda(t_data *data, t_ray *ray)
 			side_hit.y = step.y;
 			side_hit.x = 0;
 		}
-		float len = get_vector_d_length_squared(vector_f_to_d(data->player.pos), map);
-		if (len >= data->view_dst * data->view_dst)
-			break ;
+		ray_length = get_vector_d_length_squared(vector_f_to_d(data->player.pos), map);
 		if (!is_in_map(data, map))
 			continue; ;
 		// draw_circle_color(data, map, RED);
@@ -91,11 +91,9 @@ t_vector2_f dda(t_data *data, t_ray *ray)
 			set_vector_d(&ray->cell, cell.x, cell.y);
 
 			ray->angle = get_angle_f(data->player.pos, ray->hit_point);
-			
 			return (vector_d_to_f(map));
 		}
 	}
-	t_vector2_f error = {-1, -1};
-	return (error);
+	return (create_vector_f(-1, -1));
 }
 
