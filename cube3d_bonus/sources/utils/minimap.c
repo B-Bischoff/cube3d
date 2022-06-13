@@ -48,12 +48,12 @@ void	print_minimap(t_data *data)
 
 
 	t_vector2_d dot = {0, 0};
-	for (float y = data->player.pos.y - mp_radius_2; y < data->player.pos.y + mp_radius_2; y += mp_cell_size) 
+	for (float y = data->player.pos.y - mp_radius_2; y <= data->player.pos.y + mp_radius_2; y += mp_cell_size) 
 	{
 		int i = 0;
 		dot.x = 0;
 		dprintf(2, "\n\n");
-		for (float x = data->player.pos.x - mp_radius_2; x < data->player.pos.x + mp_radius_2; x += mp_cell_size)
+		for (float x = data->player.pos.x - mp_radius_2; x <= data->player.pos.x + mp_radius_2; x += mp_cell_size)
 		{
 			// Placing dot on minimap depending on the player direction
 			t_vector2_d	temp_dot = dot;
