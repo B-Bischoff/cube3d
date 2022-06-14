@@ -74,8 +74,9 @@ LIB = Libft/libft.a
 
 LFT = -L Libft -lft
 
-
 RM = rm -rf
+
+OS = $(shell uname -s)
 
 ifeq ($(OS), Darwin)
 	OS_VAL = 1

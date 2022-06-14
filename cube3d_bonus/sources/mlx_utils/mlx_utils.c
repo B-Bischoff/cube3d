@@ -57,7 +57,9 @@ void	clamp_mouse_in_window(t_data *data)
 {
 	// Clamp mouse in window
 	if (data->keyboard[KEY_TAB])
+	{
 		MLX_MOUSE_SHOW;
+	}
 	else
 	{
 		MLX_MOUSE_HIDE;
