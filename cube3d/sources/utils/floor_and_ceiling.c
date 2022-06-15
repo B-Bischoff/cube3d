@@ -2,7 +2,7 @@
 
 void	floor_and_ceiling(t_data *data)
 {
-	int floor_start = data->win_width * (data->win_height / 2);
+	int floor_start = data->win_width * (data->win_height / 2 + data->mouse_move.y);
 	int total = data->win_width * data->win_height;
 	int	size = data->bits_per_pixel / 8;
 

@@ -1,9 +1,7 @@
 #include "cube3d.h"
 
+int	init_parsing(t_data *data);
 int	check_file_extension(char *str);
-int	init_parsing(t_data *data);
-
-int	init_parsing(t_data *data);
 
 /*
 	textures name are stored in data->texture_name
@@ -21,7 +19,7 @@ int	init_parsing(t_data *data);
 int	parsing(t_data *data, int argc, char *argv[])
 {
 	t_list	*map = NULL;
-	t_list *errors = NULL;
+	t_list	*errors = NULL;
 	int	fd;
 
 	data->cell_size = 40;
@@ -43,13 +41,16 @@ int	parsing(t_data *data, int argc, char *argv[])
 		ft_lstclear(&map, free);
 		return (print_error("Map conversion error\n"));
 	}
+
 	ft_lstclear(&map, free);
-	
 	data->width_size = data->cell_size * data->tab_width;
 	data->height_size = data->cell_size * data->tab_height;
 
 	if (check_player_pos(data) == 1)
 		return (print_error("Player pos error\n"));
+
+	if (count_sprites(data) == 1)
+		return (print_error("Sprite couting error\n"));
 
 	if (check_map_format(data, &errors) == 1)
 	{
@@ -60,8 +61,21 @@ int	parsing(t_data *data, int argc, char *argv[])
 	print_map(data, errors);
 	ft_lstclear(&errors, free);
 
+	// Print logs :
+
+	dprintf(1, "------ TEXTURES -------\n");
+	for (int i = 0; i < 6; i++)
+		dprintf(1, "%s\n", data->texture_name[i]);
+
+
+	dprintf(1, "----- MAP SIZE ------\n");
 	dprintf(1, "number of line : %d\n", data->tab_height);
 	dprintf(1, "max line length : %d\n", data->tab_width);
+
+	dprintf(1, "----- PLAYER ------\n");
+	dprintf(1, "X : %f Y :%f\n", data->player.pos.x / data->cell_size, data->player.pos.y / data->cell_size);
+	dprintf(1, "Orientation : %f %f\n", data->player.dir.x, data->player.dir.y);
+
 	return (0);
 }
 
@@ -75,9 +89,11 @@ int	init_parsing(t_data *data)
 	i = 0;
 	while (i < 200)
 		data->keyboard[i++] = 0;
-	data->map = NULL;
 	data->tab_height = 0;
 	data->tab_width = 0;
+	data->nb_sprites = 0;
+	data->show_map = 0;
+
 	return (0);
 }
 
@@ -91,4 +107,3 @@ int	check_file_extension(char *str)
 		return (1);
 	return (0);
 }
-

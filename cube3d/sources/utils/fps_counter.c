@@ -21,7 +21,7 @@ void	print_fps(t_data *data)
 	mlx_string_put(data->mlx, data->mlx_win, 30, 50, WHITE, "FRAME: ");
 	mlx_string_put(data->mlx, data->mlx_win, 100, 50, WHITE, fps);
 	// dprintf(1, "%lf", delta_time);
-	if (delta_time < 0.01666f) // if fps is greater than 60 fps, cap delta time to 1 / 60
+	if (OS == 1 && delta_time < 0.01666f) // if fps is greater than 60 fps, cap delta time to 1 / 60
 		data->delta_time = 0.01666f;
 	else if (delta_time > 0.0f)
 		data->delta_time = delta_time;

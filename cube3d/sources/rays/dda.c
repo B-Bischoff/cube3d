@@ -1,6 +1,6 @@
 #include "cube3d.h"
 
-t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
+t_vector2_f dda(t_data *data, t_ray *ray)
 {
 	ray->ray_dir = ray->hit_point;
 	t_vector2_d	map = vector_f_to_d(data->player.pos);
@@ -8,7 +8,6 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	t_vector2_f side_dist;
 	t_vector2_f	delta_dist;
 
-	(void)ray_index;
 	ray->ray_dir.x = ray->ray_dir.x - data->player.pos.x;
 	ray->ray_dir.y = ray->ray_dir.y - data->player.pos.y;
 
@@ -31,7 +30,7 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 	{
 		step.x = 1;
 		side_dist.x = (map.x + 1.0f - data->player.pos.x) * delta_dist.x;
-	}	
+	}
 	if (ray->ray_dir.y < 0)
 	{
 		step.y = -1;
@@ -43,17 +42,16 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		side_dist.y = (map.y + 1.0f - data->player.pos.y) * delta_dist.y;
 	}
 
-	double length = 0.0f;
 	t_vector2_d side_hit;
 
+	float ray_length = get_vector_d_length_squared(vector_f_to_d(data->player.pos), map);
 
-	while (1)
+	while (ray_length < data->view_dst * data->view_dst)
 	{
 		if (side_dist.x < side_dist.y)
 		{
 			side_dist.x += delta_dist.x;
 			map.x += step.x;
-			length += side_dist.x;
 			side_hit.x = step.x;
 			side_hit.y = 0;
 		}
@@ -61,23 +59,22 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 		{
 			side_dist.y += delta_dist.y;
 			map.y += step.y;
-			length += side_dist.y;
 			side_hit.y = step.y;
 			side_hit.x = 0;
 		}
-		float len = get_vector_d_length_squared(vector_f_to_d(data->player.pos), map);
-		if (len >= data->view_dst * data->view_dst)
-			break ;
+
+		ray_length = get_vector_d_length_squared(vector_f_to_d(data->player.pos), map);
 		if (!is_in_map(data, map))
-			continue;
-		// draw_circle_color(data, map, RED);
-		if (data->tab[map.y / data->cell_size][map.x / data->cell_size] > 0)
+			continue; ;
+
+		if (is_colliding_cell(data, map.x, map.y, 0))
 		{
-			if (side_hit.y == 0) 
-				ray->perp_length = side_dist.x - delta_dist.x;
+			// draw_circle_color(data, map, RED); // Hit visualisation
+
+			if (side_hit.y == 0)
+				ray->perp_length = (side_dist.x - delta_dist.x) * data->cell_size;
 			else
-				ray->perp_length = side_dist.y - delta_dist.y; 
-			ray->perp_length *= data->cell_size;
+				ray->perp_length = (side_dist.y - delta_dist.y) * data->cell_size; 
 
 			if (side_hit.x == 1)
 				ray->side_hit = 3;
@@ -88,12 +85,12 @@ t_vector2_f dda(t_data *data, t_ray *ray, int ray_index)
 			else
 				ray->side_hit = 2;
 
-			ray->angle = get_angle_f(data->player.pos, ray->hit_point);
+			set_vector_d(&ray->cell, map.x / data->cell_size, map.y / data->cell_size);
 
+			ray->angle = get_angle_f(data->player.pos, ray->hit_point);
 			return (vector_d_to_f(map));
 		}
 	}
-	t_vector2_f error = {-1, -1};
-
-	return (error);
+	return (create_vector_f(-1, -1));
 }
+

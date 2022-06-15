@@ -9,7 +9,7 @@ int	ft_is_empty_str(char *str)
 	while (str[i])	
 	{
 		c = str[i];
-		if (c != ' ' || c != '\n')
+		if (c != ' ' && c != '\n')
 			return (0);
 		i++;
 	}

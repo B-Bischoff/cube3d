@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 10:32:51 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/26 10:04:51 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/05/23 12:49:35 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
+
+# include <stdio.h>
 
 # define BUFFER_SIZE 2048 // Get next line 
 
@@ -93,7 +95,7 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 int			ft_is_empty_str(char *str);
-char		*ft_get_word(char *str);
+char		*get_word(char *str);
 
 // Get next line
 int			is_newline_gnl(char *str);
@@ -135,11 +137,24 @@ float		ft_inv_lerp_d(int min, int max, int curr);
 float		ft_inv_lerp_f(float min, float max, float curr);
 int			ft_abs_d(int nbr);
 float		ft_abs_f(float nbr);
+int			ft_get_max_d(int a, int b);
+int			ft_get_max_3_d(int a, int b, int c);
+float		ft_get_max_f(float a, float b);
+float		ft_get_max_3_f(float a, float b, float c);
+int			ft_get_min_d(int a, int b);
+int			ft_get_min_3_d(int a, int b, int c);
+float		ft_get_min_f(float a, float b);
+float		ft_get_min_3_f(float a, float b, float c);
+void		ft_swap_d(int *a, int *b);
+void		ft_swap_f(float *a, float *b);
+void		ft_swap_v2_d(t_vector2_d *a, t_vector2_d *b);
+void		ft_swap_v2_f(t_vector2_f *a, t_vector2_f *b);
 
 // Color
-int			get_r(int color);
-int			get_g(int color);
-int			get_b(int color);
+int			ft_get_r(int color);
+int			ft_get_g(int color);
+int			ft_get_b(int color);
+int			ft_get_t(int color);
 int			create_rgbt(int r, int g, int b, int t);
 int			color_lerp(int color1, int color2, float timestamp);
 int			create_trgb(int t, int r, int g, int b);

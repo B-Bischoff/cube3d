@@ -6,7 +6,7 @@
 /*   By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:39:42 by bbischof          #+#    #+#             */
-/*   Updated: 2022/05/26 10:07:25 by bbischof         ###   ########.fr       */
+/*   Updated: 2022/05/16 10:37:18 by bbischof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	get_word_init(char *quote, int *i, char *str)
 }
 
 // Return the first word found in str from start
-char	*ft_get_word(char *str)
+char	*get_word(char *str)
 {
 	int		i;
 	int		j;

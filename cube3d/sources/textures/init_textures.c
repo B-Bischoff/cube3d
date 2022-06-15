@@ -37,14 +37,14 @@ int	convert_colors_to_int(char *str_color)
 		int j = 0;
 		while (tab[i][j] == ' ')
 			j++;
-		while (tab[i][j])
-		{
-			if (ft_isdigit(tab[i][j]) == 0)
-				error = 1;
-			j++;
-		}
 		if (i < 3)
 		{
+			while (tab[i][j])
+			{
+				if (ft_isdigit(tab[i][j]) == 0)
+					error = 1;
+				j++;
+			}
 			color[i] = ft_atoi(tab[i]);
 			if (color[i] < 0 || color[i] > 255)
 				error = 1;
@@ -64,10 +64,15 @@ int		load_texture(t_data *data, t_text *texture, char *texture_path)
 {
 	texture->text = mlx_xpm_file_to_image(data->mlx, texture_path, &texture->width_img, &texture->height_img);
 	if (texture->text == NULL)
+	{
+		dprintf(2, "Failed to load texture : \"%s\"\n", texture_path);
 		return (1);
-	// Check null pointer
+	}
 	texture->text_adr = mlx_get_data_addr(texture->text, &texture->bit, &texture->size_line, &texture->endian);
-	// Check null pointer
+	if (texture->text_adr == NULL)
+	{
+		dprintf(2, "Failed to get text_adr of : \"%s\"\n", texture_path);
+	}
 	return (0);
 }
 
@@ -80,7 +85,6 @@ int	init_text(t_data *data)
 	if (data->textures == NULL)
 		return (1);
 
-	dprintf(2, "%s\n", data->texture_name[0]);
 
 	error |= load_texture(data, &data->textures[0], data->texture_name[0]);
 	error |= load_texture(data, &data->textures[1], data->texture_name[1]);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bbischof <bbischof@student.42.fr>          +#+  +:+       +#+         #
+#    By: brice <brice@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/04 11:20:06 by bbischof          #+#    #+#              #
-#    Updated: 2022/05/26 10:05:34 by bbischof         ###   ########.fr        #
+#    Updated: 2022/05/29 12:07:41 by brice            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ ifeq ($(OS), Darwin)
 	BLUE=$'\x1b[34m
 	ERASE=\033[2K\r
 else
-	END=$'\033b[0m
-	RED=$'\033[31m
-	GREEN=$'\033[32m
-	BLUE=$'\033[34m
-	ERASE=$'\033b[2K\r
+	END=\033[0m
+	RED=\033[31m
+	GREEN=\033[32m
+	BLUE=\033[34m
+	ERASE=\033[2K\r
 endif
 
 VPATH = ./:\
@@ -48,7 +48,7 @@ SRCS += ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c
 SRCS += get_next_line.c get_next_line_utils.c
 
 # Math
-SRCS += ft_abs.c ft_clamp.c ft_create_vector.c ft_get_angle.c ft_lerp.c ft_rad_deg.c ft_set_vector.c ft_vector_convert.c ft_vector_length.c ft_vector_lerp.c ft_vector_rot.c
+SRCS += ft_abs.c ft_clamp.c ft_create_vector.c ft_get_angle.c ft_lerp.c ft_rad_deg.c ft_set_vector.c ft_vector_convert.c ft_vector_length.c ft_vector_lerp.c ft_vector_rot.c ft_get_max.c ft_get_min.c ft_swap.c
 
 # Color
 SRCS += ft_color_lerp.c ft_get_color.c ft_create_color.c

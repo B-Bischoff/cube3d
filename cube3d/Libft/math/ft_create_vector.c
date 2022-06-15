@@ -9,7 +9,7 @@ t_vector2_d	create_vector_d(int x, int y)
 	return (vector);
 }
 
-t_vector2_f	create_vector_f(float x, float y)
+t_vector2_f create_vector_f(float x, float y)
 {
 	t_vector2_f	vector;
 

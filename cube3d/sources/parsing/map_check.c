@@ -2,6 +2,9 @@
 
 int	is_valid_cell(t_data *data, t_vector2_d pos);
 
+/*
+	errors is a list containing the position of the invalids cells in the map
+*/
 int	check_map_format(t_data *data, t_list **errors)
 {
 	int			y;
@@ -20,8 +23,12 @@ int	check_map_format(t_data *data, t_list **errors)
 			if (is_valid_cell(data, pos) == 0)
 			{
 				pos_alloc = malloc(sizeof(t_vector2_d));
+				if (pos_alloc == NULL)
+					return (1);
 				set_vector_d(pos_alloc, pos.x, pos.y);
 				elem = ft_lstnew(pos_alloc);
+				if (elem == NULL)
+					return (1);
 				ft_lstadd_back(errors, elem);
 			}
 			x++;
@@ -46,7 +53,7 @@ int	is_valid_cell(t_data *data, t_vector2_d pos)
 	int	c;
 
 	c = data->tab[pos.y][pos.x];
-	if (c == 0)
+	if (c == 0) // ALSO CHECK IF THE CELL IS A DOOR
 	{
 		// Borders
 		if (pos.x == data->tab_width - 1 || pos.x == 0)
@@ -122,5 +129,25 @@ int	check_player_pos(t_data *data)
 	// Set player to 0 in tab
 	data->tab[pos.y][pos.x] = 0;
 
+	return (0);
+}
+
+int	count_sprites(t_data *data)
+{
+	for (int y = 0; y < data->tab_height; y++)
+	{
+		for (int x = 0; x < data->tab_width; x++)
+		{
+			int c = data->tab[y][x];
+			if (c >= 6 && c <= 9)
+				data->nb_sprites += 1;
+		}
+	}
+	if (data->nb_sprites > 0)
+	{
+		data->sprites = malloc(sizeof(t_sprite) * data->nb_sprites);
+		if (data->sprites == NULL)
+			return (1);
+	}
 	return (0);
 }

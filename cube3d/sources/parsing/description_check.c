@@ -1,6 +1,7 @@
 #include "cube3d.h"
 
 int	is_valid_description(char *str);
+
 int	format_description(t_data *data, char *str, int *count);
 int	assign_description(t_data *data, char *str, int id_value);
 /*
@@ -52,7 +53,7 @@ int	format_description(t_data *data, char *str, int *count)
 	int		error;
 
 	error = 0;
-	id = ft_get_word(str);
+	id = get_word(str);
 	id_value = is_valid_description(id);
 	if (id_value != 0)
 	{
@@ -85,6 +86,7 @@ int	assign_description(t_data *data, char *str, int id_value)
 	return (0);
 }
 
+
 int	is_valid_description(char *str)
 {
 	int	len = ft_strlen(str);
@@ -107,4 +109,3 @@ int	is_valid_description(char *str)
 		return (6);
 	return (0);
 }
-

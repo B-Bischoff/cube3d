@@ -6,18 +6,19 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	if (x >= data->win_width || y >= data->win_height || x < 0 || y < 0)
 		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length + x * 4);
 	*(unsigned int *)dst = color;
 }
 
-void clear_window(t_data *img)
+void clear_window(t_data *data)
 {
-	for (int y = 0; y < img->win_height; y++)
+	int total = data->win_width * data->win_height;
+	int	size = data->bits_per_pixel / 8;
+
+	for (int i = 0; i < total; i++)
 	{
-		for (int x = 0; x < img->win_width; x++)
-		{
-			my_mlx_pixel_put(img, x, y, DARK_GRAY);
-		}
+		char *dst = data->addr + i * size;
+		*(unsigned int *)dst = DARK_GRAY;
 	}
 }
 
@@ -50,4 +51,18 @@ void	ft_mlx_hooks_and_loop(t_data *data)
 	mlx_hook(data->mlx_win, 17, 1L << 0, free_all, data);
 	mlx_loop_hook(data->mlx, update, data);
 	mlx_loop(data->mlx);
+}
+
+void	clamp_mouse_in_window(t_data *data)
+{
+	// Clamp mouse in window
+	if (data->keyboard[KEY_TAB])
+	{
+		MLX_MOUSE_SHOW;
+	}
+	else
+	{
+		MLX_MOUSE_HIDE;
+		MLX_MOUSE_MOVE;
+	}
 }

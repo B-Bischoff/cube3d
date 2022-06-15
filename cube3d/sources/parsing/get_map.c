@@ -8,7 +8,11 @@ int	is_valid_char(char c)
 		return (1);
 	if (c == '0')
 		return (1);
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	if (c >= '2' && c <= '5') // Doors
+		return (1);
+	if (c >= '6' && c <= '9') // Sprites
+		return (1);
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W') // Player
 		return (1);
 	return (0);
 }
@@ -20,6 +24,11 @@ int get_map(t_data *data, int fd, t_list **map)
 	int		length;
 
 	buf = get_next_line(fd);
+	while (buf && ft_is_empty_str(buf))
+	{
+		free(buf);
+		buf = get_next_line(fd);
+	}
 	while (buf)
 	{
 		length = ft_strlen(buf);
