@@ -52,7 +52,6 @@ void	print_minimap(t_data *data)
 	{
 		int i = 0;
 		dot.x = 0;
-		dprintf(2, "\n\n");
 		for (float x = data->player.pos.x - mp_radius_2; x <= data->player.pos.x + mp_radius_2; x += mp_cell_size)
 		{
 			// Placing dot on minimap depending on the player direction

@@ -3,29 +3,26 @@
 int	get_tex_x(t_data *data, t_ray *ray, t_text *texture)
 {
 	double perp_angle = PI_2 - ray->angle + get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
-
 	double	hit_length = ray->perp_length / 2 * data->cell_size * sin(PI_2) / sin(perp_angle);
 
 	t_vector2_f wall_x = create_vect_f_from_origin(data->player.pos, ray->angle, hit_length);
-
 	int	tex_x;
 
 	if (ray->side_hit == 1 || ray->side_hit == 3) // Horizontal hit
 	{
-		wall_x.y = wall_x.y - (double)((int)floor(wall_x.y / (double)data->cell_size) * data->cell_size);
-		wall_x.y = 1 - wall_x.y / (double)data->cell_size;
-		tex_x = (int)(wall_x.y * (double)texture->width_img);
+		wall_x.y = wall_x.y - floor(wall_x.y / data->cell_size) * data->cell_size;
+		wall_x.y = 1.0f - wall_x.y / data->cell_size;
+		tex_x = wall_x.y * texture->width_img;
 	}
 	else
 	{
-		wall_x.x = wall_x.x - (double)((int)floor(wall_x.x / (double)data->cell_size) * data->cell_size);
-		wall_x.x = 1 - wall_x.x / (double)data->cell_size;
-		tex_x = (int)(wall_x.x * (double)texture->width_img);
+		wall_x.x = wall_x.x - floor(wall_x.x / data->cell_size) * data->cell_size;
+		wall_x.x = 1.0f - wall_x.x / data->cell_size;
+		tex_x = wall_x.x * texture->width_img;
 	}
 
 	if ((ray->side_hit == 1 || ray->side_hit == 3) && ray->ray_dir.x > 0)
 		tex_x = texture->width_img - tex_x - 1;
-
 	if ((ray->side_hit == 0 || ray->side_hit == 2) && ray->ray_dir.y < 0)
 		tex_x = texture->width_img - tex_x - 1;
 
@@ -44,34 +41,29 @@ void	rays_render(t_data *data)
 			continue;
 
 		// Norming perp_length according to view dst otherwise texture scale and wall height are changing depending on the view_dst
-		ray->perp_length *= data->view_dst * 0.00125; // 0.00125 is 1 / 800 (which is the reference view dst)
-
-		t_text *texture;
-		if (data->tab[ray->cell.y][ray->cell.x] == 2 || data->tab[ray->cell.y][ray->cell.x] == 4)
-			texture = &data->textures[22];
-		else
-			texture = &data->textures[ray->side_hit];
+		ray->perp_length *= data->view_dst * 0.00125; // 0.00125 is 1 / 800 (which is the reference view dst when cell_size = 40)
 
 		float slice_height = (float)data->win_height / (float)ray->perp_length;
-
-		int	tex_x = get_tex_x(data, ray, texture);
-
-		float j = ft_inv_lerp_f(10.0f, 100.0f, slice_height);
-
-		int color;
-		double step = 1.0 * texture->height_img / slice_height;
-		
 		t_vector2_d tl = {i * slice_width, (data->win_height / 2 + data->mouse_move.y) - slice_height / 2};
 		t_vector2_d br = {i * slice_width + slice_width, (data->win_height / 2 + data->mouse_move.y) + slice_height / 2};
 
-		double tex_pos = (double)(tl.y - (data->win_height / 2 + data->mouse_move.y) + (slice_height / 2)) * step;
+		t_text *texture;
+		if (data->tab[ray->cell.y][ray->cell.x] == 2 || data->tab[ray->cell.y][ray->cell.x] == 4) // Door texture
+			texture = &data->textures[22];
+		else
+			texture = &data->textures[ray->side_hit]; // Wall texture
+		double step = 1.0 * texture->height_img / slice_height;
+		
+		int	tex_x = get_tex_x(data, ray, texture);
+		double tex_y = (double)(tl.y - (data->win_height / 2 + data->mouse_move.y) + (slice_height / 2)) * step;
 
-		// dprintf(2, "%d | pLength : %lf\n", i, ray->perp_length);
+		float color_timestamp = ft_inv_lerp_f(10.0f, 100.0f, slice_height); // Calculating shadows
+
 		for (int y = tl.y; y < br.y; y++)
 		{
-			if (y < 0)
+			if (y < 0) // Clamping out of screen tl.y
 			{
-				tex_pos += -y * step;
+				tex_y += -y * step;
 				y = 0;
 			}
 			if (y >= data->win_height)
@@ -79,20 +71,19 @@ void	rays_render(t_data *data)
 
 			if (y >= 0 && y < data->win_height)
 			{
-				int tex_y = (int)tex_pos;
+				int color = get_text_pix(texture, tex_x, tex_y);
 
-				color = YELLOW;
-
-				color = get_text_pix(texture, tex_x, tex_y);
-				if (j <= 0.98f)
-					color = color_lerp(BLACK, color, j);
-
+				// color_timestamp = 1.0f;
+				// Applying shadows to pixel
+				if (color_timestamp <= 0.98f)
+					color = color_lerp(BLACK, color, color_timestamp);
 			
-				for (int stripe = tl.x; stripe < br.x; stripe++)	
+				// Filling stripe width
+				for (int stripe = tl.x; stripe < br.x; stripe++)
 					my_mlx_pixel_put(data, stripe, y, color);
 
 			}
-	    	tex_pos += step;
+	    	tex_y += step;
 		}	
 	}
 }
