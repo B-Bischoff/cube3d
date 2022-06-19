@@ -54,8 +54,8 @@ typedef struct s_text
 	int		width_img;
 	int		height_img;
 	char	*text_adr;
-	int		bit;
-	int		size_line;
+	int		bits_per_pixel;
+	int		line_length;
 	int		endian;
 }	t_text;
 

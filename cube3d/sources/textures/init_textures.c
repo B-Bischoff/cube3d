@@ -68,10 +68,11 @@ int		load_texture(t_data *data, t_text *texture, char *texture_path)
 		dprintf(2, "Failed to load texture : \"%s\"\n", texture_path);
 		return (1);
 	}
-	texture->text_adr = mlx_get_data_addr(texture->text, &texture->bit, &texture->size_line, &texture->endian);
+	texture->text_adr = mlx_get_data_addr(texture->text, &texture->bits_per_pixel, &texture->line_length, &texture->endian);
 	if (texture->text_adr == NULL)
 	{
 		dprintf(2, "Failed to get text_adr of : \"%s\"\n", texture_path);
+		return (1);
 	}
 	return (0);
 }

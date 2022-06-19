@@ -14,7 +14,7 @@ int	get_text_pix(t_text *text, int x, int y)
 		// dprintf(1, "Invalid texture coordinate\n");
 		return (0);
 	}
-	color = (*(int *)(text->text_adr + (x * text->bit / 8) + (y * text->size_line)));
+	color = (*(int *)(text->text_adr + (x * text->bits_per_pixel / 8) + (y * text->line_length)));
 
 	return (color);
 }
