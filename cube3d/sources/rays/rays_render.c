@@ -52,10 +52,12 @@ void	rays_render(t_data *data)
 			texture = &data->textures[22];
 		else
 			texture = &data->textures[ray->side_hit]; // Wall texture
-		double step = 1.0 * texture->height_img / slice_height;
 		
+		double tex_y = 0;
 		int	tex_x = get_tex_x(data, ray, texture);
-		double tex_y = (double)(tl.y - (data->win_height / 2 + data->mouse_move.y) + (slice_height / 2)) * step;
+		double step = texture->height_img / slice_height;
+
+		// dprintf(2, "%lf\n", (double)(tl.y - (data->win_height / 2 + data->mouse_move.y) + (slice_height / 2)) * step);
 
 		float color_timestamp = ft_inv_lerp_f(10.0f, 100.0f, slice_height); // Calculating shadows
 
@@ -73,7 +75,6 @@ void	rays_render(t_data *data)
 			{
 				int color = get_text_pix(texture, tex_x, tex_y);
 
-				// color_timestamp = 1.0f;
 				// Applying shadows to pixel
 				if (color_timestamp <= 0.98f)
 					color = color_lerp(BLACK, color, color_timestamp);
