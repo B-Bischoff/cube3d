@@ -3,7 +3,7 @@
 int	get_tex_x(t_data *data, t_ray *ray, t_text *texture)
 {
 	double perp_angle = PI_2 - ray->angle + get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
-	double	hit_length = ray->perp_length / 2 * data->cell_size * sin(PI_2) / sin(perp_angle);
+	double	hit_length = ray->perp_length * 0.5f * data->cell_size / sin(perp_angle);
 
 	t_vector2_f wall_x = create_vect_f_from_origin(data->player.pos, ray->angle, hit_length);
 	int	tex_x;
