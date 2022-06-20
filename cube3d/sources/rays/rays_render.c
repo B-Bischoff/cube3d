@@ -2,29 +2,23 @@
 
 int	get_tex_x(t_data *data, t_ray *ray, t_text *texture)
 {
+	// Calculating exact hit position
 	double perp_angle = PI_2 - ray->angle + get_angle_f(data->player.pos, vector_d_to_f(data->player.view_dst_pos));
 	double	hit_length = ray->perp_length * 0.5f * data->cell_size / sin(perp_angle);
-
 	t_vector2_f wall_x = create_vect_f_from_origin(data->player.pos, ray->angle, hit_length);
-	int	tex_x;
 
+	float cell_pos; 
 	if (ray->side_hit == 1 || ray->side_hit == 3) // Horizontal hit
-	{
-		wall_x.y = wall_x.y - floor(wall_x.y / data->cell_size) * data->cell_size;
-		wall_x.y = 1.0f - wall_x.y / data->cell_size;
-		tex_x = wall_x.y * texture->width_img;
-	}
-	else
-	{
-		wall_x.x = wall_x.x - floor(wall_x.x / data->cell_size) * data->cell_size;
-		wall_x.x = 1.0f - wall_x.x / data->cell_size;
-		tex_x = wall_x.x * texture->width_img;
-	}
+		cell_pos = wall_x.y - (int)(wall_x.y / data->cell_size) * data->cell_size;
+	else // Vertical hit 
+		cell_pos = wall_x.x - (int)(wall_x.x / data->cell_size) * data->cell_size;
 
-	if ((ray->side_hit == 1 || ray->side_hit == 3) && ray->ray_dir.x > 0)
-		tex_x = texture->width_img - tex_x - 1;
-	if ((ray->side_hit == 0 || ray->side_hit == 2) && ray->ray_dir.y < 0)
-		tex_x = texture->width_img - tex_x - 1;
+	if (ray->side_hit == 3 || ray->side_hit == 2) // Converting cell_pos to ratio
+		cell_pos = cell_pos / data->cell_size;
+	else // Flip texture if the side hit is the top or the right side of a cell
+		cell_pos = 1.0f - cell_pos / data->cell_size;
+
+	int tex_x = cell_pos * texture->width_img; // Mapping ratio to texture dimension
 
 	return (tex_x);
 }
