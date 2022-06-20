@@ -1,7 +1,7 @@
-SO ../assets/purplestone.xpm
-NO ../assets/wood.xpm
-WE ../assets/azanane.xpm
-EA ../assets/eagle.xpm
+SO ./assets/purplestone.xpm
+NO ./assets/wood.xpm
+WE ./assets/azanane.xpm
+EA ./assets/eagle.xpm
 F 70, 70, 70
 C 150, 150,230
 

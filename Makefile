@@ -80,7 +80,7 @@ OS = $(shell uname -s)
 
 ifeq ($(OS), Darwin)
 	OS_VAL = 1
-	MLX = ../mlx_mac
+	MLX = ./mlx/mlx_mac
 	MLX_FLAGS = -L${MLX} -lmlx -framework OpenGL -framework Appkit $(LFT)
 	END=$'\x1b[0m
 	RED=$'\x1b[31m
@@ -89,7 +89,7 @@ ifeq ($(OS), Darwin)
 	ERASE=\033[2K\r
 else
 	OS_VAL = 2
-	MLX = ../mlx_linux
+	MLX = ./mlx/mlx_linux
 	MLX_FLAGS = -L${MLX} -lmlx -lXext -lX11 -lm -lz $(LFT)
 	END=\033[0m
 	RED=\033[31m
